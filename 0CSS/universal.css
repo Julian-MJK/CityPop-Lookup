@@ -75,6 +75,8 @@ body {
 
     font-family      : 'Nunito', Arial, sans-serif; /* Første font er foretrukket, følgende fonter er fallbacks, om nettleseren ikke støtter fonten. */
 
+    cursor: url("../resources/etc/cursors/Numix_Cursors/NumixLight/Arrow.cur"), default;
+
     }
 
 /*  neat html ting: contenteditable="true" */
