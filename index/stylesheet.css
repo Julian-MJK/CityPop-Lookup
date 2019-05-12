@@ -1,7 +1,8 @@
+
 :root {
-    --backgroundImg    : url("../resources/img/backgrounds/Japan/athread/1469422019942.jpg");
+    --backgroundImg    : url("../resources/img/backgrounds/Japan/hpgdjs0m4eo01.png");
     --divBackgroundImg : url("../resources/img/textures/loops/Water/water pool.jpg");
-    --borderImg        : url("../resources/img/textures/poolbrick1.jpg");
+    --borderImg        : url("../resources/img/textures/loops/stoneTiles/seamless-blue-tiles-texture-background-15016032.jpg");
     /*url("https://i.imgur.com/7hTJN0t.png")
     url("https://i.imgur.com/prp3zE7.jpg")*/
 
@@ -26,6 +27,7 @@ body::before {
     left             : 0;
     width            : 100vw;
     height           : 100vh;
+    background-size  : cover;
     background-image : var(--backgroundImg);
     filter           : brightness(125%) blur(6px);
     }
@@ -83,10 +85,10 @@ header {
     }
 
 header h1, header h2, header h3 {
-    font-size   : 2.5em;
-    color       : var(--onPrimary);
-    margin      : 10px auto; /*top&bunn=10px, left&right=auto*/
-    font-family : "Lucida Sans Unicode", Arial, sans-serif;
+    font-size : 2.5em;
+    color     : var(--onPrimary);
+    margin    : 10px auto; /*top&bunn=10px, left&right=auto*/
+    /*font-family : "Lucida Sans Unicode", Arial, sans-serif;*/
     }
 
 header img { max-height : 100% !important; /* for å ikke exceede parent element */ }
@@ -94,13 +96,13 @@ header img { max-height : 100% !important; /* for å ikke exceede parent element
 .titleDiv {
     position              : fixed;
     top                   : 35px;
-    min-width             : 200px;
+    min-width             : 250px;
     min-height            : 100px;
     -webkit-border-radius : 50px;
     -moz-border-radius    : 50px;
     background-color      : var(--secondary);
-    background-image      : linear-gradient(-180deg, var(--secondaryVariant), var(--secondary) 25%);
-    padding               : 30px 50px 30px 50px;
+    background-image      : radial-gradient(circle at 100%, var(--secondaryVariant) 26%, var(--secondary));
+    padding               : 30px 70px 30px 70px;
     z-index               : 12;
     -webkit-user-select   : none;-moz-user-select : none;-ms-user-select : none;user-select : none;
     }
@@ -176,32 +178,82 @@ header img { max-height : 100% !important; /* for å ikke exceede parent element
 
 
 :root {
-    --tableRadius : 75px;
-    }
-
-
-
-#searchBar{
-    background-image: linear-gradient(-45deg, purple, dodgerblue);
-    width: 66vw;
-    padding: 5px 15px;
-    align-content: space-between;
-    }
-
-#searchBar input{
-    flex-grow: 1;
-    }
-
-#searchBar button{
-    margin-left: 15px;
+    --tableRadius : 100px;
     }
 
 
 
 
 
+#searchBar {
+    width            : 50vw;
+    border-radius    : 100px;
+    padding          : 15px 25px;
+    align-content    : space-between;
+    background-image : radial-gradient(circle at 50% 150%, var(--primaryVariant) 55%, var(--primary));
+    }
+
+#searchBar form {
+    width         : 100%;
+    margin        : 0;
+    padding       : 0;
+    display       : flex;
+    align-content : space-between;
+    }
+
+#searchBar input {
+    border-radius  : 100px;
+    flex-grow      : 1;
+    height         : 40px;
+    font-family    : Arial, sans-serif;
+    font-size      : 15pt;
+    letter-spacing : 1pt;
+    }
+
+#searchBar input::placeholder {
+    color   : white;
+    opacity : 1;
+    }
+
+#searchBar input:hover::placeholder {
+    }
+
+#searchBar button {
+    background-color : var(--primary);
+    border-radius    : 100px;
+    font-family      : Arial, sans-serif;
+    margin-left      : 15px;
+    color            : white;
+    margin-bottom    : 1px;
+    }
 
 
+
+
+
+
+#spotlightTitle {
+    padding          : 15px 50px;
+    background-image : radial-gradient(circle at 0%, var(--secondaryVariant) 55%, var(--secondary));
+    box-shadow       : 0 15px 15px 10px rgba(0, 0, 0, 0.5), inset 0 -2px 4px 3px rgba(0, 0, 0, 0.5);
+    }
+
+#spotlightTitle h1 {
+    margin-top  : 5px;
+    text-shadow : 0 5px 5px rgba(0, 0, 0, .75);
+    color       : var(--secondary);
+    }
+
+#spotlightBorder {
+    padding           : 30px;
+    background-image  : var(--borderImg);
+    background-repeat : repeat;
+    background-size   : 350px;
+
+    /*background-image : var(--backgroundImg);*/
+    border-radius     : var(--tableRadius);
+    box-shadow        : 0 25px 25px 10px rgba(0, 0, 0, 0.6), inset 0 -3px 4px 3px rgba(0, 0, 0, 0.7);
+    }
 
 #spotlightContainer {
     background-image          : var(--divBackgroundImg);
@@ -216,19 +268,13 @@ header img { max-height : 100% !important; /* for å ikke exceede parent element
     border-radius             : var(--tableRadius);
     justify-content           : space-evenly;
     align-content             : space-around;
-    box-shadow                : inset 0 5px 5px 4px rgba(0, 0, 0, 0.75);
+    box-shadow                : inset 0 7px 8px 8px rgba(0, 0, 0, 0.5);
     /*
     box-shadow        : 0 0 25px 10px rgba(0, 0, 0, 0.8), inset 0 2px 4px 3px rgba(0, 0, 0, 0.7);
      */
     }
 
-#spotlightBorder {
-    padding           : 20px;
-    background-image  : var(--borderImg);
-    background-repeat : repeat;
-    border-radius     : var(--tableRadius);
-    box-shadow        : 0 25px 25px 10px rgba(0, 0, 0, 0.6), inset 0 -3px 4px 3px rgba(0, 0, 0, 0.7);
-    }
+
 
 
 .spotlight_container {
@@ -298,8 +344,8 @@ header img { max-height : 100% !important; /* for å ikke exceede parent element
     }
 
 .spotlight_container button {
-    background-color : var(--primary);
-    color            : var(--onPrimary);
+    background-color : var(--secondary);
+    color            : var(--onSecondary);
     width            : 100%;
     margin           : 0;
     padding          : 15px;
@@ -310,6 +356,65 @@ header img { max-height : 100% !important; /* for å ikke exceede parent element
     filter  : brightness(125%);
     z-index : 0;
     }
+
+.spotlight_container button h2 {
+    text-shadow : 0 3px 2px rgba(0, 0, 0, .5);
+    }
+
+
+#addDiv {
+    justify-content  : center;
+    align-content    : center;
+    justify-items    : center;
+    width            : 500px;
+    border-radius    : 100px;
+    padding          : 15px 25px;
+    align-items      : center;
+    background-image : radial-gradient(circle at 50% 150%, var(--primary) 55%, var(--primaryVariant));
+    }
+
+#addDiv h1 {
+    margin : 15px;
+    }
+
+#addDiv .container {
+    margin : 15px;
+    }
+
+#addDiv .container * {
+    margin : 5px 15px;
+    }
+
+#addDiv button {
+    background-color : var(--primary);
+    color            : black;
+    border-radius    : 100px;
+    font-family      : Arial, sans-serif;
+    font-size        : 12pt;
+    margin-left      : 15px;
+    margin-bottom    : 1px;
+    margin-top       : 20px;
+    }
+
+
+.addX {
+    margin-bottom  : 25px;
+    padding        : 5px;
+    flex-direction : column;
+    border-radius  : 5px;
+    }
+
+.addX form {
+    flex-direction : row;
+    }
+
+.addX form .container {
+    flex-direction : row;
+    margin         : 5px !important;
+    }
+
+
+
 
 
 
@@ -469,7 +574,7 @@ div > p, div > h1, div > h2, div > h3, div > h4, div > h5, div > label, div > ou
 
 h1, h2, h3, h4, h5 {
     font-weight : bolder;
-    font-family : "Lucida Sans Unicode", Palatino, Arial, serif;
+    /*font-family : "Lucida Sans Unicode", Palatino, Arial, serif;*/
     margin      : 0.25em;
     /*line-break: auto;*/
     }
@@ -707,6 +812,8 @@ select {
     text-align-last     : center;
     border              : solid var(--secondary) 2px;
     border-radius       : 10px;
+    font-family         : Arial, sans-serif;
+    font-size           : 12pt;
     outline             : none;
     font-weight         : 600;
     appearance          : none; /* fjerner pilen (som ikke kan styles) */
@@ -733,11 +840,11 @@ select:focus {
 
 option {
     text-align       : center;
-    background-color : var(--secondary);
+    background-color : var(--primary);
     }
 
 option:nth-child(odd) {
-    background-color : var(--secondaryVariant)
+    background-color : var(--primaryVariant)
     }
 
 
@@ -846,25 +953,6 @@ input[type=range]::-webkit-slider-thumb:hover {
     transform           : scale(1.3);
     transition-duration : 0.3s;
     }
-
-
-
-/* __________ < COLOURS > __________ */
-.primary { background-color : var(--primary); color : var(--onPrimary)}
-
-.primaryVariant { background-color : var(--primaryVariant); color : var(--onPrimary)}
-
-.secondary { background-color : var(--secondary); color : var(--onSecondary)}
-
-.secondaryVariant { background-color : var(--secondaryVariant); color : var(--onSecondary);}
-
-.primary > p, .primary > h1, .primary > h2, .primary > h3, .primary > h4, .primary > h5 { color : var(--onPrimary) !important; }
-
-.primaryVariant > p, .primaryVariant > h1, .primaryVariant > h2, .primaryVariant > h3, .primaryVariant > h4, .primaryVariant > h5 { color : var(--onPrimary) !important; }
-
-.secondary > p, .secondary > h1, .secondary > h2, .secondary > h3, .secondary > h4, .secondary > h5 { color : var(--onSecondary) !important; }
-
-.secondaryVariant > p, .secondaryVariant > h1, .secondaryVariant > h2, .secondaryVariant > h3, .secondaryVariant > h4, .secondaryVariant > h5 { color : var(--onSecondary) !important; }
 
 
 

@@ -47,7 +47,7 @@ $(function () {
                 header.style.padding = 0;
                 header.style.height = "50px";
                 div.style.top = "-25px";
-                div.classList.remove("shape-bat");
+                div.classList.remove("shape-diamond");
                 div.classList.add("shape-bat-top");
                 setTimeout(function () {
                     symbol.style.top = "-15px";
@@ -64,7 +64,7 @@ $(function () {
             header.style.height = "initial";
             div.style.height = "initial";
             div.classList.remove("shape-bat-top");
-            div.classList.add("shape-bat");
+            div.classList.add("shape-diamond");
             //symbol.style.top = "40px";
             //symbol.style.transform = "scale(0.2)";
 
@@ -73,8 +73,8 @@ $(function () {
                 toolbarRight.style.zIndex = "9";
                 symbol.style.opacity = 1;
                 div.style.position = "fixed";
-                div.style.top = "4px";
-                div.querySelector("h1").style.fontSize = "27pt";
+                div.style.top = "-5px";
+                div.querySelector("h1").style.fontSize = "35pt";
                 //header.style.fontSize = "initial";
                 symbol.classList.add("symbolShowAnimation");
                 setTimeout(function () {
@@ -239,7 +239,7 @@ $(function () {
     div.style.top = "-50px";
     symbol.classList.add("symbolShowAnimation");
     div.style.transitionDuration = "initial";
-    div.querySelector("h1").classList.add("tracking-in-expand-fast");
+        div.querySelector("h1").classList.add("animation_text-expand");
     setTimeout(function () {
         div.style.transitionDuration = "0.5s";
         div.style.top = "10px";

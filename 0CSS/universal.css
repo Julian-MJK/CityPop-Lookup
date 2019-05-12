@@ -1,13 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather|Noto+Serif|Nunito|Open+Sans|Oswald|Playfair+Display|Roboto|Sofia');
+
 
 /* _________________ variables _________________ */
 :root {
     /* COLOR PALETTE  */
-    --primary             : #4FAEAD;
+    --primary             : #3f87ae;
     --primaryVariant      : #60CDA3;
-    --secondary           : #F0C04C;
+    --secondary           : #f0b200;
     --secondaryVariant    : #F58538;
     --background          : #4880B6;
-    --backgroundSecondary : #393939;
+    --backgroundSecondary : #4880B6;
+    /*--backgroundTertiary : #4880B6;
     /*--backgroundTertiary : #393939;*/
     --surface             : #F5F1ED;
     --error               : #C53426;
@@ -70,7 +73,8 @@ body {
     flex-wrap        : wrap; /* Wrapper elementer ned til ny linje om det blir overflow */
     overflow         : auto;
 
-    font-family      : Arial, sans-serif; /* Første font er foretrukket, følgende fonter er fallbacks, om nettleseren ikke støtter fonten. */
+    font-family      : 'Nunito', Arial, sans-serif; /* Første font er foretrukket, følgende fonter er fallbacks, om nettleseren ikke støtter fonten. */
+
     }
 
 /*  neat html ting: contenteditable="true" */
@@ -82,13 +86,31 @@ body {
     }
 
 
-h1, h2, h3, h4, h5 {
+h1{
     font-family : 'Playfair Display', Arial, serif;
+    letter-spacing: 2pt;
     }
 
-p { font-family : "Lucida Sans Unicode", Arial, serif; }
+h2, h3, h4, h5 {
+    font-family: Arial, serif;
+    }
+.fancyFont{
+    font-family : 'Sofia', Arial, serif;
+    }
+
+.fancyFont2{
+    font-family: 'Noto Serif', serif;
+    }
+
+p {
+    font-family : 'Nunito'/*"Lucida Sans Unicode"*/, Arial, serif;
+    }
 
 
+blockquote{
+    font-family: 'Noto Serif', Arial, serif;
+    font-style: italic;
+    }
 
 
 
@@ -193,7 +215,7 @@ input[type=text]:hover, input[type=number]:hover, input[type=text]:focus, input[
 
 
 /* __________ < SELECT > __________ */
-select {
+/*select {
     padding             : 7px 25px 7px 10px;
     text-align-last     : center;
     border              : solid var(--secondary) 2px;
@@ -201,25 +223,26 @@ select {
     outline             : none;
     font-weight         : 600;
     appearance          : none; /* fjerner pilen (som ikke kan styles) */
-    -webkit-appearance  : none;
-    background          : transparent url("../resources/img/icons/iOS/popular/menu-filled.png") 90% no-repeat; /* bildet er custom ikonet, 95% to the right. */
-    color               : var(--onPrimary);
-    background-size     : 1em; /* størrelsen på ikonet */
-    transition-duration : 0.5s;
-    }
+/*-webkit-appearance  : none;
+background          : transparent url("../resources/img/icons/iOS/popular/menu-filled.png") 90% no-repeat; /* bildet er custom ikonet, 95% to the right. */
+/*color               : var(--onPrimary);
+background-size     : 1em; /* størrelsen på ikonet */
+/*transition-duration : 0.5s;
+}
 
 select:hover {
-    color               : var(--onSecondary);
-    border-color        : var(--secondaryVariant);
-    background-color    : var(--secondaryVariant);
-    /*border-radius    : 100% 100% 15px 15px / 20px 20px 15px 15px; /* ( x-radius / y-radius )
-    */border-radius : 50% 50% 10px 10px / 10px 10px 20px 20px; */ filter : brightness(125%);
+color               : var(--onSecondary);
+border-color        : var(--secondaryVariant);
+background-color    : var(--secondaryVariant);
+/*border-radius    : 100% 100% 15px 15px / 20px 20px 15px 15px; /* ( x-radius / y-radius )
+*//*border-radius : 50% 50% 10px 10px / 10px 10px 20px 20px; */
+/*filter : brightness(125%);
     }
 
 select:focus {
     color            : var(--onSecondary);
     background-color : var(--secondaryVariant);
-    border-radius    : /*20px 20px 0*/ 4px;
+    border-radius    : /*20px 20px 0*/ /*4px;
     }
 
 option {

@@ -22,6 +22,7 @@ var keys = {}; //all lowercase
 var keysCS = {}; //CaSE SeNsItIvE
 var keyLog = [];
 var keyLog_limit = 100;
+var logKeys = false;
 
 /**
  * @function
@@ -43,7 +44,7 @@ window.addEventListener("keydown", function (event) {
 window.addEventListener("keyup", function (event) {
     keys[event.key.toLowerCase()] = false;
     keysCS[event.key] = false;
-    if(logKeys){ if(keyLog.length > keyLog_limit) keyLog.shift(); keyLog.push(event.key); keyComboCheck(); } //{ keyLog.unshift(event.key); konamiCodeCheck(); if(keyLog.length > keyLog_limit) keyLog.pop(); }
+    //if(logKeys){ if(keyLog.length > keyLog_limit) keyLog.shift(); keyLog.push(event.key); keyComboCheck(); } //{ keyLog.unshift(event.key); konamiCodeCheck(); if(keyLog.length > keyLog_limit) keyLog.pop(); }
 });
 
 /**
