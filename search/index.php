@@ -1,170 +1,125 @@
-<?php
-/**
- * Created by IntelliJ IDEA.
- * User: ジュリアン
- * Date: 12.05.2019
- * Time: 06:40 PM
- */
 
-require "../0PHP/connection.php";
+<?php require '../0PHP/connection.php';  ?>
 
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title> City Pop Lookup | Home </title>
+    <link rel="icon" href="../resources/img/textures/vinyl32.ico">
 
-$sql_artist = "SELECT * FROM artist";
-$sql_album = "SELECT * FROM album";
-$sql_song = "SELECT * FROM song";
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+    <!--|Montserrat|Open+Sans|Raleway|Roboto-->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>-->
+    <script src="../0JS/jquery-3.4.0.js"></script>
 
-$query = $_GET["query"];
-$query = strtolower($query);
+    <script src="../0JS/oddUtilities.js"></script>
+    <link href="../0CSS/classes.css" rel="stylesheet">
+    <link href="../0CSS/universal.css" rel="stylesheet">
+    <link href="../0CSS/universal_theme.css" rel="stylesheet">
 
-// SEPARATES THE QUERY INTO AN ARRAY, SPLIT AT EACH SPACE CHARACTER
-$queries = explode(' ', $query);
-$queriesN = count($queries);
+    <link rel="stylesheet" href="../0CSS/universal_menu.css">
+    <script src="../0JS/universal_menu.js"></script>
 
-// FETCHES TABLES
-$artists = $kobling->query($sql_artist);
-$albums = $kobling->query($sql_album);
-$songs = $kobling->query($sql_song);
+    <script src="index-scrolling-and-toolbar.js"></script>
 
-
-$specificity = [
-    "song" => 100,
-    "album" => 10,
-    "artist" => 1,
-];
-
-echo "<br><h3> You searched for $query </h3>";
-
-echo "<p> The query showed $artists->num_rows artists, $albums->num_rows albums and $songs->num_rows songs, in total. </p> <br>";
+    <link href="top10.css" rel="stylesheet">
+    <link href="stylesheet.css" rel="stylesheet">
 
 
-/*if(strpos($query, ' ') !== false) $words = substr_count($query, ' ');*/
-/*
-$kobling->query("DELETE FROM artist WHERE lastName='Iwasaki'");
-$kobling->query("INSERT INTO artist (firstName, lastName) VALUES ('Hiromi', 'Iwasaki')");
-$kobling->query("INSERT INTO artist (firstName, lastName) VALUES ('Yoshimi', 'Iwasaki')");
-*/
+</head>
+<body>
+
+<!-- HEADER -->
+<span id="headerSpan" class="clipPathShadow">
+    <header style="position: fixed; z-index: 5;" class="clipPathShadow">
+        <div class="column container div clipPathShadow"></div>
+    </header>
+</span>
+<!-- END OF HEADER -->
 
 
-// LOOPS THROUGH THE QUERIES
-for ($i = 0; $i < $queriesN; $i++) {
 
-    // LOOPS THROUGH THE $artists TABLE AND CHECKS IF ANY VALUES ARE EQUAL TO THE CURRENT QUERY
-    while ($row = $artists->fetch_assoc()) {
-        if (
-            $queries[$i] === strtolower($row['firstName']) || //Grouping this up with the previous check, I.E. ($queries[$i] || $query) ===, doesn't work.
-            $queries[$i] === strtolower($row['lastName']) ||
-            $queries[$i] === strtolower($row['birthYear'])
-        ) {
-            $result['artist'][] = $row;
+
+<!-- DOCUMENT WRAPPER -->
+<div id="documentWrapper" class="container column" style="margin-top: 125px">
+    <!-- HEADER ELEMENTS -->
+    <img id="headerSymbol" src="../resources/img/textures/vinyl250.png" draggable="false">
+    <div class="titleDiv shape-bat-top blackText div" style="border-radius: 0; min-height: 50px; top: 10px;" onclick="window.location.href='../home'"><h1>City  Pop Archives</h1></div>
+    <!-- END OF HEADER ELEMENTS -->
+
+
+
+    <span><br></span>
+
+
+    <?php include "searchbar.php"; ?>
+
+
+    <span><br><br></span>
+
+
+
+    <div id="searchResultsContainer" class="secondaryVariant">
+        <?php include "search.php" ?>
+    </div>
+
+
+    <span><br><br><br><br></span>
+
+
+
+
+    <div id="allArtists" class="primary">
+        <h1 style="margin: 15px;""> ALL ARTISTS </h1>
+
+        <?php
+        $artists = $kobling->query("SELECT * FROM artist ORDER BY firstName");
+        while ($row = $artists->fetch_assoc()) {
+            $artist_id = $row['artist_id'];
+            $artist_firstName = $row['firstName'];
+            $artist_lastName = $row['lastName'];
+            echo    "<h3 style='width: 100%; text-align: left; margin-left: 7%;'> " .
+                "<a href='../artist?artist=$artist_id'> $artist_firstName $artist_lastName </a> </h3>";
         }
-    }
-
-    // LOOPS THROUGH THE $artists TABLE AND CHECKS IF ANY VALUES ARE EQUAL TO THE CURRENT QUERY
-    while ($row = $albums->fetch_assoc()) {
-        if (
-            //$query === strtolower($row['title']) || //checks the entire query as the title and genre can contain multiple words.
-            //$query === strtolower($row['genre']) ||
-            $queries[$i] === strtolower($row['title']) ||
-            $queries[$i] === strtolower($row['genre']) ||
-            $queries[$i] === strtolower($row['releaseYear']) ||
-            // Checks if the following include the query word in them.
-            stripos($row['title'], $queries[$i]) !== false ||
-            stripos($row['genre'], $queries[$i]) !== false
-        ) {
-            $result['album'][] = $row;
-        }
-    }
-
-    while ($row = $songs->fetch_assoc()) {
-        if (
-            //$query === strtolower($row['title']) ||
-            $queries[$i] === strtolower($row['title']) ||
-            stripos($row['title'], $queries[$i]) !== false
-        ) {
-            $result['song'][] = $row;
-        }
-    }
-}
-
-// IF A RESULT IS FOUND
-if (isset($result)) {
-
-    // IF AN ARTIST IS FOUND
-    if (isset($result['artist'])) {
-
-        // COUNTS HOW MANY ARTISTS ARE FOUND
-        $count = count($result['artist']);
-        echo '<h1> Found ' . $count . ' artist' . (($count > 1) ? 's' : '') . ' </h1>';
-        echo '<table><tr><th>artist_id</th><th>firstName</th><th>lastName</th><th>birthYear</th></tr>';
-
-        // ADDS A ROW FOR EACH ARTIST FOUND
-        for ($i = 0; $i < $count; $i++) {
-            $artist_id = $result['artist'][$i]['artist_id'];
-            $artist_firstName = $result['artist'][$i]['firstName'];
-            $artist_lastName = $result['artist'][$i]['lastName'];
-            $artist_birthYear = $result['artist'][$i]['birthYear'];
-            echo "<tr>" .
-                "<td>$artist_id</td>" .
-                "<td>$artist_firstName</td>" .
-                "<td>$artist_lastName</td>" .
-                "<td>$artist_birthYear</td>" .
-                "</tr>";
-        }
-        echo '</table>';
-    }
+        ?>
+    </div>
 
 
-    // IF AN ALBUM IS FOUND
-    if (isset($result['album'])) {
 
-        // COUNTS HOW MANY ALBUMS ARE FOUND
-        $count = count($result['album']);
-        echo '<h1> Found ' . $count . ' album' . (($count > 1) ? 's' : '') . ' </h1>';
-        echo '<table><tr><th>album_id</th><th>artist_id</th><th>title</th><th>genre</th><th>releaseYear</th></tr>';
-
-        // ADDS A ROW FOR EACH ALBUM FOUND
-        for ($i = 0; $i < $count; $i++) {
-            $album_id = $result['album'][$i]['album_id'];
-            $artist_id = $result['album'][$i]['artist_id'];
-            $album_title = $result['album'][$i]['title'];
-            $album_genre = $result['album'][$i]['genre'];
-            $album_releaseYear = $result['album'][$i]['releaseYear'];
-            echo "<tr>" .
-                "<td>$album_id</td>" .
-                "<td>$artist_id</td>" .
-                "<td>$album_title</td>" .
-                "<td>$album_genre</td>" .
-                "<td>$album_releaseYear</td>" .
-                "</tr>";
-        }
-        echo '</table>';
-    }
+    <span><br><br></span>
 
 
-    // IF A SONG IS FOUND
-    if (isset($result['song'])) {
 
-        // COUNTS HOW MANY SONGS ARE FOUND
-        $count = count($result['song']);
-        echo '<h1> Found ' . $count . ' song' . (($count > 1) ? 's' : '') . '</h1>';
-        echo '<table><tr><th>song_id</th><th>album_id</th><th>title</th></tr>';
-
-        // ADDS A ROW FOR EACH SONG FOUND
-        for ($i = 0; $i < $count; $i++) {
-            $album_id = $result['song'][$i]['album_id'];
-            $song_id = $result['song'][$i]['song_id'];
-            $song_title = $result['song'][$i]['title'];
-            echo "<tr>" .
-                "<td>$album_id</td>" .
-                "<td>$song_id</td>" .
-                "<td>$song_title</td>" .
-                "</tr>";
-        }
-        echo '</table>';
-    }
-
-}
-
-?>
+    <!-- ADDING -->
+    <?php include "../0PHP/adding.php" ?>
 
 
+
+    <span><br><br><br><br><br><br><br></span>
+
+
+
+
+    <!-- footer -->
+    <div id="footer">
+        <div class="lowBound"> <p></p> <p></p> </div>
+        <div class="column square secondaryVariant">
+
+            <p contenteditable="true"> This is a footer! Isn't it neat? </p>
+            <p style="font-family: 'MS PMincho',serif; font-size: 18pt;"> ロイヤルーカジノ</p>
+
+        </div>
+        <div class="lowBound"> <p></p> <p></p> </div>
+    </div>
+
+</div> <!-- end of document wrapper -->
+<script>
+
+
+
+
+</script>
+</body>
+</html>

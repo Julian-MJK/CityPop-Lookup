@@ -93,6 +93,10 @@ header h1, header h2, header h3 {
 
 header img { max-height : 100% !important; /* for å ikke exceede parent element */ }
 
+.titleDiv:hover {
+    cursor: pointer;
+    }
+
 .titleDiv {
     position              : fixed;
     top                   : 35px;
@@ -610,7 +614,7 @@ a {
     word-break          : break-all;
     color               : var(--secondaryVariant);
     text-decoration     : none;
-    text-shadow         : 0 2px 1px var(--shadowColor);
+    text-shadow         : 0 2px 3px var(--shadowColor);
     transition-duration : 0.3s;
     }
 
@@ -618,6 +622,7 @@ a:hover {
     filter          : brightness(110%);
     text-decoration : underline dashed;
     text-shadow     : 0 5px 2px var(--shadowColor);
+    cursor          : pointer;
     }
 
 a::before {
@@ -667,6 +672,7 @@ marquee {
 
 
 
+
 /* __________ < lists > __________ */
 
 ul, ol {
@@ -692,23 +698,34 @@ table, th, td {
     }
 
 th {
-    border        : 1px solid var(--background);
     /*text-decoration : var(--secondary) underline;*/
-    border-radius : 0;
+    border : none;
     }
 
 td {
-    border     : 1px solid var(--background);
+    border     : none;
     text-align : center;
     }
 
 td:first-child {
-    text-align   : left;
-    padding-left : 25px;
+    text-align : center;
     }
 
-tr:nth-child(odd) {
+tr:nth-child(even) td {
     background : var(--primaryVariant);
+    }
+
+tr:last-child {
+    border-bottom-left-radius  : 25px !important;
+    border-bottom-right-radius : 25px !important;
+    }
+
+tr:last-child td:first-child {
+    border-bottom-left-radius : 25px !important;
+    }
+
+tr:last-child td:last-child {
+    border-bottom-right-radius : 25px !important;
     }
 
 

@@ -1,10 +1,10 @@
-let rmh_affectUser = true;
+let rmh_affectUser = false;
 
 // To disable the tooltip for first-time users, run "rmh_firstTimeTooltip = false;" on your page, before the body loads (in the head tag).
-let rmh_firstTimeTooltip = true;
+let rmh_firstTimeTooltip = false;
 
 // To change where the "home" button redirects, change this variable before the page is loaded (before the "body" tag, in the head tag). (not sure if this works yet)
-let rmh_href = "../../hub/index.php";
+let rmh_href = "../index.php";
 
 let isRmhOpen;
 
@@ -27,29 +27,18 @@ window.addEventListener("load", function () {
     rmh.id = "rmh";
     rmh.classList.add("container");
     rmh.innerHTML = '' +
-        '        <img id="rmh_handle" src="https://i.imgur.com/KIEjXV8.png" alt="universal menu handle" onmousedown="if(event.preventDefault)event.preventDefault()" onmouseenter="this.style.filter=\'brightness(125%)\'" onmouseleave="this.style.filter=\'brightness(100%)\'">\n' +
-        '\n' +
+        '        <img id="rmh_handle" src="../resources/img/textures/vinyl250.png" alt="universal menu handle" onmousedown="if(event.preventDefault)event.preventDefault()" onmouseenter="this.style.filter=\'brightness(125%)\'" onmouseleave="this.style.filter=\'brightness(100%)\'">\n' +
         '        <div id="rmh_bar">\n' +
-        '\n' +
         '            <div class="pointer rmh_item">\n' +
-        '                <i class="fas fa-home" onclick="if(rmh_affectUser){ saveUser(user); updateSQL(); }; setTimeout(function(){window.location.href=\' ' + rmh_href + ' \'}, 200)"></i>\n' +
-        '            </div>\n' +
-        '\n' +
-        '            <div class="rmh_item" id="rmh_tokenCountItem">\n' +
-        '                <div class="container row">\n' +
-        '                    <img src="https://i.imgur.com/KIEjXV8.png" alt="token" class="rmh_token">\n' +
-        '                    <p id="rmh_tokenCount"> x wait a sec</p>\n' +
-        '                    <script> setTimeout(function(){document.getElementById("rmh_tokenCount").innerHTML = "x " + getUser().tokenManager.getCount();}, 500);</script>\n' +
-        '                </div>\n' +
-        '                <button class="retroButton" onclick="window.location.href = \'/games/snake/\'">get more</button>\n' +
+        '                <i class="fas fa-home" onclick="setTimeout(function(){window.location.href=\' ' + rmh_href + ' \'}, 200)"></i>\n' +
         '            </div>\n' +
         '        </div>\n';
 
     document.body.appendChild(rmh);
 
-    setTimeout(function() {
-        rmh_update();
-    }, 2000);
+    window.closePage = function(){
+        window.close()
+    };
 
 
 
@@ -183,10 +172,5 @@ function rmh_openAfter(seconds) {
     }, seconds * 1000);
 }
 
-/**
- * @function
- * @desc updates the token count in the universal menu.
- */
-function rmh_update() {
-    document.getElementById("rmh_tokenCount").innerHTML = "x " + user.tokenManager.getCount();
-}
+
+rmh_openAfter(3);

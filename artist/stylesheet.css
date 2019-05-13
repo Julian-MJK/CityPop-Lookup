@@ -1,0 +1,35 @@
+
+/* minimizing the header by overriding universal_theme.css */
+header {
+    clip-path: polygon(0 0, 100% 0, 50vw 35%, 0 calc(50% - 50%)) !important;
+    padding: 0 !important;
+    height: 50px !important;
+    }
+#headerSymbol{ display: none !important; }
+.titleDiv { top: -25px !important; }
+.titleDiv h1{ font-size: 20pt !important; }
+
+
+.albumDiv{
+    }
+.albumDiv:hover{
+    }
+.albumDiv h2{
+    transition-duration: 0.1s;
+    }
+.albumDiv:hover h2, .albumDiv:hover p{
+    text-shadow: 0 4px 2px rgba(0,0,0,.5) !important;
+    }
+
+#deleteArtistDiv{
+    border-radius: 500px;
+    opacity: 0.25;
+    transform: scale(0.5);
+    }
+#deleteArtistDiv:hover{
+    opacity: 1;
+    transform: scale(1.25);
+    cursor: pointer;
+    }
+
+

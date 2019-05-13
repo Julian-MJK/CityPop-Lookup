@@ -15,7 +15,8 @@ body {
     }
 
 #rmh #rmh_bar {
-    background-color   : #C80E0F; /* var(--red) */
+    min-height: 100px;
+    background-color   : var(--secondaryVariant); /* var(--red) */
     padding            : 0 0 0 0;
     min-width          : 100px;
     flex-direction     : column;
