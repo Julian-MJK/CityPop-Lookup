@@ -69,11 +69,11 @@
         <form action="../0PHP/addSong.php" method="post">
             <div class="container">
                 <p>Title:</p>
-                <input type="text" name="title" pattern=".{1,}"> *
+                <input type="text" name="title" required> *
             </div>
             <div class="container">
                 <p>Album:</p>
-                <input type="text" name="albumName" placeholder=""> *
+                <input type="text" name="albumName" required> *
             </div>
             <div class="container">
                 <button type="submit" class="retroButton"><i class="material-icons">library_add</i></button>

@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title> City Pop Lookup | Home </title>
+    <title> Results | City Pop Lookup </title>
     <link rel="icon" href="../resources/img/textures/vinyl32.ico">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -46,7 +46,7 @@
 <div id="documentWrapper" class="container column" style="margin-top: 125px">
     <!-- HEADER ELEMENTS -->
     <img id="headerSymbol" src="../resources/img/textures/vinyl250.png" draggable="false">
-    <div class="titleDiv shape-bat-top blackText div" style="border-radius: 0; min-height: 50px; top: 10px;" onclick="window.location.href='../home'"><h1>City  Pop Archives</h1></div>
+    <div class="titleDiv shape-bat-top blackText div" style="border-radius: 0; min-height: 50px; top: 10px;" onclick="window.location.href='../home'"><h1>City  Pop Lookup</h1></div>
     <!-- END OF HEADER ELEMENTS -->
 
 
@@ -66,38 +66,20 @@
     </div>
 
 
-    <span><br><br><br><br></span>
-
-
-
-
-    <div id="allArtists" class="primary">
-        <h1 style="margin: 15px;""> ALL ARTISTS </h1>
-
-        <?php
-        $artists = $kobling->query("SELECT * FROM artist ORDER BY firstName");
-        while ($row = $artists->fetch_assoc()) {
-            $artist_id = $row['artist_id'];
-            $artist_firstName = $row['firstName'];
-            $artist_lastName = $row['lastName'];
-            echo    "<h3 style='width: 100%; text-align: left; margin-left: 7%;'> " .
-                "<a href='../artist?a=$artist_id'> $artist_firstName $artist_lastName </a> </h3>";
-        }
-        ?>
-    </div>
-
-
-
-    <span><br><br></span>
-
-
-
-    <!-- ADDING -->
-    <?php include "../0PHP/adding.php" ?>
-
-
-
     <span><br><br><br><br><br><br><br></span>
+
+
+
+
+        <!-- all artists -->
+        <?php include "../0PHP/allArtists.php" ?>
+        <span><br><br><br></span>
+        <!-- adding -->
+        <?php include "../0PHP/adding.php" ?>
+
+
+
+    <span><br><br><br><br><br><br><br><br><br><br><br></span>
 
 
 

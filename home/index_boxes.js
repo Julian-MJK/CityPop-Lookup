@@ -24,7 +24,7 @@ $(function () {
         },
         {
             title: "Meiko Nakahara",
-            image: "https://scontent.fosl4-2.fna.fbcdn.net/v/t1.0-9/13902535_1063599457028026_7901647067243248298_n.jpg?_nc_cat=100&_nc_ht=scontent.fosl4-2.fna&oh=3d4a3b165372c9743b720c2b1e605ab0&oe=5D559445",
+            image: "http://img15.shop-pro.jp/PA01239/479/product/97732495_th.jpg?cmsp_timestamp=20160116145413",
             href: "../artist?a=4",
         },
         {

@@ -11,19 +11,20 @@ $firstName = $artist['firstName'];
 $lastName = $artist['lastName'];
 $birthYear = $artist['birthYear'];
 $imgURL = $artist['imgURL'];
+$bio = $artist['bio'];
 
 
 $albumTable = $kobling->query("SELECT * FROM album WHERE artist_id='$artist_id'");
-$i = 0;
-while($rad = $albumTable->fetch_assoc()){
-    $i++;
+$albumCount = 0;
+while ($rad = $albumTable->fetch_assoc()) {
+    $albumCount++;
     $album_id = $rad['album_id'];
     $album_title = $rad['title'];
     $album_releaseYear = $rad['releaseYear'];
-    $albums[$i] = ['album_id'=>$album_id, 'title'=>$album_title, 'releaseYear'=>$album_releaseYear];
+    $albums[$albumCount] = ['album_id' => $album_id, 'title' => $album_title, 'releaseYear' => $album_releaseYear];
 }
 
-$albumCount = count($albums);
+
 
 ?>
 
@@ -41,7 +42,7 @@ $albumCount = count($albums);
     <script src="../0JS/jquery-3.4.0.js"></script>
 
     <script src="../0JS/universal_menu.js"></script>
-    <link href="../0CSS/universal_menu.css" rel="stylesheet" >
+    <link href="../0CSS/universal_menu.css" rel="stylesheet">
 
     <script src="../0JS/oddUtilities.js"></script>
     <link href="../0CSS/classes.css" rel="stylesheet">
@@ -49,8 +50,8 @@ $albumCount = count($albums);
     <link href="../0CSS/universal.css" rel="stylesheet">
     <link href="../0CSS/universal_theme.css" rel="stylesheet">
 
-
     <link href="stylesheet.css" rel="stylesheet">
+
 
 
 </head>
@@ -72,45 +73,66 @@ $albumCount = count($albums);
 <div id="documentWrapper" class="container column" style="margin-top: 125px">
 
     <!-- HEADER TITLE -->
-    <div class="titleDiv shape-bat-top blackText div cursor_normal" style="border-radius: 0; min-height: 50px; top: 10px;"><h1>City Pop Lookup</h1></div>
+    <div class="titleDiv shape-bat-top blackText div cursor_normal"
+         style="border-radius: 0; min-height: 50px; top: 10px;"><h1>City Pop Lookup</h1></div>
 
 
     <span><br></span>
 
+
     <?php include "../search/searchbar.php"; ?>
+
 
     <span><br><br></span>
 
 
-
     <div id="artistContainer" class="primary">
-        <div class="secondary">
+        <div class="secondary" id="artistTitleDiv">
             <h1 class="title animation_text-expand"> <?php echo $firstName . ' ' . $lastName ?> </h1>
         </div>
         <div class="white frameShape pop" style="padding: 15px;" id="artistImgContainer">
-            <img src="<?php echo $imgURL ?>" class="frameShape" id="artistImg">
+            <img src="<?php if(isset($imgURL)){echo $imgURL; } else { echo 'https://picsum.photos/800/533'; } ?>" class="frameShape" id="artistImg">
         </div>
 
-        <div class="secondary">
-            <h1> Albums </h1>
-            <hr>
-        <?php
-            for($j=1; $j<=$albumCount; $j++){
-                echo'<div class="albumDiv container row cursor_pointer" onclick="window.location.href=\'../album?album=' . $albums[$j]['album_id'] . '\'"> '.
-                        '<h2>'. $albums[$j]['title'] .'</h2>'.
-                        '<p> ('. $albums[$j]['releaseYear'] .')</p> ' .
-                    '</div>';
-            }
-        ?>
+        <div class="row container alignLeft">
+            <div class="secondary" id="artistAlbumsDiv">
+                <h1 class="fancyFont"> Albums </h1>
+                <hr>
+                <?php
+                for ($j = 1; $j <= $albumCount; $j++) {
+                    echo '<div class="album container row cursor_pointer" onclick="window.location.href=\'../album?album=' . $albums[$j]['album_id'] . '\'"> ' .
+                        '<h2>' . $albums[$j]['title'] . '</h2>' .
+                        '<p> (' . $albums[$j]['releaseYear'] . ')</p> ' .
+                        '</div>';
+                }
+                ?>
+            </div>
+            <div class="secondary" id="artistBio" style="width: 25vw">
+                <h1 class="fancyFont"> <?php echo $firstName . ' ' . $lastName ?> </h1>
+                <hr>
+                <p>
+                    <?php
+                    if(isset($bio)){
+                        echo $bio;
+                    } else echo $firstName . ' ' . $lastName . " is simply dummy text of the printing and typesetting
+                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                    unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived
+                    not only five centuries, but also the leap into electronic typesetting, remaining essentially
+                    unchanged.";
+                    ?>
+                </p>
+            </div>
         </div>
+
 
         <div class="error" id="deleteArtistDiv">
             <form action="../0PHP/delete.php" method="post">
-                <button type="button" class="container" onclick="if(confirm('Are you sure you want to delete <?php echo $firstName . ' ' . $lastName ?>?')) $('#delArtist_submitBtn').click()">
+                <button type="button" class="container"
+                        onclick="if(confirm('Are you sure you want to delete <?php echo $firstName . ' ' . $lastName ?>?')) $('#delArtist_submitBtn').click()">
                     <h2>Delete artist?</h2>
                 </button>
                 <button type="submit" hidden id="delArtist_submitBtn"></button>
-                <input type="text" name="id" hidden value="<?php echo $artist_id?>">
+                <input type="text" name="id" hidden value="<?php echo $artist_id ?>">
                 <input type="text" name="table" hidden value="artist">
             </form>
         </div>
@@ -122,27 +144,16 @@ $albumCount = count($albums);
     <span><br><br><br><br></span>
 
 
-
-    <div id="allArtists" class="primary">
-        <h1 style="margin: 15px;""> ALL ARTISTS </h1>
-        <?php $artists = $kobling->query("SELECT * FROM artist ORDER BY firstName");
-        while ($row = $artists->fetch_assoc()) {
-            $artist_id = $row['artist_id'];
-            $artist_firstName = $row['firstName'];
-            $artist_lastName = $row['lastName'];
-            echo "<h3 style='width: 100%; text-align: left; margin-left: 7%;'> " .
-                "<a href='../artist?a=$artist_id'> $artist_firstName $artist_lastName </a> </h3>";
-        } ?>
+    <div class="container row">
+        <!-- all artists -->
+        <!--<?php include "../0PHP/allArtists.php" ?>-->
+        <span><br><br></span>
+        <!-- ADDING -->
+        <?php include "../0PHP/adding.php" ?>
     </div>
 
 
 
-    <span><br><br></span>
-
-
-
-    <!-- ADDING -->
-    <?php include "../0PHP/adding.php" ?>
 
 
 

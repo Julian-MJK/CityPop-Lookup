@@ -69,13 +69,13 @@ for ($i = 0; $i < $queriesN; $i++) {
             //$query === strtolower($row['title']) || //checks the entire query as the title and genre can contain multiple words.
             //$query === strtolower($row['genre']) ||
             $queries[$i] === strtolower($row['title']) ||
-            $queries[$i] === strtolower($row['genre']) ||
+            //$queries[$i] === strtolower($row['genre']) ||
             $queries[$i] === strtolower($row['releaseYear']) ||
             // Checks if the following include the query word in them.
-            stripos($row['title'], $queries[$i]) !== false ||
-            stripos($row['genre'], $queries[$i]) !== false
+            stripos($row['title'], $queries[$i]) !== false
+            //stripos($row['genre'], $queries[$i]) !== false
         ) {
-            $result['album'][] = $row;
+            //$result['album'][] = $row;
         }
     }
 
@@ -124,20 +124,20 @@ if (isset($result)) {
         // COUNTS HOW MANY ALBUMS ARE FOUND
         $count = count($result['album']);
         echo '<h1> Found ' . $count . ' album' . (($count > 1) ? 's' : '') . ' </h1>';
-        echo '<table><tr><th>album_id</th><th>artist_id</th><th>title</th><th>genre</th><th>releaseYear</th></tr>';
+        echo '<table><tr><th>album_id</th><th>artist_id</th><th>title</th><!--<th>genre</th>--><th>releaseYear</th></tr>';
 
         // ADDS A ROW FOR EACH ALBUM FOUND
         for ($i = 0; $i < $count; $i++) {
             $album_id = $result['album'][$i]['album_id'];
             $artist_id = $result['album'][$i]['artist_id'];
             $album_title = $result['album'][$i]['title'];
-            $album_genre = $result['album'][$i]['genre'];
+            //$album_genre = $result['album'][$i]['genre'];
             $album_releaseYear = $result['album'][$i]['releaseYear'];
             echo "<tr>" .
                 "<td>$album_id</td>" .
                 "<td>$artist_id</td>" .
                 "<td>$album_title</td>" .
-                "<td>$album_genre</td>" .
+                //"<td>$album_genre</td>" .
                 "<td>$album_releaseYear</td>" .
                 "</tr>";
         }

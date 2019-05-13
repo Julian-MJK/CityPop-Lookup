@@ -79,7 +79,7 @@ require '../0PHP/connection.php';
 
 
     <!-- INFO BOX -->
-    <div id="textBox" style="width: 50vw; font-size: 14pt;"
+    <div id="textBox" style="width: 50vw; max-width: 550px; font-size: 14pt;"
          class="frame leanUpRightPerma leanNormal secondaryVariant hoverFillPrimary">
         <h1 class="title">City Pop</h1>
         <p>

@@ -94,7 +94,7 @@ header h1, header h2, header h3 {
 header img { max-height : 100% !important; /* for å ikke exceede parent element */ }
 
 .titleDiv:hover {
-    cursor: pointer;
+    cursor : pointer;
     }
 
 .titleDiv {
@@ -249,7 +249,10 @@ header img { max-height : 100% !important; /* for å ikke exceede parent element
     }
 
 #spotlightBorder {
+
+    margin            : 5vw;
     padding           : 30px;
+
     background-image  : var(--borderImg);
     background-repeat : repeat;
     background-size   : 350px;
