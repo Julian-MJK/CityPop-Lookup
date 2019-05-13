@@ -10,7 +10,7 @@ $artist = $kobling->query($sql)->fetch_assoc();
 $firstName = $artist['firstName'];
 $lastName = $artist['lastName'];
 $birthYear = $artist['birthYear'];
-$imgFile = "https://aramajapan.com/wp-content/uploads/2017/07/aramajapan.com-tatsuroreborn-promo.jpg";
+$imgURL = $artist['imgURL'];
 
 
 $albumTable = $kobling->query("SELECT * FROM album WHERE artist_id='$artist_id'");
@@ -19,9 +19,8 @@ while($rad = $albumTable->fetch_assoc()){
     $i++;
     $album_id = $rad['album_id'];
     $album_title = $rad['title'];
-    $album_genre = $rad['genre'];
     $album_releaseYear = $rad['releaseYear'];
-    $albums[$i] = ['album_id'=>$album_id, 'title'=>$album_title, 'genre'=>$album_genre, 'releaseYear'=>$album_releaseYear];
+    $albums[$i] = ['album_id'=>$album_id, 'title'=>$album_title, 'releaseYear'=>$album_releaseYear];
 }
 
 $albumCount = count($albums);
@@ -32,7 +31,7 @@ $albumCount = count($albums);
 <html>
 <head>
     <meta charset="UTF-8">
-    <title> City Pop Lookup | Home </title>
+    <title> <?php echo $firstName . " " . $lastName ?> | City Pop Lookup </title>
     <link rel="icon" href="../resources/img/textures/vinyl32.ico">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -41,22 +40,22 @@ $albumCount = count($albums);
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>-->
     <script src="../0JS/jquery-3.4.0.js"></script>
 
+    <script src="../0JS/universal_menu.js"></script>
+    <link href="../0CSS/universal_menu.css" rel="stylesheet" >
+
     <script src="../0JS/oddUtilities.js"></script>
     <link href="../0CSS/classes.css" rel="stylesheet">
+
     <link href="../0CSS/universal.css" rel="stylesheet">
     <link href="../0CSS/universal_theme.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="../0CSS/universal_menu.css">
-    <script src="../0JS/universal_menu.js"></script>
 
-    <script src="index-scrolling-and-toolbar.js"></script>
-
-    <link href="top10.css" rel="stylesheet">
     <link href="stylesheet.css" rel="stylesheet">
 
 
 </head>
 <body>
+
 
 <!-- HEADER -->
 <span id="headerSpan" class="clipPathShadow">
@@ -71,11 +70,10 @@ $albumCount = count($albums);
 
 <!-- DOCUMENT WRAPPER -->
 <div id="documentWrapper" class="container column" style="margin-top: 125px">
-    <!-- HEADER ELEMENTS -->
-    <img id="headerSymbol" src="../resources/img/textures/vinyl250.png" draggable="false">
-    <div class="titleDiv shape-bat-top blackText div" style="border-radius: 0; min-height: 50px; top: 10px;" onclick="window.location.href='../home'"><h1>City
-            Pop Archives</h1></div>
-    <!-- END OF HEADER ELEMENTS -->
+
+    <!-- HEADER TITLE -->
+    <div class="titleDiv shape-bat-top blackText div cursor_normal" style="border-radius: 0; min-height: 50px; top: 10px;"><h1>City Pop Lookup</h1></div>
+
 
     <span><br></span>
 
@@ -89,8 +87,8 @@ $albumCount = count($albums);
         <div class="secondary">
             <h1 class="title animation_text-expand"> <?php echo $firstName . ' ' . $lastName ?> </h1>
         </div>
-        <div class="white frameShape pop" style="padding: 15px;">
-            <img src="<?php echo $imgFile ?>" class="frameShape">
+        <div class="white frameShape pop" style="padding: 15px;" id="artistImgContainer">
+            <img src="<?php echo $imgURL ?>" class="frameShape" id="artistImg">
         </div>
 
         <div class="secondary">
@@ -99,8 +97,9 @@ $albumCount = count($albums);
         <?php
             for($j=1; $j<=$albumCount; $j++){
                 echo'<div class="albumDiv container row cursor_pointer" onclick="window.location.href=\'../album?album=' . $albums[$j]['album_id'] . '\'"> '.
-                    '<h2>'. $albums[$j]['title'] .'</h2>'.
-                    '<p> ('. $albums[$j]['releaseYear'] . ', ' . $albums[$j]['genre'] .')</p> </div>';
+                        '<h2>'. $albums[$j]['title'] .'</h2>'.
+                        '<p> ('. $albums[$j]['releaseYear'] .')</p> ' .
+                    '</div>';
             }
         ?>
         </div>

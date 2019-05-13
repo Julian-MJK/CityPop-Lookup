@@ -314,7 +314,9 @@ div a { color : var(--secondaryVariant); }
 
 /* __________ < CURSORS > __________ */
 
-.cursor_pointer { cursor: pointer; }
+.cursor_normal, .cursor_default { cursor: default !important;}
+
+.cursor_pointer { cursor: pointer !important; }
 
 .cursor_fancy { cursor : url("Resources/etc/cursors/Numix_Cursors/NumixLight/Arrow.cur"), auto; }
 

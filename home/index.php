@@ -7,7 +7,7 @@ require '../0PHP/connection.php';
 <html>
 <head>
     <meta charset="UTF-8">
-    <title> City Pop Lookup | Home </title>
+    <title> City Pop Lookup </title>
     <link rel="icon" href="../resources/img/textures/vinyl32.ico">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -63,7 +63,7 @@ require '../0PHP/connection.php';
     <!-- HEADER ELEMENTS -->
     <img id="headerSymbol" src="../resources/img/textures/vinyl250.png" draggable="false">
     <div class="titleDiv shape-diamond blackText div" style="border-radius: 0; min-height: 50px; top: 10px;" onclick="window.location.href='../home'"><h1>City
-            Pop Archives</h1></div>
+            Pop Lookup</h1></div>
     <!-- END OF HEADER ELEMENTS -->
 
 
