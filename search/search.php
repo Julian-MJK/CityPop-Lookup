@@ -107,7 +107,7 @@ if (isset($result)) {
             $artist_firstName = $result['artist'][$i]['firstName'];
             $artist_lastName = $result['artist'][$i]['lastName'];
             $artist_birthYear = $result['artist'][$i]['birthYear'];
-            echo"<tr onclick='window.location.href=\"../artist?artist=$artist_id\"' class='tr'>" .
+            echo"<tr onclick='window.location.href=\"../artist?a=$artist_id\"' class='tr'>" .
                 "<td>$artist_id</td>" .
                 "<td>$artist_firstName</td>" .
                 "<td>$artist_lastName</td>" .
@@ -168,6 +168,8 @@ if (isset($result)) {
     }
 
 }
+
+
 
 ?>
 

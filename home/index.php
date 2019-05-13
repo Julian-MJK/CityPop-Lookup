@@ -115,8 +115,8 @@ require '../0PHP/connection.php';
     </div>
 
 
-    <span><br><br><br><br><br><br><br></span>
-    <span><br><br><br><br></span>
+    <span><br><br><br><br><br></span>
+    <span><br><br><br><br><br></span>
 
 
     <!-- ADDING -->
@@ -137,7 +137,8 @@ require '../0PHP/connection.php';
 
         <div id="addArtist" class="addX pop" style="display:none">
             <h2>Add artist</h2>
-            <form action="../0PHP/addArtist.php" method="post">
+            <form action="../0PHP/add.php" method="post">
+                <input type="text" name="table" value="artist" hidden>
                 <div class="container">
                     <p>First name:</p>
                     <input type="text" name="firstName" required> *
@@ -164,6 +165,7 @@ require '../0PHP/connection.php';
         <div id="addAlbum" class="addX pop" style="display:none">
             <h2>Add album</h2>
             <form action="../0PHP/addAlbum.php" method="post">
+                <input type="text" name="table" value="album" hidden>
                 <div class="container">
                     <p>Title:</p>
                     <input type="text" name="title" required> *
@@ -189,6 +191,7 @@ require '../0PHP/connection.php';
         <div id="addSong" class="addX pop" style="display:none">
             <h2>Add song</h2>
             <form action="../0PHP/addSong.php" method="post">
+                <input type="text" name="table" value="song" hidden>
                 <div class="container">
                     <p>Title:</p>
                     <input type="text" name="title" pattern=".{1,}"> *
@@ -207,8 +210,8 @@ require '../0PHP/connection.php';
 
 
 
-    <span><br><br><br><br><br></span>
-    <span><br><br><br><br><br><br><br><br><br><br></span>
+    <span><br><br><br><br><br><br><br></span>
+    <span><br><br><br><br><br><br><br></span>
 
 
     <div id="testingDiv" class="secondaryVariant">

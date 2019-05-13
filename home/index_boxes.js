@@ -5,27 +5,27 @@ $(function () {
         {
             title: "Tatsuro Yamashita",
             image: "https://s3.amazonaws.com/radiomilwaukee-wordpress-uploads/wp-content/uploads/2019/02/19151548/2549741985_abc5d67498_b.jpg",
-            href: "../artist?a=TatsuroYamashita",
+            href: "../artist?a=1",
         },
         {
             title: "Mariya Takeuchi",
             image: "https://i.kym-cdn.com/photos/images/original/001/334/161/8b8.jpg",
-            href: "../artist?a=MariyaTakeuchi",
+            href: "../artist?a=2",
         },
         {
             title: "ANRI",
             image: "https://i1.sndcdn.com/artworks-000177876721-pv44w4-t500x500.jpg",
-            href: "../artist?a=ANRI",
+            href: "../artist?a=3",
         },
         {
             title: "Toshiki Kadomatsu",
             image: "https://media.ntslive.co.uk/crop/641x641/c6a6dbf6-f734-4d0b-9520-329710344579_1510704000.png",
-            href: "../artist?a=ToshikiKadomatsu",
+            href: "../artist?a=7",
         },
         {
             title: "Meiko Nakahara",
             image: "https://scontent.fosl4-2.fna.fbcdn.net/v/t1.0-9/13902535_1063599457028026_7901647067243248298_n.jpg?_nc_cat=100&_nc_ht=scontent.fosl4-2.fna&oh=3d4a3b165372c9743b720c2b1e605ab0&oe=5D559445",
-            href: "../artist?a=MeikoNakahara",
+            href: "../artist?a=4",
         },
         {
             title: "Senri Oe",

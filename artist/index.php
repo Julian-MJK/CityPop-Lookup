@@ -2,7 +2,7 @@
 
 require '../0PHP/connection.php';
 
-$artist_id = $_GET['artist'];
+$artist_id = $_GET['a'];
 $sql = "SELECT * FROM artist WHERE artist_id='$artist_id'";
 $artist = $kobling->query($sql)->fetch_assoc();
 
@@ -13,9 +13,9 @@ $birthYear = $artist['birthYear'];
 $imgFile = "https://aramajapan.com/wp-content/uploads/2017/07/aramajapan.com-tatsuroreborn-promo.jpg";
 
 
-$albumConn = $kobling->query("SELECT * FROM album WHERE artist_id='$artist_id'");
+$albumTable = $kobling->query("SELECT * FROM album WHERE artist_id='$artist_id'");
 $i = 0;
-while($rad = $albumConn->fetch_assoc()){
+while($rad = $albumTable->fetch_assoc()){
     $i++;
     $album_id = $rad['album_id'];
     $album_title = $rad['title'];
@@ -23,6 +23,7 @@ while($rad = $albumConn->fetch_assoc()){
     $album_releaseYear = $rad['releaseYear'];
     $albums[$i] = ['album_id'=>$album_id, 'title'=>$album_title, 'genre'=>$album_genre, 'releaseYear'=>$album_releaseYear];
 }
+
 $albumCount = count($albums);
 
 ?>
@@ -105,11 +106,12 @@ $albumCount = count($albums);
         </div>
 
         <div class="error" id="deleteArtistDiv">
-            <form action="../0PHP/deleteArtist.php" method="post">
-                <button type="submit" class="container">
+            <form action="../0PHP/delete.php" method="post">
+                <button type="button" class="container" onclick="if(confirm('Are you sure you want to delete <?php echo $firstName . ' ' . $lastName ?>?')) $('#delArtist_submitBtn').click()">
                     <h2>Delete artist?</h2>
                 </button>
-                <input type="text" name="artist_id" hidden value="<?php echo $artist_id?>">
+                <button type="submit" hidden id="delArtist_submitBtn"></button>
+                <input type="text" name="id" hidden value="<?php echo $artist_id?>">
                 <input type="text" name="table" hidden value="artist">
             </form>
         </div>
@@ -130,7 +132,7 @@ $albumCount = count($albums);
             $artist_firstName = $row['firstName'];
             $artist_lastName = $row['lastName'];
             echo "<h3 style='width: 100%; text-align: left; margin-left: 7%;'> " .
-                "<a href='../artist?artist=$artist_id'> $artist_firstName $artist_lastName </a> </h3>";
+                "<a href='../artist?a=$artist_id'> $artist_firstName $artist_lastName </a> </h3>";
         } ?>
     </div>
 
