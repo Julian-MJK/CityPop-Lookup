@@ -81,7 +81,7 @@
             $artist_firstName = $row['firstName'];
             $artist_lastName = $row['lastName'];
             echo    "<h3 style='width: 100%; text-align: left; margin-left: 7%;'> " .
-                "<a href='../artist?artist=$artist_id'> $artist_firstName $artist_lastName </a> </h3>";
+                "<a href='../artist?a=$artist_id'> $artist_firstName $artist_lastName </a> </h3>";
         }
         ?>
     </div>

@@ -15,7 +15,7 @@ $(function () {
         {
             title: "ANRI",
             image: "https://i1.sndcdn.com/artworks-000177876721-pv44w4-t500x500.jpg",
-            href: "../artist?a=3",
+            href: "../artist?a=10",
         },
         {
             title: "Toshiki Kadomatsu",
