@@ -8,10 +8,10 @@ $artist = $kobling->query($sql)->fetch_assoc();
 
 
 $firstName = $artist['firstName'];
-$lastName = $artist['lastName'];
-$birthYear = $artist['birthYear'];
-$imgURL = $artist['imgURL'];
-$bio = $artist['bio'];
+if(isset($artist['lastName']))  $lastName   = $artist['lastName'];
+if(isset($artist['birthYear'])) $birthYear  = $artist['birthYear'];
+if(isset($artist['imgURL']))    $imgURL     = $artist['imgURL'];
+if(isset($artist['bio']))       $bio        = $artist['bio'];
 
 
 $albumTable = $kobling->query("SELECT * FROM album WHERE artist_id='$artist_id'");
@@ -91,7 +91,7 @@ while ($rad = $albumTable->fetch_assoc()) {
             <h1 class="title animation_text-expand"> <?php echo $firstName . ' ' . $lastName ?> </h1>
         </div>
         <div class="white frameShape pop" style="padding: 15px;" id="artistImgContainer">
-            <img src="<?php if(isset($imgURL)){echo $imgURL; } else { echo 'https://picsum.photos/800/533'; } ?>" class="frameShape" id="artistImg">
+            <img src="<?php if(isset($imgURL)){echo $imgURL; } else { echo 'https://picsum.photos/800/533'; } ?>" class="frameShape" id="artistImg" title="<?php echo $firstName . ' '; echo (isset($lastName))?$lastName:"";?>">
         </div>
 
         <div class="row container alignLeft">
@@ -107,7 +107,7 @@ while ($rad = $albumTable->fetch_assoc()) {
                 }
                 ?>
             </div>
-            <div class="secondary" id="artistBio" style="width: 25vw">
+            <div class="secondary" id="artistBio" style="max-width: 30vw">
                 <h1 class="fancyFont"> <?php echo $firstName . ' ' . $lastName ?> </h1>
                 <hr>
                 <p>

@@ -703,6 +703,7 @@ table, th, td {
 th {
     /*text-decoration : var(--secondary) underline;*/
     border : none;
+    border-bottom: solid 1px black;
     }
 
 td {
@@ -716,6 +717,9 @@ td:first-child {
 
 tr:nth-child(even) td {
     background : var(--primaryVariant);
+    }
+tr:nth-child(odd):not(tr:first-of-type) td {
+    filter : brightness(1520%);
     }
 
 tr:last-child {
