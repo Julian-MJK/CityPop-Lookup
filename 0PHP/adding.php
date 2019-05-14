@@ -25,6 +25,10 @@
                 <input type="text" name="lastName" placeholder="">
             </div>
             <div class="container">
+                <p>About:</p>
+                <textarea type="text" name="bio"></textarea>
+            </div>
+            <div class="container">
                 <p>Birth year:</p>
                 <input type="number" name="birthYear">
             </div>
@@ -57,6 +61,10 @@
             <div class="container">
                 <p>Year:</p>
                 <input type="number" name="releaseYear">
+            </div>
+            <div class="container">
+                <p>Image URL:</p>
+                <input type="text" name="imgURL">
             </div>
             <div class="container">
                 <button type="submit" class="retroButton"><i class="material-icons">library_add</i></button>

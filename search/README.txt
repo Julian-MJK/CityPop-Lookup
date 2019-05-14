@@ -1,0 +1,2 @@
+skriv i search.php --- >
+Bruker ikke (simon) metoden for da måtte jeg ha kjørt en query og bedt serveren om informasjon en gang per søke-ord, per tabell, som er ueffektivt da det vil kommunisere med serveren. Lagrer heller hele tabellen og ser gjennom den, som jeg gjør nå.
