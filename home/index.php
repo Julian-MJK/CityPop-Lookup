@@ -62,10 +62,9 @@ require '../0PHP/connection.php';
 <div id="documentWrapper" class="container column" style="margin-top: 325px">
     <!-- HEADER ELEMENTS -->
     <img id="headerSymbol" src="../resources/img/textures/vinyl250.png" draggable="false">
-    <div class="titleDiv shape-diamond blackText div" style="border-radius: 0; min-height: 50px; top: 10px;" onclick="window.location.href='../home'"><h1>City
+    <div class="titleDiv shape-diamond blackText div cursor_normal" style="border-radius: 0; min-height: 50px; top: 10px;"><h1>City
             Pop Lookup</h1></div>
     <!-- END OF HEADER ELEMENTS -->
-
 
 
     <span><br></span>
