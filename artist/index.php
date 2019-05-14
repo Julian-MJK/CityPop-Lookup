@@ -74,7 +74,7 @@ while ($rad = $albumTable->fetch_assoc()) {
 
     <!-- HEADER TITLE -->
     <div class="titleDiv shape-bat-top blackText div"
-         style="border-radius: 0; min-height: 50px; top: 10px;" onclick="window.location.href='../'"><h1>City Pop Lookup</h1></div>
+         style="border-radius: 0; min-height: 50px; top: 10px;" onclick="window.location.href='../home'"><h1>City Pop Lookup</h1></div>
 
 
     <span><br></span>

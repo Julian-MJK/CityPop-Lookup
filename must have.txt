@@ -1,0 +1,26 @@
+
+
+
+
+// ===== ADDING.php ===== //
+
+
+
+// ===== ARTIST PAGE ===== //
+
+* EDIT <form> <select> <input placeholder="new data" type="submit">>
+* <?php /* få tak i ?artist=ARTISTNAVN i variabelen $artist, på starten av siden*/ ?>   
+
+<?php ECHO 
+<form method="post"> 
+<button type="submit"> <input type='hidden' name="delete_id" value="$artist">
+</form>
+?>
+
+
+* Universal Menu ?
+
+
+
+
+
