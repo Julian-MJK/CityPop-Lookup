@@ -1,0 +1,5 @@
+insert slideshow.js og slideshow.css med artist images (som lagres som internet-url's (use imgur fam) og autoBG, som man kan bla gjennom på artist's page.
+- artist img on /artist/ page is a minimalist slideshow with directional fancybuttons (with leaning animation) underneath, which goes through the resources/img/artists/$firstName$lastName/x files ? or store their locations in a many-to-many table.
+
+
+
