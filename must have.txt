@@ -1,4 +1,4 @@
-
+- Go over the kompetansem�l ark which i have and CHECK OFF the ones I've completed, set a ring around the things I need to do something about.
 
 
 
@@ -18,9 +18,7 @@
 ?>
 
 
-* Universal Menu ?
 
-
-
+* ADD USER UPLOAD IMAGES WITH <input type="file"> WHICH GETS STORED IN ../resources/img/artist/$firstName$lastName/albums
 
 

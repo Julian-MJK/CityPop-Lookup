@@ -27,16 +27,17 @@ window.addEventListener("load", function () {
     rmh.id = "rmh";
     rmh.classList.add("container");
     rmh.innerHTML = '' +
-        '        <img id="rmh_handle" src="../resources/img/textures/vinyl250.png" alt="universal menu handle" onmousedown="if(event.preventDefault)event.preventDefault()" onmouseenter="this.style.filter=\'brightness(125%)\'" onmouseleave="this.style.filter=\'brightness(100%)\'">\n' +
-        '        <div id="rmh_bar">\n' +
-        '            <div class="pointer rmh_item">\n' +
-        '                <i class="fas fa-home" onclick="setTimeout(function(){window.location.href=\' ' + rmh_href + ' \'}, 200)"></i>\n' +
-        '            </div>\n' +
-        '        </div>\n';
+        '        <img id="rmh_handle" src="../resources/img/textures/vinyl250.png" alt="universal menu handle" onmousedown="if(event.preventDefault)event.preventDefault()" onmouseenter="this.style.filter=\'brightness(125%)\'" onmouseleave="this.style.filter=\'brightness(100%)\'">' +
+        '        <div id="rmh_bar">' +
+        '            <div class="pointer rmh_item">' +
+        '                <i class="fas fa-home" onclick="setTimeout(function(){window.location.href=\' ' + rmh_href + ' \'}, 200)"></i>' +
+        '            </div>' +
+        '            <button class="retroButton" onclick="window.location.href = \'../0PHP/user/logout.php/\'" style="margin: 15px 0">log out</button>' +
+        '        </div>';
 
     document.body.appendChild(rmh);
 
-    window.closePage = function(){
+    window.closePage = function () {
         window.close()
     };
 
@@ -93,7 +94,7 @@ window.addEventListener("load", function () {
             setTimeout(function () {
                 document.getElementById("rmh_tooltip").style.opacity = 1;
             }, 3000);
-            sessionStorage.setItem("firstTime",false);
+            sessionStorage.setItem("firstTime", false);
         }
     }
 

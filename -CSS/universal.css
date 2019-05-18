@@ -66,16 +66,16 @@ html {
     }
 
 body {
-    width            : 100vw;
-    height           : auto; /* Gjør at <body> fyller hele siden, siden Firefox ikke gjør dette automatisk */
-    min-height       : 100vh;
-    margin           : 0;
-    flex-wrap        : wrap; /* Wrapper elementer ned til ny linje om det blir overflow */
-    overflow         : auto;
+    width       : 100vw;
+    height      : auto; /* Gjør at <body> fyller hele siden, siden Firefox ikke gjør dette automatisk */
+    min-height  : 100vh;
+    margin      : 0;
+    flex-wrap   : wrap; /* Wrapper elementer ned til ny linje om det blir overflow */
+    overflow    : auto;
 
-    font-family      : 'Nunito', Arial, sans-serif; /* Første font er foretrukket, følgende fonter er fallbacks, om nettleseren ikke støtter fonten. */
+    font-family : 'Nunito', Arial, sans-serif; /* Første font er foretrukket, følgende fonter er fallbacks, om nettleseren ikke støtter fonten. */
 
-    cursor: url("../resources/etc/cursors/Numix_Cursors/NumixLight/Arrow.cur"), default;
+    cursor      : url("../resources/etc/cursors/Numix_Cursors/NumixLight/Arrow.cur"), default;
 
     }
 
@@ -88,39 +88,40 @@ body {
     }
 
 
-h1{
-    font-family : 'Playfair Display', Arial, serif;
-    letter-spacing: 2pt;
+h1 {
+    font-family    : 'Playfair Display', Arial, serif;
+    letter-spacing : 2pt;
     }
 
 h2, h3, h4, h5 {
-    font-family: Arial, serif;
+    font-family : Arial, serif;
     }
-.fancyFont{
+
+.fancyFont {
     font-family : 'Sofia', Arial, serif;
     }
 
-.fancyFont2{
-    font-family: 'Noto Serif', serif;
+.fancyFont2 {
+    font-family : 'Noto Serif', serif;
     }
 
 p {
-    font-family : 'Nunito'/*"Lucida Sans Unicode"*/, Arial, serif;
+    font-family : 'Nunito' /*"Lucida Sans Unicode"*/, Arial, serif;
     }
 
 
-blockquote{
-    font-family: 'Noto Serif', Arial, serif;
-    font-style: italic;
+blockquote {
+    font-family : 'Noto Serif', Arial, serif;
+    font-style  : italic;
     }
 
 hr {
-    width: 85%;
-    color: black;
-    background-color: black;
-    border-color: black;
-    box-shadow: none;
-    text-shadow: none;
+    width            : 85%;
+    color            : black;
+    background-color : black;
+    border-color     : black;
+    box-shadow       : none;
+    text-shadow      : none;
     }
 
 
@@ -134,7 +135,7 @@ hr {
    **                    INPUTS                     **
    ***************************************************/
 
-   input, select, button, textarea {
+input, select, button, textarea {
     background-color : var(--secondary);
     outline          : none;
     margin           : 5px;
@@ -191,7 +192,7 @@ button::-moz-focus-inner { border : 0; }
 
 
 button, select, input[type=radio], input[type=checkbox], label {
-    cursor              : url("../resources/etc/cursors/Mario_Gant/Normal_Select.cur"), pointer !important;
+    cursor              : /*url("../resources/etc/cursors/Mario_Gant/Normal_Select.cur"), */ pointer !important;
     transition-duration : 0.5s;
     }
 
@@ -204,7 +205,7 @@ button, select, input[type=radio], input[type=checkbox], label {
 
 
 /* __________ < TEXT INPUTS > __________ */
-input[type=text], input[type=number] {
+input[type=text], input[type=number], input[type=password] {
     margin              : 5px 0;
     padding             : 5px 0;
     border              : 1px solid var(--secondaryVariant);
@@ -212,9 +213,10 @@ input[type=text], input[type=number] {
     background-color    : transparent;
     transition-duration : 0.5s;
     font-weight         : bold;
+    cursor              : text !important;
     }
 
-input[type=text]:hover, input[type=number]:hover, input[type=text]:focus, input[type=number]:focus {
+input[type=text]:hover, input[type=number]:hover, input[type=password]:hover, input[type=text]:focus, input[type=number]:focus, input[type=password]:focus {
     padding          : 5px 0;
     background-color : var(--secondaryVariant);
     margin           : 5px 0;
@@ -251,17 +253,18 @@ background-color    : var(--secondaryVariant);
 select:focus {
     color            : var(--onSecondary);
     background-color : var(--secondaryVariant);
-    border-radius    : /*20px 20px 0*/ /*4px;
-    }
+    border-radius    : /*20px 20px 0*/
+/*4px;
+   }
 
 option {
-    text-align       : center;
-    background-color : var(--secondary);
-    }
+   text-align       : center;
+   background-color : var(--secondary);
+   }
 
 option:nth-child(odd) {
-    background-color : var(--secondaryVariant)
-    }
+   background-color : var(--secondaryVariant)
+   }
 
 
 

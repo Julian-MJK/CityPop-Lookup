@@ -15,7 +15,7 @@ if(isset($_POST['table']) && isset($_POST['id'])) {
     $id = $_POST['id'];
 
     $sql = "SELECT * FROM $table WHERE $table_id=$id";
-    $query = $kobling->query($sql);
+    $query = $conn->query($sql);
     $row = $query->fetch_assoc();
 
     echo $row['artist_id'];
@@ -23,7 +23,7 @@ if(isset($_POST['table']) && isset($_POST['id'])) {
     $delSql = "DELETE FROM $table WHERE $table_id=$id";
 
 
-    if (!$kobling->query($delSql)) {
+    if (!$conn->query($delSql)) {
             echo "<script> alert('ERROR: $table_id=$id not deleted') </script>";
     } else  echo "<script> alert('$table_id=$id successfully deleted') </script>";
 }     else  echo "<script> alert('QUERY ERROR: Valid parameters not given, nothing deleted.') </script>";

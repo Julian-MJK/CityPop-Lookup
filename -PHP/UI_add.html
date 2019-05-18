@@ -1,6 +1,12 @@
 <div id="addDiv">
     <h1>Something missing?</h1>
     <div class="container row">
+        <!--<select name="select" id="addOrEditSelect" class="minimalistInput" style="margin: 0 10px;" autocomplete="off"
+                onchange=" for(let i = 1; i < $('#addSelect')[0].length; i++) document['add'+$('#addSelect option').eq(i).val().capitalize()+'Form'].action='../-PHP/'+$('#addOrEditSelect :selected').val()+'.php';">
+            <option value="" selected="selected" disabled hidden>Add/edit</option>
+            <option value="add">Add</option>
+            <option value="edit">Edit</option>
+        </select>-->
         <h3>Add: </h3>
         <select name="select" id="addSelect" class="minimalistInput" style="margin: 0 10px;" autocomplete="off"
                 onchange="
@@ -15,7 +21,8 @@
 
     <div id="addArtist" class="addX pop" style="display:none">
         <h2>Add artist</h2>
-        <form action="../0PHP/addArtist.php" method="post">
+        <form action="add.php" method="post" name="addArtistForm">
+            <input type="text" name="table" value="artist" hidden>
             <div class="container">
                 <p>First name:</p>
                 <input type="text" name="firstName" required> *
@@ -25,16 +32,16 @@
                 <input type="text" name="lastName" placeholder="">
             </div>
             <div class="container">
-                <p>About:</p>
-                <textarea type="text" name="bio"></textarea>
+                <p>Biography:</p>
+                <textarea type="text" name="bio" style="resize: both;"></textarea>
+            </div>
+            <div class="container">
+                <p> Image URL:</p>
+                <input type="text" name="imgURL">
             </div>
             <div class="container">
                 <p>Birth year:</p>
                 <input type="number" name="birthYear">
-            </div>
-            <div class="container">
-                <p>Birth City:</p>
-                <input type="text" name="birthCity">
             </div>
             <div class="container" style="flex-direction: column !important;">
                 <button type="submit" class="retroButton"><i class="material-icons">
@@ -45,18 +52,19 @@
 
     <div id="addAlbum" class="addX pop" style="display:none">
         <h2>Add album</h2>
-        <form action="../0PHP/addAlbum.php" method="post">
+        <form action="add.php" method="post" name="addAlbumForm">
+            <input type="text" name="table" value="album" hidden>
             <div class="container">
                 <p>Title:</p>
                 <input type="text" name="title" required> *
             </div>
             <div class="container">
                 <p>Artist:</p>
-                <input type="text" name="artistName" placeholder="" required> *
+                <input type="text" name="artistName" required> *
             </div>
             <div class="container">
-                <p>Genre:</p>
-                <input type="text" name="genre" pattern=".{2,}">
+                <p>Genres:</p>
+                <input type="text" name="genre" pattern=".{2,}" placeholder="separate with commas">
             </div>
             <div class="container">
                 <p>Year:</p>
@@ -74,7 +82,8 @@
 
     <div id="addSong" class="addX pop" style="display:none">
         <h2>Add song</h2>
-        <form action="../0PHP/addSong.php" method="post">
+        <form action="add.php" method="post" name="addSongForm">
+            <input type="text" name="table" value="song" hidden>
             <div class="container">
                 <p>Title:</p>
                 <input type="text" name="title" required> *

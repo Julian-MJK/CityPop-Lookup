@@ -1,13 +1,8 @@
 
 
-*  ALBUMS ARE NOT SHOWING UP IN SEARCH RESULTS (probably got commented out with my removal of 'genre''s)
+ADD ALBUM PAGE
 
-* FINISH ADD.PHP AS IT'S A REQUIREMENT
-
-* ADD ALBUM PAGE
-
-* ADD USER UPLOAD IMAGES WITH <input type="file"> WHICH GETS STORED IN ../resources/img/artist/$firstName$lastName/albums
+X - ADD "EDIT" BUTTON ON ARTISTS INFO (w. select to choose what to edit?)
 
 
-- Go over the kompetansemål ark which i have and CHECK OFF the ones I've completed, set a ring around the things I need to do something about.
 

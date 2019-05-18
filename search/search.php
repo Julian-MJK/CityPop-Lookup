@@ -6,7 +6,7 @@
  * Time: 06:40 PM
  */
 
-require "../0PHP/connection.php";
+require "../-PHP/connection.php";
 
 $sortBy = "lastName";
 
@@ -26,10 +26,10 @@ $queries = explode(' ', $query);
 $queriesN = count($queries);
 
 // FETCHES TABLES
-$artists = $kobling->query($sql_artist);
-$albums = $kobling->query($sql_album);
-$songs = $kobling->query($sql_song);
-$genres = $kobling->query($sql_genre);
+$artists = $conn->query($sql_artist);
+$albums = $conn->query($sql_album);
+$songs = $conn->query($sql_song);
+$genres = $conn->query($sql_genre);
 
 
 echo "<p class='smallText'> The database contains in total $artists->num_rows artists, $albums->num_rows albums and $songs->num_rows songs. </p> <br>";
@@ -41,12 +41,11 @@ $specificity = [
 ];
 
 
-
 /*if(strpos($query, ' ') !== false) $words = substr_count($query, ' ');*/
 /*
-$kobling->query("DELETE FROM artist WHERE lastName='Iwasaki'");
-$kobling->query("INSERT INTO artist (firstName, lastName) VALUES ('Hiromi', 'Iwasaki')");
-$kobling->query("INSERT INTO artist (firstName, lastName) VALUES ('Yoshimi', 'Iwasaki')");
+$conn->query("DELETE FROM artist WHERE lastName='Iwasaki'");
+$conn->query("INSERT INTO artist (firstName, lastName) VALUES ('Hiromi', 'Iwasaki')");
+$conn->query("INSERT INTO artist (firstName, lastName) VALUES ('Yoshimi', 'Iwasaki')");
 */
 
 
@@ -66,6 +65,13 @@ for ($i = 0; $i < $queriesN; $i++) {
         }
     }
 
+    // STORES THE ALBUM_GENRES TABLE IN $genreRows (it will be checked over many times, so fetch_assoc() wouldn't cut it.)
+    while ($row = $genres->fetch_assoc()) {
+        $genreRows[] = $row;
+    }
+    $genreRowsCount = count($genreRows);
+
+
     // LOOPS THROUGH THE $artists TABLE AND CHECKS IF ANY VALUES ARE EQUAL TO THE CURRENT QUERY
     while ($row = $albums->fetch_assoc()) {
         if (
@@ -76,13 +82,12 @@ for ($i = 0; $i < $queriesN; $i++) {
             $result['album'][] = $row;
         }
 
-        //NOTE - can (and should) be optimized greatly: Right now it searches through the ENTIRE table from the get go
-        //             instead, it may be faster to SQL query the searchwords.
-        while ($genreRow = $genres->fetch_assoc()) {
+        // LOOPS THROUGH THE ALBUM_GENRE TABLE TO SEE IF CURRENT ALBUM MATCHES
+        for ($j = 0; $j < $genreRowsCount; $j++) {
             if (
-                $genreRow['album_id'] === $row['album_id']
-                &&
-                stripos($genreRow['genre'], $queries[$i]) !== false
+                $genreRows[$j]['album_id'] === $row['album_id'] &&
+                ($genreRows[$j]['genre'] === $queries[$i] ||
+                    $genreRows[$j]['genre'] === $query)
             ) {
                 $result['album'][] = $row;
             }
@@ -98,7 +103,9 @@ for ($i = 0; $i < $queriesN; $i++) {
         }
     }
     // alternatively bare f.eks.: $sql_Artist = "SELECT * FROM artist WHERE (firstName LIKE '%$queries[$j]%' OR lastName LIKE '%$queries[$j]%') ORDER BY $sortBy"; kan og bruke "LIMIT $limit" og med et offset per page.
-    // Gjør det på denne metoden for høyere customizeability.
+    // Jeg gjør det på denne metoden for høyere customizeability (f.eks. vil jeg ikke at alle album med sjangeren "funk" vises når man søker på bokstaven "u"),
+    // Men også fordi da måtte jeg ha kjørt en query og bedt serveren om informasjon en gang per søke-ord, per tabell, som er ueffektivt da det vil kommunisere med serveren.
+    // Lagrer heller hele tabellene i starten og ser gjennom den med php, som jeg gjør nå, for mindre variabel hastighetsforskjell..
 
     while ($row = $genres->fetch_assoc()) {
         if (
@@ -210,7 +217,6 @@ if (isset($result)) {
     }
 
 }
-
 
 
 ?>

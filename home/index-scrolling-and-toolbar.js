@@ -207,7 +207,7 @@ $(function () {
     let isProfileHover = false;
     $("#profileSettings").on({
         click: function () {
-            window.location.href = "../0PHP/settings.php";
+            window.location.href = "../-PHP/user/settings.php";
         },
         mouseenter: function () {
             isProfileHover = true;
@@ -225,7 +225,7 @@ $(function () {
     let isLogoutHover = false;
     $("#logoutButton").on({
         click: function () {
-            window.location.href = "../0PHP/logout.php";
+            window.location.href = "../-PHP/user/logout.php";
         },
         mouseenter: function () {
             isLogoutHover = true;

@@ -779,7 +779,7 @@ button::-moz-focus-inner { border : 0; }
 
 
 button, select, input[type=radio], input[type=checkbox], label {
-    cursor              : url("Resources/etc/cursors/Mario_Gant/Normal_Select.cur"), pointer !important;
+    cursor              : /*url("Resources/etc/cursors/Mario_Gant/Normal_Select.cur"), */ pointer !important;
     transition-duration : 0.5s;
     }
 
@@ -792,7 +792,7 @@ button, select, input[type=radio], input[type=checkbox], label {
 
 
 /* __________ < TEXT INPUTS > __________ */
-input[type=text] {
+input[type=text], textarea {
     margin              : 5px 0;
     padding             : 5px 0;
     border              : 1px solid var(--secondaryVariant);
@@ -802,13 +802,12 @@ input[type=text] {
     font-weight         : bold;
     }
 
-input[type=text]:focus {
+input[type=text]:focus, textarea:focus {
     padding          : 5px 0;
     background-color : var(--secondaryVariant);
     margin           : 5px 0;
     box-shadow       : 0 10px 10px var(--shadowColor);
     }
-
 
 
 /* __________ < SELECT > __________ */
