@@ -29,7 +29,7 @@
     <h1 class="title" style="font-size: 10vh; margin: 4vh 0 0 0;">City Pop</h1>
     <h1 class="title" style="font-size: 10vh; margin: 0 0 4vh 0">Lookup</h1>
 
-    <div class='justifyCenter textAlignCenter pop noBottomPadding' id='loginContainer'>
+    <div class='justifyCenter textAlignCenter pop noBottomPadding' id='addDiv'>
         <form action="login.php" id="main_form" method="post" name="main_form">
             <h1>Login</h1>
             <!-- jeg vet jeg kan bruke <label> her, og flere andre metoder, men jeg foretrekker personlig denne metoden. -->
@@ -45,7 +45,7 @@
                     <input id="confPassPass" name="passwordConfirm" type="password">
                 </span>
             </span>
-            <button class="fancyButtonBackground" id='submitBtn' style="margin: 0.75em 0;" type="submit">
+            <button class="fancyButtonPrimary" id='submitBtn' style="margin: 0.75em 0;" type="submit">
                 Login
             </button>
             <?php if (isset($msg)) echo '<h2 style="color: '. $msgColor .'; margin: 0.5em 0; max-width: 300px; word-break: break-word" class="anim_shake-horizontal"> ' . $msg . ' </h2>'; ?>
@@ -64,7 +64,7 @@
 
     function initRegister() {
         document.main_form.action = "register.php";
-        $("#loginContainer h1")[0].innerText = "Register";
+        $("#addDiv h1")[0].innerText = "Register";
         $("#confPassText")[0].style.display = 'block';
         $("#confPassPass")[0].style.display = 'block';
         $("#submitBtn")[0].innerText = "Register";
@@ -75,7 +75,7 @@
 
     function initLogin() {
         document.main_form.action = "login.php";
-        $("#loginContainer h1")[0].innerText = "Login";
+        $("#addDiv h1")[0].innerText = "Login";
         $("#confPassText")[0].style.display = 'none';
         $("#confPassPass")[0].style.display = 'none';
         $("#submitBtn")[0].innerText = "Login";

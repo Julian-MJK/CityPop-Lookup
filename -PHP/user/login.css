@@ -1,42 +1,42 @@
 
-#loginContainer {
+#addDiv {
     padding : 30px;
     }
 
-#loginContainer *:not(span) {
+#addDiv *:not(span) {
     margin : 15px;
     }
 
-#loginContainer h1 {
+#addDiv h1 {
     margin : 0 0 25px 0;
     }
 
-#loginContainer > form > span {
+#addDiv > form > span {
     flex-direction : row !important;
     width          : 100%;
     }
 
-#loginContainer span {
+#addDiv span {
     display        : flex;
     flex-direction : column;
     }
 
-#loginContainer > form > span > span * {
+#addDiv > form > span > span * {
     height : 40px;
     }
 
-#loginContainer span p {
+#addDiv span p {
     margin-right : 10px;
     font-weight  : bold;
     font-size    : 12pt;
     }
 
-#loginContainer > form > span > span:nth-child(1) {
+#addDiv > form > span > span:nth-child(1) {
     align-items : flex-end;
     width       : 100px;
     }
 
-#loginContainer > form > span > span:nth-child(2) {
+#addDiv > form > span > span:nth-child(2) {
     width       : 175px;
     align-items : flex-start;
     }

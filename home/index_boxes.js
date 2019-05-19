@@ -30,7 +30,7 @@ $(function () {
         {
             title: "Senri Oe",
             image: "https://3.bp.blogspot.com/-rS6lpNxUhF8/V3-5ctnsjGI/AAAAAAAA9PM/SLs6ZeKJ8hEgvRf8ZhBfLTAH3THjVZuiACLcB/s1600/oti4xv.png",
-            href: "../artist?a=SenriOe",
+            href: "../artist?a=24",
         },
 
     ];

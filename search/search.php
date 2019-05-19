@@ -6,14 +6,15 @@
  * Time: 06:40 PM
  */
 
-require "../-PHP/connection.php";
+require '../-PHP/connection.php';
 
-$sortBy = "lastName";
+$sortBy_artist = 'firstName';
+$sortBy_album = 'title';
 
-$sql_artist = "SELECT * FROM artist";
-$sql_album = "SELECT * FROM album";
-$sql_song = "SELECT * FROM song";
-$sql_genre = "SELECT * FROM album_genre";
+$sql_artist = 'SELECT * FROM artist ORDER BY ' .$sortBy_artist;
+$sql_album = 'SELECT * FROM album ORDER BY ' .$sortBy_album;
+$sql_song = 'SELECT * FROM song';
+$sql_genre = 'SELECT * FROM album_genre';
 //$sql_genre = "SELECT album_id FROM album-genre WHERE genre LIKE %$query%";
 
 $query = $_GET["query"];
@@ -134,6 +135,7 @@ if (isset($result)) {
             $artist_firstName = $result['artist'][$i]['firstName'];
             $artist_lastName = $result['artist'][$i]['lastName'];
             $artist_birthYear = $result['artist'][$i]['birthYear'];
+            if($artist_birthYear === '2120') $artist_birthYear = '';
             echo "<tr onclick='window.location.href=\"../artist?a=$artist_id\"' class='tr'>" .
                 "<td>$artist_id</td>" .
                 "<td>$artist_firstName</td>" .

@@ -205,7 +205,7 @@ button, select, input[type=radio], input[type=checkbox], label {
 
 
 /* __________ < TEXT INPUTS > __________ */
-input[type=text], input[type=number], input[type=password] {
+input[type=text], input[type=number], input[type=password], textarea {
     margin              : 5px 0;
     padding             : 5px 0;
     border              : 1px solid var(--secondaryVariant);
@@ -216,11 +216,11 @@ input[type=text], input[type=number], input[type=password] {
     cursor              : text !important;
     }
 
-input[type=text]:hover, input[type=number]:hover, input[type=password]:hover, input[type=text]:focus, input[type=number]:focus, input[type=password]:focus {
+input[type=text]:hover, input[type=number]:hover, input[type=password]:hover, textarea:hover input[type=text]:focus, input[type=number]:focus, input[type=password]:focus, textarea:focus {
     padding          : 5px 0;
-    background-color : var(--secondaryVariant);
+    background-color : var(--secondaryVariant) !important;
     margin           : 5px 0;
-    box-shadow       : 0 10px 10px var(--shadowColor);
+    box-shadow       : 0 10px 10px var(--shadowColor) !important;
     }
 
 

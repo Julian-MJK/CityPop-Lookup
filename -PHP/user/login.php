@@ -6,9 +6,10 @@
      * Time: 02:52 AM
      */
 
-    // bypassing connection.php session check + redirection.
+    // bypassing connection.php session check and redirection.
     session_start();
     $_SESSION['username'] = 'temp';
+    // inserting the server configuration
     require_once '../connection.php';
     $_SESSION['username'] = null;
 
@@ -38,7 +39,7 @@
     if (!isset($error)) { //isset($password, $username)
         //encountered no errors
 
-        if(isset($existingUsers)){
+        if (isset($existingUsers)) {
             while ($row = $existingUsers->fetch_assoc()) {
                 if ($row['username'] === $username && $row['password'] === $password) {
                     $correctCredentials = true;
@@ -49,6 +50,7 @@
 
         if (isset($correctCredentials)) {
             $_SESSION['username'] = $username;
+            $_SESSION['user_id'] = $conn->query("SELECT user_id FROM user WHERE username='".$username."'")->fetch_assoc()['user_id'];
             header('Location: ../../home/');
         } else {
             $error = 'Incorrect credentials';
@@ -56,8 +58,11 @@
 
     }
 
-    if (isset($error)) {
+    if(isset($error)) {
+        // Dette kjører jeg ikke som "else" på if-statement'et overfor, da jeg ønsker å sette en ny error dersom brukeren eksisterer men passordet er feil.
+
         passTo('loginPage.php', ['msg'], [addslashes($error)]);
+
     }
 
 ?>

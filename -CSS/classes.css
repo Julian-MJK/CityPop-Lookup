@@ -519,6 +519,19 @@ div a { color : var(--secondaryVariant); }
         }
     }
 
+.anim_text-shadow-drop {
+    animation: anim_text-shadow-drop 1s both;
+    }
+
+@keyframes anim_text-shadow-drop {
+    0% {
+        text-shadow: 0 0 0 rgba(0, 0, 0, 0);
+        }
+    100% {
+        text-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+    }
+
 
 
 
@@ -743,14 +756,14 @@ div a { color : var(--secondaryVariant); }
     transition-duration : .25s;
     }
 
-.minimalistButton:hover p, .minimalistButton:hover h1, .minimalistButton:hover h2, .minimalistButton:hover h3, .minimalistButton:hover h4, .minimalistButton:hover h5 {
-    transform           : scale(1.1);
-    transition-duration : .2s;
+.minimalistButton:hover, .minimalistButton:hover p, .minimalistButton:hover h1, .minimalistButton:hover h2, .minimalistButton:hover h3, .minimalistButton:hover h4, .minimalistButton:hover h5 {
+    transform           : scale(1.1) !important;
+    transition-duration : .2s !important;
     }
 
-.minimalistButton:active p, .minimalistButton:active h1, .minimalistButton:active h2, .minimalistButton:active h3, .minimalistButton:active h4, .minimalistButton:active h5 {
-    transition-duration : .05s;
-    transform           : scale(1.2);
+.minimalistButton:active, .minimalistButton:active p, .minimalistButton:active h1, .minimalistButton:active h2, .minimalistButton:active h3, .minimalistButton:active h4, .minimalistButton:active h5 {
+    transition-duration : .05s !important;
+    transform           : scale(1.2) !important;
     }
 
 .retroButton {

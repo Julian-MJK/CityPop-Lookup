@@ -1,0 +1,109 @@
+<div id="addDiv">
+    <h1>Something missing?</h1>
+    <div class="container row">
+        <!--<select name="select" id="addOrEditSelect" class="minimalistInput" style="margin: 0 10px;" autocomplete="off"
+                onchange=" for(let i = 1; i < $('#addSelect')[0].length; i++) document['add'+$('#addSelect option').eq(i).val().capitalize()+'Form'].action='../-PHP/'+$('#addOrEditSelect :selected').val()+'.php';">
+            <option value="" selected="selected" disabled hidden>Add/edit</option>
+            <option value="add">Add</option>
+            <option value="edit">Edit</option>
+        </select>-->
+        <h3>Add: </h3>
+        <select autocomplete="off" class="minimalistInput" id="addSelect" name="select" onchange="
+                    for(let i = 1; i < this.length; i++) document.getElementById('add'+$('#addSelect option').eq(i).val().capitalize()).style.display = 'none';
+                    document.getElementById('add'+$('#addSelect :selected').val().capitalize()).style.display='flex'; "
+                style="margin: 0 10px;">
+            <option disabled hidden selected="selected" value="">Choose</option>
+            <option value="artist">Artist</option>
+            <option value="album">Album</option>
+            <option value="song">Song</option>
+        </select>
+    </div>
+
+    <div class="addX pop" id="addArtist" style="display:none">
+        <h2>Add artist</h2>
+        <form action="../-PHP/tableManipulation/add.php" method="post" name="addArtistForm">
+            <input hidden name="table" type="text" value="artist">
+            <span class="noPadding noMargin">
+                <span>
+                    <p>Name:</p>
+                    <p id="artistBioP">Biography:</p>
+                    <p>Image URL:</p>
+                    <p>Birth year:</p>
+                </span>
+                <span>
+                    <input id="artistNameInput" name="name" required type="text">
+                    <textarea id="artistBioTextArea" name="bio" onmousemove="$('#artistBioP')[0].style.height = $(this).height()+15+'px'" style="resize: both;" type="text"></textarea>
+                    <input name="imgURL" type="text">
+                    <input name="birthYear" type="number">
+                </span>
+                <script>$('#artistBioP')[0].style.height = 45+'px'</script>
+            </span>
+            <!--<div class="container">
+                <p>Last name:</p>
+                <input name="lastName" placeholder="" type="text">
+            </div>-->
+            <div class="container" style="flex-direction: column !important;">
+                <button class="retroButton" onclick='
+                $("#addArtist #artistNameInput")[0].value = $("#addArtist #artistNameInput")[0].value.replace(/&nbsp;/gi, "").replace(/\s+/g, " ").trim();
+                $("#addArtist button[type=\"submit\"]").click()
+            ' type="button">
+                    <i class="material-icons">person_add</i>
+                </button> <!--style="margin: 0; font-size: 25pt;"-->
+            </div>
+            <button hidden type="submit"></button>
+        </form>
+    </div>
+
+    <div class="addX pop" id="addAlbum" style="display:none">
+        <h2>Add album</h2>
+        <form action="../-PHP/tableManipulation/add.php" method="post" name="addAlbumForm">
+            <input hidden name="table" type="text" value="album">
+            <span class="noPadding noMargin">
+                <span>
+                    <p>Title:</p>
+                    <p>Artist:</p>
+                    <p>Genres:</p>
+                    <p>Year:</p>
+                    <p>Image URL:</p>
+                </span>
+                <span>
+                    <input name="title" required type="text">
+                    <input name="artistName" required type="text">
+                    <input name="genre" pattern=".{2,}" placeholder="separate with commas" type="text">
+                    <input name="releaseYear" type="number">
+                    <input name="imgURL" type="text">
+                </span>
+            </span>
+
+            <div class="container">
+                <button class="retroButton" onclick='
+                $("#addArtist #artistNameInput")[0].value = $("#addArtist #artistNameInput")[0].value.replace(/&nbsp;/gi, "").replace(/\s+/g, " ").trim();
+                $("#addArtist button[type=\"submit\"]").click()
+            ' type="button">
+                    <i class="material-icons">library_add</i>
+                </button> <!--style="margin: 0; font-size: 25pt;"-->
+            </div>
+            <button hidden type="submit"></button>
+        </form>
+    </div>
+
+    <div class="addX pop" id="addSong" style="display:none">
+        <h2>Add song</h2>
+        <form action="../-PHP/tableManipulation/add.php" method="post" name="addSongForm">
+            <input hidden name="table" type="text" value="song">
+            <span class="noPadding noMargin">
+                <span>
+                <p>Title:</p>
+                <p>Album:</p>
+                </span>
+                <span>
+                <input name="title" required type="text">
+                <input name="albumName" required type="text">
+                </span>
+            </span>
+            <div class="container">
+                <button class="retroButton" type="submit"><i class="material-icons">library_add</i></button>
+            </div>
+        </form>
+    </div>
+</div>

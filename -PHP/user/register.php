@@ -6,37 +6,32 @@
      * Time: 02:52 AM
      */
 
-    echo "<noscript> <a href='loginPage.php'>
-        Your browser does not support JavaScript, so if you're not automatically redirected,
-        and there's nothing else on this page, click here to be redirected to login.
-        </a><br><br></noscript>";
 
-    // bypassing connection.php session check + redirection.
+    // bypassing connection.php session check and redirection.
     session_start();
     $_SESSION['username'] = 'temp';
+    // inserting the server configuration
     require_once '../connection.php';
     $_SESSION['username'] = null;
 
     include '../generic_functions.php';
 
+
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+
     $existingUsers = $conn->query('SELECT * FROM user');
+
 
     while ($row = $existingUsers->fetch_assoc()) {
         $existingUsernames[] = $row['username'];
     }
 
-    $username = $_POST['username'];
-    $password = $_POST['password'];
 
     // Mesteparten av dette kan gjøres mye lettere og mer fleksibelt med HTML REGEX eller javascript, som jeg har brukt andre steder,
     // men for IT1 holder jeg meg til php her.
-    // (f.eks. 'pattern="[A-Za-z]{3}"'  og   'required')
-
-    /*if (empty(trim($_POST['username']))) {
-
-        $msg = 'Please enter a username') ;
-
-    } else */
+    // (f.eks. 'pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"' og 'required')
 
 
     if (isset($existingUsernames) && in_array($username, $existingUsernames, true)) {
@@ -46,15 +41,11 @@
     }
 
 
-    /*if (empty(trim($_POST['password']))) {
-        $msg = 'Please enter a password') ;
-    } else */
-
 
     if ($_POST['passwordConfirm'] !== $_POST['password']) {
         $error = 'The passwords do not match';
     } else if (strlen($_POST['password']) >= 32 || strlen($_POST['password']) < 6) {
-        $error = 'Make sure your password is at least 6 and at most 32 characters' ;
+        $error = 'Make sure your password is at least 6 and at most 32 characters';
     } else {
         $password = trim($_POST['password']);
     }
@@ -71,12 +62,18 @@
         } else {
             $error = "Something went wrong, couldn't create user $username for query $sql";
         }
+
     }
 
 
-    if (isset($error)) {
-        passTo('loginPage.php', ['msg', 'msgColor'], [addslashes($error), isset($msgColor)?$msgColor:'var(--red)']);
+    if(isset($error)){
+        // Dette kjører jeg ikke som "else" på if-statement'et overfor, da jeg ønsker å sette en ny $error dersom queryen ikke går gjennom.
+
+        passTo('loginPage.php', ['msg', 'msgColor'], [addslashes($error), isset($msgColor) ? $msgColor : 'var(--red)']);
+
     }
+
+
 
 ?>
 

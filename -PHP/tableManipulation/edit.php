@@ -7,7 +7,7 @@
      */
 
 
-    require_once 'connection.php';
+    require_once '../connection.php';
 
     $table = $_POST['table'];
     $table_id = $table . '_id';
@@ -16,16 +16,21 @@
     if (isset($_POST['firstName'])) $firstName = addslashes($_POST['firstName']);
     if (isset($_POST['lastName'])) $lastName = addslashes($_POST['lastName']);
     if (isset($_POST['name'])) {
-        $explodedName = explode(' ', $_POST['name'], 2);
+        $name = trim(str_replace(array('/&nbsp;/gi', '/\s+/g'), '', $_POST['name']));
+        $explodedName = explode(' ', $name, 2);
         $firstName = $explodedName[0];
         if (isset($explodedName[1])) $lastName = $explodedName[1];
+        echo 'firstname=' . $firstName . '<br>';
+        echo 'lastname=' . $lastName . '<br>';
     }
+
+
     if (isset($_POST['bio'])) $bio = addslashes($_POST['bio']);
     if (isset($_POST['imgURL'])) $imgURL = $_POST['imgURL'];
     if (isset($_POST['birthYear'])) $birthYear = $_POST['birthYear'];
 
 
-    include 'generic_functions.php';
+    include '../generic_functions.php';
 
     if (isset($firstName)) edit($table, $id, 'firstName', $firstName);
     if (isset($lastName)) edit($table, $id, 'lastName', $lastName);
@@ -34,10 +39,8 @@
     if (isset($birthYear)) edit($table, $id, 'birthYear', $birthYear);
 
 
-    echo "<script type='text/javascript'>
-        self.close();
-        </script>";
-    header('Location: ../artist/?a=' . $id);
+    //echo "<script type='text/javascript'> self.close(); </script>";
+    header('Location: ../../artist/?a=' . $id);
 
 
     /*
@@ -89,6 +92,6 @@
     // EXECUTING QUERY
         ($conn->query($sql) === TRUE) ? $msg = 'Record updated successfully' : $msg = 'Error: ' . $conn->msg;
 
-        echo "<br> <script> alert(\"" . addslashes($msg) . "\"); window.location.replace('../artist?a=" . $id . ") </script> <br>";
+        echo "<br> <script> alert(\"" . addslashes($msg) . "\"); window.location.replace('../../artist?a=" . $id . ") </script> <br>";
         */
 

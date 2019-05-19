@@ -21,19 +21,20 @@
     <link href="../-CSS/universal_theme.css" rel="stylesheet">
 
 
+    <link href="stylesheet.css" rel="stylesheet">
     <script src="index_boxes.js"></script>
     <script src="index-scrolling-and-toolbar.js"></script>
-    <script>
-        // variables fetched from php
-        window.songCount = <?php echo $conn->query('SELECT * FROM song')->num_rows ?>;
-    </script>
 
 
 </head>
 <body>
 
+
+
 <!-- HEADER -->
-<?php include '../-PHP/UI_header.html' ?>
+<?php include '../-HTML/UI_header.html' ?>
+
+
 
 <!-- TOOLBAR -->
 <div id="toolbarLeft" class="toolbar">
@@ -46,28 +47,39 @@
     </div>
 </div>
 <div id="toolbarRight" class="toolbar">
-    <div id="profileSettings" class="toolbarItem"><p>Profile settings</p></div>
+    <div id="profileSettings" class="toolbarItem"><p>My ratings</p></div>
     <div id="logoutButton"><p>logout</p></div>
 </div>
 <!-- END OF TOOLBAR -->
 
 
+
 <!-- DOCUMENT WRAPPER -->
 <div id="documentWrapper" class="container column" style="margin-top: 300px/*325*/">
+
+
 
     <!-- overlapping header (the header box uses clip-path, which also cuts child elements, therefore this is outside of the main header container.) -->
     <img id="headerSymbol" src="../resources/img/textures/vinyl250.png" draggable="false">
     <div style="border-radius: 0; min-height: 50px; top: 10px;" class="titleDiv shape-diamond blackText div cursor_normal"><h1>City Pop Lookup</h1></div>
 
-    <!-- SEARCH BAR -->
-    <?php include "../search/searchbar.php"; ?>
 
     <span><br><br></span>
 
+
+    <!-- SEARCH BAR -->
+    <?php include "../-HTML/UI_searchbar.html"; ?>
+
+    <span><br><br></span>
+
+
+    <!-- OPTIONAL MESSAGE BAR -->
+    <?php include '../-HTML/UI_msg.php' ?>
+
     <!-- INFO BOX -->
-    <div id="textBox" style="width: 50vw; max-width: 550px; font-size: 14pt;" class="frame leanUpRightPerma leanNormal secondaryVariant hoverFillPrimary">
+    <div id="textBox" style="min-width: 550px; max-width: 33vw; font-size: 14pt;" class="frame leanUpRightPerma leanNormal secondaryVariant hoverFillPrimary">
         <h1 class="title">City Pop</h1>
-        <p>
+        <p style="margin: 15px">
             <a href="https://www.nippon.com/en/japan-topics/g00631/a-guide-to-city-pop-the-soundtrack-for-japan%E2%80%99s-bubble-era-generation.html">
                 City Pop </a>
             is a genre of music popular in Japan in the late 70s and 80s blending pop, jazz, and funk to
@@ -87,7 +99,11 @@
                 Guide to Getting Into City Pop, Tokyo’s Lush 80s Nightlife Soundtrack</a></p>
     </div>
 
+
+
     <span><br><br><br><br><br></span>
+
+
 
     <!-- SPOTLIGHT -->
     <div id="spotlightBorder">
@@ -95,10 +111,16 @@
         <div id="spotlightContainer"></div>
     </div>
 
+
+
     <span><br><br><br><br><br></span>
 
+
+
     <!-- ADDING -->
-    <?php include "../-PHP/UI_add.html" ?>
+    <?php include "../-HTML/UI_add.html" ?>
+
+
 
     <span><br><br><br><br><br></span>
     <span><br><br><br><br><br></span>
@@ -106,6 +128,7 @@
 
 
     <div id="testingDiv" class="secondaryVariant" style="display: none">
+
 
         <?php
             $sql = "SELECT * FROM artist ORDER BY birthYear";
@@ -129,7 +152,8 @@
             echo '</table>';
         ?>
 
-        <form action="../-PHP/test.php" target="_blank" method="get">
+
+        <form action="../-PHP/testing.php" target="_blank" method="get">
             <input type="text" name="text">
             <button type="submit">submit</button>
         </form>
@@ -137,7 +161,11 @@
 
     </div>
 
-    <?php include '../-PHP/UI_footer.html'; ?>
+
+
+    <?php include '../-HTML/UI_footer.html'; ?>
+
+
 
 
 </div> <!-- end of document wrapper -->
