@@ -239,7 +239,7 @@ $(function () {
     div.style.top = "-50px";
     symbol.classList.add("symbolShowAnimation");
     div.style.transitionDuration = "initial";
-        div.querySelector("h1").classList.add("animation_text-expand");
+        div.querySelector("h1").classList.add("anim_text-expand");
     setTimeout(function () {
         div.style.transitionDuration = "0.5s";
         div.style.top = "10px";

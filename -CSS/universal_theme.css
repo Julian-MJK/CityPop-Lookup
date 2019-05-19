@@ -55,6 +55,11 @@ div {
     -webkit-box-shadow : 0 6px 8px 0 var(--shadowColor);
     }
 
+form {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    }
 
 /* __________________________ document specific ___________________________ */
 
@@ -883,19 +888,31 @@ input[type=range]::-webkit-slider-thumb:hover {
     75% {transform : translateX(-6px) rotate(-1.2deg)}
     }
 
-
-
-.fa-star{
-    transition-duration: 2s;
-    font-size: 1.8vw;
+#rating_stars{
+    margin: 1em 0;
+    flex-direction: row;
+    justify-content: space-around;
     }
 
-.fa-star :not(.checked){
-    color: white;
+#rating_avgP{
+    font-weight: bold;
+    font-size: 14pt;
+    margin: 0 0 0.5em 0;
     }
 
-.checked {
-    color: var(--primary);
+.fa-star {
+    transition-duration : 0.5s;
+    font-size           : 2.75vw;
+    color : var(--onPrimary);
+    }
+
+
+.fa-star.checked {
+    color : var(--primary) !important;
+    /* lager en ny identisk tekst-skygge (uten blur-radius) for hver pixel teksten skal bevege seg, med offset x og y. */
+    text-shadow: 1px 1px darkslategray, 2px 2px darkslategray, 3px 3px darkslategray, 4px 4px darkslategray, 5px 5px darkslategray;
+    /* beveger teksten likt tekst-skyggens lengde i piksler, slik at teksten beveger seg på plass. */
+    transform: translateX(-5px) translateY(-5px);
     }
 
 

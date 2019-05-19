@@ -37,12 +37,15 @@
     function delete($table, $id)
     {
             $table_id = $table . '_id';
-
             $delSql = "DELETE FROM $table WHERE $table_id=$id";
-
             return $GLOBALS['conn']->query($delSql) ? true : false;
     }
 
+    function deleteComposite($table, $id1Prefix, $id2Prefix, $id1, $id2)
+    {
+        $delSql = "DELETE FROM $table WHERE $id1Prefix=$id1 AND $id2Prefix = $id2";
+        return $GLOBALS['conn']->query($delSql) ? true : false;
+    }
 
 
     /**
@@ -69,28 +72,25 @@
      */
     function addGenres($_album_id, array $genres, $doesEcho=true)
     {
-        echo 'Adding genres (album_id=' . $_album_id . '): <br>';
+        if($doesEcho) echo 'Adding genres (album_id=' . $_album_id . '): <br>';
+
         foreach ($genres as $i => $genre) {
-            // checks if table has a row with same album and genre as requested in the parameters.
+
             if ($GLOBALS['conn']->query('SELECT genre FROM album_genre WHERE genre="' . $genre . '" AND album_id="' . $_album_id . '"')->fetch_assoc()) {
+
+                // IGNORES REQUEST IF ALBUM ALREADY HAS GENRE
                 if($doesEcho) echo 'Album with id ' . $_album_id . ' already has genre ' . $genre . ', ignoring it. <br>';
+
             } else {
+
+                // APPLYING THE REQUEST
                 $sql = 'INSERT INTO album_genre (album_id, genre) VALUES ("' . $_album_id . '","' . $genre . '")';
                 $query = $GLOBALS['conn']->query($sql);
                 if($doesEcho) echo $query ? 'Genre[' . $i . ']=' . $genre . '<br>' : '<br> Couldn\'t add genre [' . $i . '] ' . $genre . ', error:' . $GLOBALS['conn']->error;
+
             }
         }
     }
 
-/*
-    function rate($what, $target_id, $rating)
-    {
-        //checks if rating already exists, if so, deletes it;
-        if (isset($conn->query('SELECT user_id FROM userRating' . $what)->fetch_assoc())) {
-
-        }
-        $sql = 'INSERT INTO userRating_' . $what . ' ';
-    }
-*/
 
 ?>

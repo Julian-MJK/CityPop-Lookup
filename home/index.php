@@ -70,11 +70,14 @@
     <!-- SEARCH BAR -->
     <?php include "../-HTML/UI_searchbar.html"; ?>
 
+
     <span><br><br></span>
 
 
     <!-- OPTIONAL MESSAGE BAR -->
     <?php include '../-HTML/UI_msg.php' ?>
+
+
 
     <!-- INFO BOX -->
     <div id="textBox" style="min-width: 550px; max-width: 33vw; font-size: 14pt;" class="frame leanUpRightPerma leanNormal secondaryVariant hoverFillPrimary">
