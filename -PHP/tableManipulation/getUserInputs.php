@@ -51,7 +51,6 @@
         }
     }
 
-
     $input_fieldCount = count($input_fieldNames);
 
     for ($i = 0; $i < $input_fieldCount; $i++) {

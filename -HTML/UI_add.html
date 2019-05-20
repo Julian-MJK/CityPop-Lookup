@@ -36,7 +36,7 @@
                     <input name="imgURL" type="text">
                     <input name="birthYear" type="number">
                 </span>
-                <script>$('#artistBioP')[0].style.height = 45+'px'</script>
+                <script>$('#artistBioP')[0].style.height = 45 + 'px'</script>
             </span>
             <!--<div class="container">
                 <p>Last name:</p>
@@ -68,7 +68,7 @@
                 </span>
                 <span>
                     <input name="title" required type="text">
-                    <input name="artistName" required type="text">
+                    <input name="name" required type="text" id="albumArtistNameInput">
                     <input name="genre" pattern=".{2,}" placeholder="separate with commas" type="text">
                     <input name="releaseYear" type="number">
                     <input name="imgURL" type="text">
@@ -77,8 +77,8 @@
 
             <div class="container">
                 <button class="retroButton" onclick='
-                $("#addArtist #artistNameInput")[0].value = $("#addArtist #artistNameInput")[0].value.replace(/&nbsp;/gi, "").replace(/\s+/g, " ").trim();
-                $("#addArtist button[type=\"submit\"]").click()
+                $("#addArtist #artistNameInput")[0].value = $("#addAlbum #albumArtistNameInput")[0].value.replace(/&nbsp;/gi, "").replace(/\s+/g, " ").trim();
+                $("#addAlbum button[type=\"submit\"]").click()
             ' type="button">
                     <i class="material-icons">library_add</i>
                 </button> <!--style="margin: 0; font-size: 25pt;"-->

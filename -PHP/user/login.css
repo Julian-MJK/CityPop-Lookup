@@ -28,7 +28,8 @@
 #addDiv span p {
     margin-right : 10px;
     font-weight  : bold;
-    font-size    : 12pt;
+    font-size    : 16pt;
+    text-align   : right;
     }
 
 #addDiv > form > span > span:nth-child(1) {
@@ -40,3 +41,5 @@
     width       : 175px;
     align-items : flex-start;
     }
+
+

@@ -33,14 +33,26 @@
     }
 
 
-
+    /**
+     * @param $table
+     * @param $id
+     * @return bool
+     */
     function delete($table, $id)
     {
-            $table_id = $table . '_id';
-            $delSql = "DELETE FROM $table WHERE $table_id=$id";
-            return $GLOBALS['conn']->query($delSql) ? true : false;
+        $table_id = $table . '_id';
+        $delSql = "DELETE FROM $table WHERE $table_id=$id";
+        return $GLOBALS['conn']->query($delSql) ? true : false;
     }
 
+    /**
+     * @param $table
+     * @param $id1Prefix
+     * @param $id2Prefix
+     * @param $id1
+     * @param $id2
+     * @return bool
+     */
     function deleteComposite($table, $id1Prefix, $id2Prefix, $id1, $id2)
     {
         $delSql = "DELETE FROM $table WHERE $id1Prefix=$id1 AND $id2Prefix = $id2";
@@ -70,23 +82,23 @@
      * @param array $genres
      * @param bool $doesEcho
      */
-    function addGenres($_album_id, array $genres, $doesEcho=true)
+    function addGenres($_album_id, array $genres, $doesEcho = true)
     {
-        if($doesEcho) echo 'Adding genres (album_id=' . $_album_id . '): <br>';
+        if ($doesEcho) echo 'Adding genres (album_id=' . $_album_id . '): <br>';
 
         foreach ($genres as $i => $genre) {
 
             if ($GLOBALS['conn']->query('SELECT genre FROM album_genre WHERE genre="' . $genre . '" AND album_id="' . $_album_id . '"')->fetch_assoc()) {
 
                 // IGNORES REQUEST IF ALBUM ALREADY HAS GENRE
-                if($doesEcho) echo 'Album with id ' . $_album_id . ' already has genre ' . $genre . ', ignoring it. <br>';
+                if ($doesEcho) echo 'Album with id ' . $_album_id . ' already has genre ' . $genre . ', ignoring it. <br>';
 
             } else {
 
                 // APPLYING THE REQUEST
                 $sql = 'INSERT INTO album_genre (album_id, genre) VALUES ("' . $_album_id . '","' . $genre . '")';
                 $query = $GLOBALS['conn']->query($sql);
-                if($doesEcho) echo $query ? 'Genre[' . $i . ']=' . $genre . '<br>' : '<br> Couldn\'t add genre [' . $i . '] ' . $genre . ', error:' . $GLOBALS['conn']->error;
+                if ($doesEcho) echo $query ? 'Genre[' . $i . ']=' . $genre . '<br>' : '<br> Couldn\'t add genre [' . $i . '] ' . $genre . ', error:' . $GLOBALS['conn']->error;
 
             }
         }

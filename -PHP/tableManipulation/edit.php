@@ -39,9 +39,9 @@
     if (isset($birthYear)) edit($table, $id, 'birthYear', $birthYear);
 
 
-    //echo "<script type='text/javascript'> self.close(); </script>";
     header('Location: ../../artist/?a=' . $id);
 
+    //echo "<script type='text/javascript'> self.close(); </script>";
 
     /*
     $inputs = ['firstName'=>$firstName, 'lastName'=>$lastName, 'bio'=>$bio, 'imgURL'=>$imgURL, 'birthYear'=>$birthYear];

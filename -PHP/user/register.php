@@ -58,7 +58,7 @@
 
         if ($querySuccess) {
             $error = 'User ' . $username . ' registered successfully';
-            $msgColor = '#028900';
+            $msgColor = '#bcffff';
         } else {
             $error = "Something went wrong, couldn't create user $username for query $sql";
         }

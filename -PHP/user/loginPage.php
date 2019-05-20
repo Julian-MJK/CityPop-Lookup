@@ -1,6 +1,7 @@
 <?php
 
     include '../generic_functions.php';
+
     if (isset($_POST['msg'])) $msg = $_POST['msg'];
     isset($_POST['msgColor']) ? $msgColor = $_POST['msgColor'] : $msgColor = 'var(--red)';
 
@@ -30,14 +31,14 @@
     <h1 class="title" style="font-size: 10vh; margin: 0 0 4vh 0">Lookup</h1>
 
     <div class='justifyCenter textAlignCenter pop noBottomPadding' id='addDiv'>
-        <form action="login.php" id="main_form" method="post" name="main_form">
+        <form action="login.php" id="main_form" method="post" name="main_form" style="display: block">
             <h1>Login</h1>
             <!-- jeg vet jeg kan bruke <label> her, og flere andre metoder, men jeg foretrekker personlig denne metoden. -->
             <span class="noPadding noMargin">
                 <span>
                     <p>Username: </p>
                     <p>Password: </p>
-                    <p id="confPassText">Confirm password: </p>
+                    <p id="confPassText">Retype: </p>
                 </span>
                 <span>
                     <input name="username" type="text" required>
@@ -48,10 +49,10 @@
             <button class="fancyButtonPrimary" id='submitBtn' style="margin: 0.75em 0;" type="submit">
                 Login
             </button>
-            <?php if (isset($msg)) echo '<h2 style="color: '. $msgColor .'; margin: 0.5em 0; max-width: 300px; word-break: break-word" class="anim_shake-horizontal"> ' . $msg . ' </h2>'; ?>
+            <?php if (isset($msg)) echo '<h2 id="msg" style="color: '. $msgColor .'; margin: 0.5em 0 1.2em 0; max-width: 300px; word-break: break-word" class="anim_shake-horizontal"> ' . $msg . ' </h2>'; ?>
         </form>
     </div>
-    <button class="fancyButtonBackground" id='switchBtn' onclick="initRegister()" style="margin-top: 3vh; color: var(--onBackground) !important;">
+    <button class="fancyButtonBackground" id='switchBtn' onclick="initRegister()" style="margin-top: 3vh; color: white !important;">
         Don't have an account?
     </button>
 

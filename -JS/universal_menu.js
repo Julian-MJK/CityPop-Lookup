@@ -32,7 +32,7 @@ window.addEventListener("load", function () {
         '            <div class="pointer rmh_item">' +
         '                <i class="fas fa-home" onclick="setTimeout(function(){window.location.href=\' ' + rmh_href + ' \'}, 200)"></i>' +
         '            </div>' +
-        '            <button class="retroButton" onclick="window.location.href = \'../-/user/logout.php/\'" style="margin: 15px 0">log out</button>' +
+        '            <button class="retroButton" onclick="window.location.href = \'../-PHP/user/logout.php/\'" style="margin: 15px 0">log out</button>' +
         '        </div>';
 
     document.body.appendChild(rmh);
