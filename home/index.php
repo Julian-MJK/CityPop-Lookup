@@ -73,7 +73,7 @@
     <!-- Min metode for page-spacing er vanligvis å bruke disse <span> tags'ene med <br> tags i,
     da det tillater meg å lettere og raskere forandre på spacingen og se hvordan jeg liker den.
     Samt. vil jeg kunne variere spacingen på forskjellige sider, som ville vært upraktisk med /_HTML/ modulene. -->
-    <span><br><br></span>
+    <span><br></span>
 
 
     <!-- SEARCH BAR -->
@@ -116,10 +116,22 @@
 
 
 
+
     <span><br><br><br><br><br></span>
 
 
+    <!-- ALL ARTISTS -->
+    <?php include '../_HTML/UI_allArtists.php' ?>
 
+
+    <span><br><br><br></span>
+
+
+    <!-- ADDING -->
+    <?php include '../_HTML/UI_add.html' ?>
+
+
+    <span><br><br><br></span>
     <!-- SPOTLIGHT -->
     <div id="spotlightBorder">
         <div id="spotlightTitle" class="shape-cigar"><h1 class="title"> SPOTLIGHT </h1></div>
@@ -132,28 +144,14 @@
 
 
 
-    <span><br><br><br></span>
 
 
-    <!-- ALL ARTISTS -->
-    <?php include '../_HTML/UI_allArtists.php' ?>
-
-
-    <span><br><br><br><br><br><br></span>
-
-
-    <!-- ADDING -->
-    <?php include '../_HTML/UI_add.html' ?>
-
-
-    <span><br><br><br><br><br><br></span>
     <span><br><br><br><br><br><br></span>
     <span><br><br><br><br><br><br></span>
 
 
 
     <?php include '../_HTML/UI_footer.html'; ?>
-
 
 
 

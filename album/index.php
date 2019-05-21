@@ -26,8 +26,8 @@
         $lipsum = new \joshtronic\LoremIpsum();
         $info = '';
         for ($i = 0; $i < mt_rand(2, 4); $i++) {
-            $info .= '<h3>'.ucfirst($lipsum->words(mt_rand(1, 5))).'</h3>';
-            $info .= $lipsum->sentences(mt_rand(1,3));
+            $info .= '<h3>' . ucfirst($lipsum->words(mt_rand(1, 5))) . '</h3>';
+            $info .= $lipsum->sentences(mt_rand(1, 3));
             $info .= '<br><br>';
         }
     }
@@ -53,7 +53,8 @@
     if ($genres_table) while ($row = $genres_table->fetch_assoc()) {
         $genres[] = $row['genre'];
     }
-    $genres_count = count($genres);
+
+    if (isset($genres)) $genres_count = count($genres);
 
 
     // Used in /_HTML/UI_rating.php.
@@ -160,13 +161,15 @@
                 </div>
 
                 <!-- ALBUM GENRES -->
-                <div id="subjectAlbumsDiv" class="secondary">
+                <div id="subjectGenresDiv" class="secondary">
                     <h1 class="fancyFont noselect"> Genres </h1>
                     <hr>
                     <?php
-                        for ($j = 0; $j < $genres_count; $j++) {
-                            echo '<div class="album container row" onclick="window.location.href=\'../search?query=' . $genres[$j] . '\'"> ' . '<h2 style="font-size: 14pt">' . $genres[$j] . '</h2> </div>';
-                        }
+                        if (isset($genres) && !empty($genres)) {
+                            for ($j = 0; $j < $genres_count; $j++) {
+                                echo '<div class="album container row" onclick="window.location.href=\'../search?query=' . $genres[$j] . '\'" id="genre_' . $j . '"> <h2 style="font-size: 14pt">' . $genres[$j] . '</h2> </div>';
+                            }
+                        } else echo 'no genres yet'
                     ?>
                     <form action="../_PHP/tableManipulation/add.php" method="post" name="addGenreForm" style="width: 100%">
 
@@ -180,13 +183,12 @@
                                 <i class="material-icons" style="font-size: 12pt; height: 12pt; width: 12pt;">library_add</i>
                             </button>
                         </div>
-
                     </form>
                 </div>
 
             </div>
 
-            <!-- ARTIST BIO -->
+            <!-- ALBUM INFO -->
             <div id="subjectBio" style="max-width: 35vw" class="secondary">
                 <h1 id="editable2" class="fancyFont"> <?php echo $title ?> </h1>
                 <hr>
@@ -207,6 +209,19 @@
 
     </div>
 
+
+
+    <!-- DELETING GENRES -->
+    <form hidden id="genreDeletionForm" action="../_PHP/tableManipulation/delete.php" method="post">
+        <input type="text" name="url" value="../../album/?a=<?php echo $album_id ?>">
+        <input type="text" name="composite" value="true">
+        <input type="text" name="table" value="album_genre">
+        <input type="text" name="key1Name" value="album_id">
+        <input type="text" name="key1" value="<?php echo $album_id ?>">
+        <input type="text" name="key2Name" value="genre">
+        <input type="text" name="key2" id="genreDelForm_key2">
+        <button type="submit"></button>
+    </form>
 
 
 
@@ -237,8 +252,8 @@
 
 
 
-
+    <?php include '../_HTML/BTS_scrollTo.php'; ?>
 </div> <!-- end of document wrapper -->
-<?php include '../_HTML/UI_actionButtonsScript.php' ?>
+<?php include '../_HTML/BTS_actionButtonsScript.php' ?>
 </body>
 </html>

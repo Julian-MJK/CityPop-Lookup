@@ -86,7 +86,9 @@
         }
     }
 
-    // IF A RESULT IS FOUND
+
+
+    // ==== IF A RESULT IS FOUND ====
     if (isset($result)) {
 
         // IF AN ARTIST IS FOUND
@@ -170,7 +172,7 @@
             }
             echo '</table>';
         }
-    }
+    } else echo '<h1> No results </h1> <br>'
 
 
 ?>

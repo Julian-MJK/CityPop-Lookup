@@ -1,5 +1,7 @@
 <script>
 
+    var subject = '<?php echo $subject ?>';
+
     // prevents chrome adding a new <div> element on "enter" keypress in contenteditable=true.
     document.execCommand('defaultParagraphSeparator', false, 'p');
 
@@ -25,6 +27,10 @@
      * @desc initiateEditMode() initiates editing mode
      */
     window.initiateEditMode = function () {
+
+        if (subject === "album") {
+            window.initiateGenreDeletionMode();
+        }
 
         $("#editSubjectButton")[0].querySelector("h2").innerHTML = "Submit changes";
 
@@ -55,6 +61,10 @@
 
         $("#deleteSubjectButton")[0].onclick = function () {
 
+            if (subject === "album") {
+                window.exitGenreDeletionMode();
+            }
+
             $("#deleteSubjectButton h2")[0].innerHTML = "Delete <?php echo $subject ?>?";
             $("#editSubjectButton")[0].querySelector("h2").innerHTML = "Edit <?php echo $subject ?>?";
 
@@ -62,7 +72,7 @@
             $("#subjectImgEditPrompt")[0].style.display = "none";
             $("#subjectImg")[0].style.filter = "";
 
-            $("#deleteSubjectButton")[0].onclick = function () { if(confirm('Are you sure you want to delete <?php echo ($subject === 'artist') ? $firstName . ' ' . $lastName : ($subject === 'album' ? $title : $subject) ?> ?')) $('#delSubject_submitBtn').click() };
+            $("#deleteSubjectButton")[0].onclick = function () { if (confirm('Are you sure you want to delete <?php echo ($subject === 'artist') ? $firstName . ' ' . $lastName : ($subject === 'album' ? $title : $subject) ?> ?')) $('#delSubject_submitBtn').click() };
             setTimeout(function () {$("#editSubjectDiv")[0].onclick = function () {initiateEditMode()};}, 100);
 
         }
@@ -87,7 +97,6 @@
         console.table(results);
 
 
-        let subject = '<?php echo $subject ?>';
 
         if (subject === 'artist') {
             $("#editForm_name")[0].value = results[1];
@@ -111,6 +120,57 @@
         }, 250);
 
     };
+
+
+    if (subject === "album") {
+        window.selectedGenreI = 0;
+        window.selectedGenre = "";
+
+        var genresContainer = $("#subjectGenresDiv")[0];
+        var genreCount = '<?php echo isset($genres_count) ? $genres_count : 0; ?>';
+        genreCount = Number(genreCount);
+        var genresEl = [];
+
+        window.initiateGenreDeletionMode = function () {
+            if (genreCount !== 0) {
+
+                for (let i = 0; i < genreCount; i++) {
+                    genresEl[i] = genresContainer.getElementsByClassName("album")[i];
+                    genresEl[i].style.fontStyle = "italic";
+                    genresEl[i].onmouseenter = function () {
+                        this.style.textDecoration = "line-through";
+                        this.style.transform = "scale(1.3)";
+                        this.querySelector("h2").style.textDecoration = "initial";
+                    };
+                    genresEl[i].onmouseleave = function () {
+                        this.style.transform = "";
+                        this.style.textDecoration = "";
+                    };
+                    genresEl[i].onclick = function () {
+                        window.selectedGenreI = i;
+                        window.selectedGenre = this.querySelector("h2").innerText;
+                        //$("#genreDeletionForm")[0].getElementsByTagName("key2")
+                        document.getElementById("genreDelForm_key2").value = "'" + window.selectedGenre + "'";
+                        $("#genreDeletionForm")[0].querySelector("button").click();
+                    }
+                }
+            }
+        };
+
+
+        window.exitGenreDeletionMode = function () {
+            if (genreCount !== 0) {
+                for (let i = 0; i < genreCount; i++) {
+                    genresEl[i].style.fontStyle = "normal";
+                    genresEl[i].style.textDecoration = "";
+                    genresEl[i].style.transform = "";
+                    genresEl[i].onmouseenter = function () { this.style.textDecoration = "underline"};
+                    genresEl[i].onmouseleave = function () { this.style.textDecoration = ""};
+                    genresEl[i].onclick = function () {window.location.href = '../search?query=' + this.querySelector("h2").innerText}
+                }
+            }
+        }
+    }
 
 
 </script>

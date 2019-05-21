@@ -39,7 +39,7 @@ CREATE TABLE `genre` (
 
 LOCK TABLES `genre` WRITE;
 /*!40000 ALTER TABLE `genre` DISABLE KEYS */;
-INSERT INTO `genre` VALUES ('',NULL,NULL,NULL),('city pop',1980,'Japan',NULL),('country',NULL,NULL,NULL),('disco',1970,'United States',NULL),('folk',NULL,NULL,NULL),('funk',1960,'United States',NULL),('jazz',1920,'New Orleans',NULL),('pop',NULL,NULL,NULL),('rock',NULL,NULL,NULL),('soul',1950,'United States',NULL),('world',NULL,NULL,NULL);
+INSERT INTO `genre` VALUES ('',NULL,NULL,NULL),('city pop',1980,'Japan',NULL),('country',NULL,NULL,NULL),('disco',1970,'United States',NULL),('fake',NULL,NULL,NULL),('fake genre 55',NULL,NULL,NULL),('folk',NULL,NULL,NULL),('funk',1960,'United States',NULL),('fusion',NULL,NULL,NULL),('jazz',1920,'New Orleans',NULL),('pop',NULL,NULL,NULL),('rock',NULL,NULL,NULL),('soul',1950,'United States',NULL),('test',NULL,NULL,NULL),('world',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `genre` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-21  2:20:07
+-- Dump completed on 2019-05-21 14:58:38

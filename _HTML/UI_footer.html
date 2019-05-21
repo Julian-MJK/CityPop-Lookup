@@ -10,3 +10,13 @@
     <div class="lowBound"><p></p>
         <p></p></div>
 </div>
+
+<script>
+    /**
+     * Prevents form-resubmission on page reload.
+     */
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
+

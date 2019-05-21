@@ -18,8 +18,12 @@
     }
 
     // informs the user if something failed to edit.
-    if (isset($result)) if (in_array(false, $result, true)) passTo('../../' . $table . '/?a='.$id, ['msg'], ['Failed to edit one or more values in ' . $table]);
+    if (isset($result)) if (in_array(false, $result, true)) passTo("../../$table/?a=$id", ['msg'], ['Failed to edit one or more values in ' . $table]);
 
-    header('Location: ../../' . $table . '/?a=' . $id);
+
+    passTo("../../$table/?a=$id", ['scrollTo'], ['ratingDiv']);
+
+
+    //header("Location: ../../$table/?a=$id");
 
 

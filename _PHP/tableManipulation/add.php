@@ -115,13 +115,12 @@
 
     // ==== GENRES ====
     // added independently
-    if ($table !== 'genre') {
+    if ($table === 'genre' || $table === 'album_genre') {
 
         // fetching the most recently inserted album's id.
         foreach ($input_fieldNames as $i => $datum) {
             if ($datum === 'album_id') $album_id = $input_data[$i];
             if ($datum === 'genre') $genres = $input_data[$i];
-
         }
 
         $genres = explode(',', $genres);
@@ -131,7 +130,8 @@
 
         addgenres($album_id, $genres);
 
-        header('Location: ../../album/?a=' . $album_id);
+        passTo("../../album/?a=$album_id", ['scrollTo'], ['subjectGenresDiv']);
+
     }
 
 

@@ -104,12 +104,14 @@
             <div id="artistRatings" style="max-width: 33vw" class="secondary">
                 <h1 id="editable2" class="fancyFont"> Artists </h1>
                 <hr>
-                <table class="container">
-                    <tr class="container">
-                        <th style="border: none">Artist</th>
-                        <th style="border: none">Rating</th>
-                    </tr>
-                    <?php
+
+                <?php
+                    if (isset($ratings->artists->all)) {
+                        echo '<table class="container">
+                                    <tr class="container">
+                                        <th style="border: none">Artist</th>
+                                        <th style="border: none">Rating</th>
+                                    </tr>';
                         foreach ($ratings->artists->all as $i => $artist) {
                             echo '<tr class="container" style="background-color: transparent !important"><td>';
                             echo '<button class="minimalistButton noPadding" style="color: black; font-size: 12pt;" onclick="window.location.href=\'../artist/?a=' . $artist['artist_id'] . '\'">';
@@ -118,18 +120,20 @@
                             echo '<p style="color: black; margin-left: 1em">' . floor($artist['rating']) . ' / 5</p></div></button>';
                             echo '</td></tr>';
                         }
-                    ?>
-                </table>
+                        echo '</table>';
+                    } else echo '<h2 style="margin: 25px"> No artists rated yet </h2>'
+                ?>
             </div>
             <div id="albumRatings" style="max-width: 35vw" class="secondary">
                 <h1 id="editable2" class="fancyFont"> Albums </h1>
                 <hr>
-                <table class="container">
-                    <tr class="container">
-                        <th style="border: none">Artist</th>
-                        <th style="border: none">Rating</th>
-                    </tr>
-                    <?php
+                <?php
+                    if (isset($ratings->albums->all)) {
+                        echo '<table class="container">
+                                    <tr class="container">
+                                        <th style="border: none">Artist</th>
+                                        <th style="border: none">Rating</th>
+                                    </tr>';
                         foreach ($ratings->albums->all as $i => $album) {
                             echo '<tr class="container" style="background-color: transparent !important"><td>';
                             echo '<button class="minimalistButton noPadding" style="color: black; font-size: 12pt;" onclick="window.location.href=\'../album/?a=' . $album['album_id'] . '\'">';
@@ -138,15 +142,13 @@
                             echo '<p style="color: black; margin-left: 1em">' . floor($album['rating']) . ' / 5</p></div></button>';
                             echo '</td></tr>';
                         }
-                    ?>
-                </table>
+                        echo '</table>';
+                    } else echo '<h2 style="margin: 25px"> No albums rated yet </h2>'
+                ?>
             </div>
         </div>
 
     </div>
-
-
-
 
 
 

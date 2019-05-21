@@ -21,17 +21,6 @@
 
 
     /**
-     * @param $table
-     * @param array $columns
-     * @param array $values
-     */
-    function add($table, array $columns, array $values)
-    {
-
-    }
-
-
-    /**
      * @function
      * @desc - Updates $column of $table.'_id' to $value.
      * @param $table
@@ -46,12 +35,15 @@
 
         $sql = 'UPDATE ' . $table . ' SET ' . $column . '="' . $value . '" WHERE ' . $table . '_id=' . $id;
         if ($_SESSION['debugMode']) echo '<br>( - - - S Q L - - - ) ' . $sql . '<br>';
-        echo $GLOBALS['conn']->query($sql) ? '<br>' . $table . ' record updated successfully' : '<br> Error: ' . $GLOBALS['conn']->error;
+        if ($_SESSION['debugMode']) echo $GLOBALS['conn']->query($sql) ? "<br> $table record updated successfully." : '<br> Error: ' . $GLOBALS['conn']->error;
+
         return $GLOBALS['conn']->query($sql) ? true : false;
     }
 
 
     /**
+     * @function
+     * @desc Deletes an entry in given table with given Primary Key value, assuming the Primary Key fieldName is $tableName.'_id'.
      * @param $table
      * @param $id
      * @return bool
@@ -64,21 +56,27 @@
     }
 
     /**
+     * @function
+     * @desc Deletes a composite key consisting of two keys.
      * @param $table
-     * @param $id1Prefix
-     * @param $id2Prefix
+     * @param $id1FieldName
+     * @param $id2FieldName
      * @param $id1
      * @param $id2
      * @return bool
      */
-    function deleteComposite($table, $id1Prefix, $id2Prefix, $id1, $id2)
+    function deleteComposite($table, $id1FieldName, $id2FieldName, $id1, $id2)
     {
-        $delSql = "DELETE FROM $table WHERE $id1Prefix=$id1 AND $id2Prefix = $id2";
+        $delSql = "DELETE FROM $table WHERE $id1FieldName=$id1 AND $id2FieldName=$id2";
         return $GLOBALS['conn']->query($delSql) ? true : false;
+
+        // can be expanded to accept an array of keys and keyNames, and thus be scalable, but this will do for now.
     }
 
 
     /**
+     * @function
+     * @desc Redirects the user to given $url, while sending given values as _POST variables, to be fetched by the receiving-page.
      * @param $url
      * @param array $postNames
      * @param array $postValues
@@ -89,13 +87,24 @@
         foreach ($postNames as $i => $postName) {
             echo "<input type='text' hidden name='" . $postName . "' value='" . escape($postValues[$i]) . "'>";
         }
+
         echo "<button type='submit'>If you're not automatically redirected,<noscript> then your browser doesn't support JavaScript, </noscript> click here.</button>
-            <script> document.querySelector('form').querySelector('button').click() </script>
-        </form>";
+            <script> setTimeout(function(){document.querySelector('form').querySelector('button').click()}, 50); </script>
+        </form> <br> <br> <a href='../home/'> If for some reason that didn't work, the developer probably made a silly mistake, click here. </a>";
     }
+
+    // Note that normally, using _POST would prompt the user to re-submit the form on page-refresh, but I've included this piece of script:
+    //    if (window.history.replaceState) {
+    //        window.history.replaceState(null, null, window.location.href);
+    //    }
+    // In the footer, which prevents just that. If it weren't for that piece of script, I would be more careful with using passTo, or I'd use some other method, like cookies.
+
+
 
 
     /**
+     * @function
+     * @desc Adds $genres to given $_album_id. If specified genre doesn't exist, it's created and then inserted, and if given album already has specified genre, it's ignored.
      * @param $_album_id
      * @param array $genres
      */
@@ -113,9 +122,9 @@
 
             } else {
 
-                // ADDS GENRE IF IT DOESN'T EXIST
+                // CREATES GENRE IF IT DOESN'T EXIST
                 if (!$GLOBALS['conn']->query('SELECT * FROM genre WHERE name="' . $genre . '"')->fetch_assoc()) {
-                    $GLOBALS['conn']->query('INSERT INTO genre (name) VALUES ("'.$genre.'")');
+                    $GLOBALS['conn']->query('INSERT INTO genre (name) VALUES ("' . $genre . '")');
                 }
 
                 // INSERTING THE REQUESTED GENRE
@@ -130,7 +139,7 @@
 
     /**
      * @function
-     * @desc Does what escape() is supposed to do, but without totally messing up the string.
+     * @desc Does what addslashes() is supposed to do, but without totally messing up the string.
      * @param $string
      * @return mixed
      */
