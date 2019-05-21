@@ -192,7 +192,6 @@
     <?php include '../_HTML/UI_footer.html' ?>
 
 
-    <?php include '../_HTML/BTS_scrollTo.php'; ?>
 </div> <!-- end of document wrapper -->
 <?php include '../_HTML/BTS_actionButtonsScript.php' ?>
 </body>

@@ -9,5 +9,10 @@
         ';
     }
 
+    if (isset($_POST['scrollTo'])) {
+        $scrollTo = $_POST['scrollTo'];
+        echo "<script> $(function(){setTimeout(function(){document.getElementById(\"$scrollTo\").scrollIntoView({block: 'center'}) }, 50); }); </script>";
+    }
+
 ?>
 

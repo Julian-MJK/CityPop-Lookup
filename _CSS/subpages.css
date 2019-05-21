@@ -188,7 +188,9 @@ div > *[contenteditable="true"]:focus {
     font-style : italic;
     }
 
-
+#subjectGenresDiv .album{
+    cursor: pointer;
+    }
 
 
 
