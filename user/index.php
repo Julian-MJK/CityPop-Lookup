@@ -132,7 +132,7 @@
                     <?php
                         foreach ($ratings->albums->all as $i => $album) {
                             echo '<tr class="container" style="background-color: transparent !important"><td>';
-                            echo '<button class="minimalistButton noPadding" style="color: black; font-size: 12pt;" onclick="window.location.href=\'../artist/?a=' . $album['album_id'] . '\'">';
+                            echo '<button class="minimalistButton noPadding" style="color: black; font-size: 12pt;" onclick="window.location.href=\'../album/?a=' . $album['album_id'] . '\'">';
                             echo '<div class="container row" style="justify-items: center; align-items: center; justify-content: center; align-content"> ' . $album['title'];
                             echo '</td><td class="table_rating">';
                             echo '<p style="color: black; margin-left: 1em">' . floor($album['rating']) . ' / 5</p></div></button>';

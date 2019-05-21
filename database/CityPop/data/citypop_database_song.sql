@@ -1,4 +1,6 @@
--- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `citypop_database` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_bin */;
+USE `citypop_database`;
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: citypop_database
 -- ------------------------------------------------------
@@ -29,7 +31,7 @@ CREATE TABLE `song` (
   PRIMARY KEY (`song_id`),
   KEY `FK_song_album_idx` (`album_id`),
   CONSTRAINT `FK_song_album` FOREIGN KEY (`album_id`) REFERENCES `album` (`album_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +40,7 @@ CREATE TABLE `song` (
 
 LOCK TABLES `song` WRITE;
 /*!40000 ALTER TABLE `song` DISABLE KEYS */;
-INSERT INTO `song` VALUES (1,1,'Ride On Time'),(2,2,'Plastic Love'),(3,1,'Daydream');
+INSERT INTO `song` VALUES (1,1,'Ride On Time'),(2,2,'Plastic Love'),(3,1,'Daydream'),(4,12,'Cheer Up! The Summer'),(5,12,'Cool Cat\'s Girl'),(6,12,'Jody (she Was Crying)');
 /*!40000 ALTER TABLE `song` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-13 14:27:08
+-- Dump completed on 2019-05-21  2:20:07

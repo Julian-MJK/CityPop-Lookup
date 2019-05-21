@@ -1,4 +1,6 @@
--- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `citypop_database` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_bin */;
+USE `citypop_database`;
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: citypop_database
 -- ------------------------------------------------------
@@ -23,12 +25,12 @@ DROP TABLE IF EXISTS `genre`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `genre` (
-  `genre_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) COLLATE utf8_bin NOT NULL,
   `inception` year(4) DEFAULT NULL,
-  `origin` varchar(45) COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`genre_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `origin` varchar(45) COLLATE utf8_bin DEFAULT NULL,
+  `originInfo` varchar(500) COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +39,7 @@ CREATE TABLE `genre` (
 
 LOCK TABLES `genre` WRITE;
 /*!40000 ALTER TABLE `genre` DISABLE KEYS */;
-INSERT INTO `genre` VALUES (1,'city pop',1980,'Japan'),(2,'funk',1960,'United States'),(3,'disco',1970,'United States'),(4,'jazz',1920,'New Orleans'),(5,'soul',1950,'United States');
+INSERT INTO `genre` VALUES ('',NULL,NULL,NULL),('city pop',1980,'Japan',NULL),('country',NULL,NULL,NULL),('disco',1970,'United States',NULL),('folk',NULL,NULL,NULL),('funk',1960,'United States',NULL),('jazz',1920,'New Orleans',NULL),('pop',NULL,NULL,NULL),('rock',NULL,NULL,NULL),('soul',1950,'United States',NULL),('world',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `genre` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-13 14:27:08
+-- Dump completed on 2019-05-21  2:20:07

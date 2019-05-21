@@ -1,3 +1,9 @@
+
+.titleDiv {
+    left : unset !important;
+    }
+
+
 #spotlightTitle {
     padding          : 15px 50px;
     background-image : radial-gradient(circle at 0%, var(--secondaryVariant) 55%, var(--secondary));
@@ -128,4 +134,6 @@
 .spotlight_container button h2 {
     text-shadow : 0 3px 2px rgba(0, 0, 0, .5);
     }
+
+
 

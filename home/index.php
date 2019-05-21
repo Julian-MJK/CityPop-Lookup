@@ -15,13 +15,14 @@
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>-->
     <script src="../_JS/jquery-3.4.0.js"></script>
 
+    <link href="stylesheet.css" rel="stylesheet">
+
     <script src="../_JS/oddUtilities.js"></script>
     <link href="../_CSS/classes.css" rel="stylesheet">
     <link href="../_CSS/universal_generic.css" rel="stylesheet">
     <link href="../_CSS/universal_theme.css" rel="stylesheet">
 
 
-    <link href="stylesheet.css" rel="stylesheet">
 
     <script src="index_boxes.js"></script>
     <script src="index-scrolling-and-toolbar.js"></script>
@@ -127,57 +128,27 @@
 
 
 
-    <span><br><br><br><br><br></span>
 
-    <!-- ALL ARTISTS
+
+
+
+    <span><br><br><br></span>
+
+
+    <!-- ALL ARTISTS -->
     <?php include '../_HTML/UI_allArtists.php' ?>
-    <span><br><br><br><br><br></span>
-    -->
+
+
+    <span><br><br><br><br><br><br></span>
 
 
     <!-- ADDING -->
     <?php include '../_HTML/UI_add.html' ?>
 
 
-
-    <span><br><br><br><br><br></span>
-    <span><br><br><br><br><br></span>
-    <span><br><br><br><br><br></span>
-
-
-    <div id="testingDiv" class="secondaryVariant" style="display: none">
-
-
-        <?php
-            $sql = "SELECT * FROM artist ORDER BY birthYear";
-            $artists = $conn->query($sql);
-            echo "<h3> The query \"$sql\" resulted in $artists->num_rows rows. </h3> <br>";
-
-            echo '<table><tr><th>artist_id</th><th>firstName</th><th>lastName</th><th>birthYear</th></tr>';
-
-            while ($row = $artists->fetch_assoc()) {
-                $artist_id = $row['artist_id'];
-                $artist_firstName = $row['firstName'];
-                $artist_lastName = $row['lastName'];
-                $artist_birthYear = $row['birthYear'];
-                echo "<tr>";
-                echo "<td>$artist_id</td>";
-                echo "<td>$artist_firstName</td>";
-                echo "<td>$artist_lastName</td>";
-                echo "<td>$artist_birthYear</td>";
-                echo "</tr>";
-            }
-            echo '</table>';
-        ?>
-
-
-        <form action="../_PHP/testing.php" target="_blank" method="get">
-            <input type="text" name="text">
-            <button type="submit">submit</button>
-        </form>
-
-
-    </div>
+    <span><br><br><br><br><br><br></span>
+    <span><br><br><br><br><br><br></span>
+    <span><br><br><br><br><br><br></span>
 
 
 
