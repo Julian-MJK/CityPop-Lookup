@@ -1,8 +1,0 @@
-
-
-ADD ALBUM PAGE
-
-X - ADD "EDIT" BUTTON ON ARTISTS INFO (w. select to choose what to edit?)
-
-
-

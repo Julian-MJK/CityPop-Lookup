@@ -1,31 +1,47 @@
 <?php
 
-    require '../-PHP/connection.php';
+    require '../_PHP/connection.php';
+    include '../_PHP/generic_functions.php';
 
-    isset($_GET['a']) ? $artist_id = $_GET['a'] : die('No artist selected, <a href="../"> click here to go back</a>');
+    // Alerting the user if no artist
+
+    isset($_GET['a']) && !empty($_GET['a']) ? $artist_id = $_GET['a'] : passTo('../home/', ['msg', 'msgBGColor', 'msgColor'], ['No artist selected.', 'red', 'white']); //die('No artist selected <a href="../"> click here to go back</a>');
+
     $sql = "SELECT * FROM artist WHERE artist_id='$artist_id'";
     $artist = $conn->query($sql)->fetch_assoc();
 
-    if (!$artist) die('Couldn\'t find artist');
-
+    if (!$artist) passTo('../home/', ['msg', 'msgBGColor', 'msgColor'], ['Artist with ID ' . $artist_id . ' does not exist.', 'red', 'white']); //die('Artist with ' . ((isset($artist_id) && !empty($artist_id)) ? 'ID ' . $artist_id : 'that ID') . ' doesn\'t exists, <a href="../"> click here to go back</a>.');
 
     $firstName = $artist['firstName'];
     if (isset($artist['lastName'])) $lastName = $artist['lastName'];
     if (isset($artist['birthYear'])) $birthYear = $artist['birthYear'];
     if (isset($artist['imgURL'])) $imgURL = $artist['imgURL'];
-    if (isset($artist['bio'])) $bio = $artist['bio'];
-
-    $album = new stdClass();
-    $album->table = $conn->query("SELECT * FROM album WHERE artist_id='$artist_id'");
-    $album->count = 0;
-    while ($rad = $album->table->fetch_assoc()) {
-        $album->count++;
-        $album_id = $rad['album_id'];
-        $album_title = $rad['title'];
-        $album_releaseYear = $rad['releaseYear'];
-        $albums[$album->count] = ['album_id' => $album_id, 'title' => $album_title, 'releaseYear' => $album_releaseYear];
+    if (isset($artist['bio'])) {
+        $bio = $artist['bio'];
+    } else {
+        // generates lorem ipsum for artist, if no bio is found.
+        include '../_PHP/LoremIpsum.php';
+        $lipsum = new \joshtronic\LoremIpsum();
+        $bio = '';
+        for ($i = 0; $i < mt_rand(1, 3); $i++) {
+            $bio .= '<h3>'.ucfirst($lipsum->words(mt_rand(1, 5))).'</h3>';
+            $bio .= $lipsum->sentences(mt_rand(2,4));
+            $bio .= '<br><br>';
+        }
     }
 
+    $albums = new stdClass();
+    $albums->table = $conn->query("SELECT * FROM album WHERE artist_id='$artist_id' ORDER BY releaseYear ASC");
+    $albums->count = 0;
+    while ($rad = $albums->table->fetch_assoc()) {
+        $albums->count++;
+        $_album_id = $rad['album_id'];
+        $_album_title = $rad['title'];
+        $_album_releaseYear = $rad['releaseYear'];
+        $albums->all[$albums->count] = ['album_id' => $_album_id, 'title' => $_album_title, 'releaseYear' => $_album_releaseYear];
+    }
+
+    // Used in /_HTML/UI_rating.php.
     $subject = 'artist';
     $subject_id = $artist_id;
 
@@ -44,19 +60,19 @@
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
     <!--|Montserrat|Open+Sans|Raleway|Roboto-->
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>-->
-    <script src="../-JS/jquery-3.4.0.js"></script>
-    <script src="../-JS/fitty.min.js"></script>
+    <script src="../_JS/jquery-3.4.0.js"></script>
+    <script src="../_JS/fitty.min.js"></script>
 
-    <script src="../-JS/universal_menu.js"></script>
-    <link href="../-CSS/universal_menu.css" rel="stylesheet">
+    <script src="../_JS/universal_menu.js"></script>
+    <link href="../_CSS/universal_menu.css" rel="stylesheet">
 
-    <script src="../-JS/oddUtilities.js"></script>
-    <link href="../-CSS/classes.css" rel="stylesheet">
+    <script src="../_JS/oddUtilities.js"></script>
+    <link href="../_CSS/classes.css" rel="stylesheet">
 
-    <link href="../-CSS/universal.css" rel="stylesheet">
-    <link href="../-CSS/universal_theme.css" rel="stylesheet">
+    <link href="../_CSS/universal_generic.css" rel="stylesheet">
+    <link href="../_CSS/universal_theme.css" rel="stylesheet">
 
-    <link href="stylesheet.css" rel="stylesheet">
+    <link href="../_CSS/subpages.css" rel="stylesheet">
 
 
 
@@ -65,7 +81,7 @@
 
 
 <!-- header -->
-<?php include '../-HTML/UI_header.html' ?>
+<?php include '../_HTML/UI_header.html' ?>
 
 
 <!-- DOCUMENT WRAPPER -->
@@ -73,17 +89,17 @@
 
 
     <!-- stuff overlapping the header (the header box uses clip-path, which also cuts child elements, therefore this is outside of the main header container.) -->
-    <?php include '../-HTML/UI_onHeader.html' ?>
+    <?php include '../_HTML/UI_onHeader.html' ?>
     <span><br></span>
 
 
     <!-- SEARCH BAR -->
-    <?php include '../-HTML/UI_searchbar.html'; ?>
+    <?php include '../_HTML/UI_searchbar.html'; ?>
     <span><br><br></span>
 
 
     <!-- OPTIONAL MESSAGE BAR -->
-    <?php include '../-HTML/UI_msg.php' ?>
+    <?php include '../_HTML/UI_msg.php' ?>
 
 
     <!-- ARTIST CONTAINER -->
@@ -93,14 +109,14 @@
             <h1 class="title anim_text-expand" id="editable1"> <?php echo $firstName . ' ' . (isset($lastName) ? $lastName : '') ?> </h1>
         </div>
 
-        <div class="white frameShape pop" style="padding: 15px;" id="artistImgContainer">
+        <div class="white frameShape pop" style="padding: 15px;" id="subjectImgContainer">
             <img src="<?php echo (isset($imgURL) && !empty(trim($imgURL))) ? $imgURL : 'https://picsum.photos/800/533'; ?>" alt="<?php echo $firstName . ' ' . (isset($lastName) ? $lastName : '') ?>"
-                 class="frameShape" id="artistImg" title="<?php echo $firstName . ' ' . (isset($lastName) ? $lastName : '') ?>">
-            <div id="artistImgEditPrompt" class="pop" style="display: none;">
-                <input type="text" id="artistImgEditInput" placeholder="new image url">
-                <!-- input type="file" -->
-                <!--<button class="minimalistButton" onclick=""> submit image </button>-->
+                 class="frameShape" id="subjectImg" title="<?php echo $firstName . ' ' . (isset($lastName) ? $lastName : '') ?>">
+            <div id="subjectImgEditPrompt" class="pop" style="display: none;">
+                <input type="text" id="subjectImgEditInput" placeholder="new image url">
             </div>
+            <!-- input type="file" -->
+            <!--<button class="minimalistButton" onclick=""> submit image </button>-->
             <!-- kan alternativt bruke en DIV med background image && background-size:cover && background-repeat:no-repeat, og så en fast størrelse/en visibility:hidden <img> element i den. -->
         </div>
 
@@ -110,16 +126,16 @@
             <div class="container column" id="info_leftColumn">
 
                 <!-- ARTIST RATINGS -->
-                <?php include '../-HTML/UI_ratings.php' ?>
+                <?php include '../_HTML/UI_ratings.php' ?>
 
 
                 <!-- ARTIST ALBUMS -->
-                <div id="artistAlbumsDiv" class="secondary">
-                    <h1 class="fancyFont"> Albums </h1>
+                <div id="subjectAlbumsDiv" class="secondary noselect">
+                    <h1 class="fancyFont"> <i class="material-icons">album</i>Albums<i class="material-icons">album</i> </h1>
                     <hr>
                     <?php
-                        for ($j = 1; $j <= $album->count; $j++) {
-                            echo '<div class="album container row cursor_pointer" onclick="window.location.href=\'../album?a=' . $albums[$j]['album_id'] . '\'"> ' . '<h2>' . $albums[$j]['title'] . '</h2>' . '<p> (' . $albums[$j]['releaseYear'] . ')</p> ' . '</div>';
+                        for ($j = 1; $j <= $albums->count; $j++) {
+                            echo '<div class="album container row cursor_pointer" onclick="window.location.href=\'../album?a=' . $albums->all[$j]['album_id'] . '\'"> ' . '<h2>' . $albums->all[$j]['title'] . '</h2>' . '<p> (' . $albums->all[$j]['releaseYear'] . ')</p> ' . '</div>';
                         }
                     ?>
                 </div>
@@ -132,11 +148,7 @@
                 <div id="editable3" class="container">
                     <p>
                         <?php
-                            echo isset($bio) ? $bio : $firstName . (isset($lastName) ? ' ' . $lastName : '') . " is simply dummy text of the printing and typesetting
-                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                    unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived
-                    not only five centuries, but also the leap into electronic typesetting, remaining essentially
-                    unchanged.";
+                            echo $bio;
                         ?>
                     </p>
                 </div>
@@ -145,42 +157,12 @@
 
 
         <!-- ACTION BUTTONS -->
-        <div class="container" id="actionButtonsContainer">
-            <div class="error" id="deleteArtistDiv">
-                <form action="../-PHP/tableManipulation/delete.php" method="post">
-                    <button type="button" class="container"
-                            onclick="if(confirm('Are you sure you want to delete <?php echo $firstName . ' ' . (isset($lastName) ? $lastName : '') ?>?')) $('#delArtist_submitBtn').click()" id="deleteArtistButton">
-                        <h2>Delete artist?</h2>
-                    </button>
-                    <button type="submit" hidden id="delArtist_submitBtn"></button>
-                    <input type="text" name="id" hidden value="<?php echo $artist_id ?>">
-                    <input type="text" name="table" hidden value="artist">
-                </form>
-            </div>
-
-            <div class="" id="editArtistDiv">
-                <button onclick="initiateEditMode()" id="editArtistButton" class="container">
-                    <h2>Edit artist?</h2>
-                </button>
-            </div>
-        </div>
+        <?php include '../_HTML/UI_actionButtons.php' ?>
         <!-- / -->
 
 
     </div>
 
-
-    <!-- HIDDEN EDIT FORM -->
-    <form hidden action="../-PHP/tableManipulation/edit.php" method="post" style="display: none">
-        <!-- target="_blank" -->
-        <input hidden type="text" name="table" value="artist">
-        <input hidden type="text" name="artist_id" value="<?php echo $artist_id ?>">
-        <input hidden type="text" name="name" id="editForm_name">
-        <input hidden type="text" name="bio" id="editForm_bio">
-        <input hidden type="text" name="imgURL" id="editForm_imageURL" <?php if (isset($imgURL)) echo 'value="' . $imgURL . '"' ?>
-        ">
-        <button hidden type="submit" id="editForm_submitBtn"></button>
-    </form>
 
 
     <span><br><br><br><br></span>
@@ -191,12 +173,12 @@
     <div class="container row">
 
         <!-- ALL ARTISTS -->
-        <?php include '../-HTML/UI_allArtists.html' ?>
+        <?php include '../_HTML/UI_allArtists.php' ?>
 
         <span><br><br></span>
 
         <!-- ADDING -->
-        <?php include '../-HTML/UI_add.html' ?>
+        <?php include '../_HTML/UI_add.html' ?>
 
     </div>
 
@@ -207,117 +189,11 @@
 
 
     <!-- footer -->
-    <?php include '../-HTML/UI_footer.html' ?>
-
+    <?php include '../_HTML/UI_footer.html' ?>
 
 
 
 </div> <!-- end of document wrapper -->
-<script>
-
-    // prevents chrome adding a new <div> element on "enter" keypress in contenteditable=true.
-    document.execCommand('defaultParagraphSeparator', false, 'p');
-
-    window.onresize = function () {
-        fitty('#editable1', {
-            minSize: 30,
-            maxSize: 62
-        });
-    };
-
-    // removes empty <p> tags in biography (leftovers from contentEditable)
-    $('#editable3 p').each(function () {
-        if ($(this).text().replace(/\s/g, '').length === 0 || $(this).text() === '') {
-            $(this).remove();
-        }
-    });
-
-
-    let eventListeners = [];
-
-    /**
-     * @method
-     * @desc initiateEditMode() initiates editing mode
-     */
-    function initiateEditMode() {
-
-        $("#editArtistButton")[0].querySelector("h2").innerHTML = "Submit changes";
-
-        for (let i = 1; i <= 3; i++) document.getElementById("editable" + i).contentEditable = true;
-
-        $("#artistImgEditPrompt")[0].style.display = "flex";
-        $("#artistImg")[0].style.filter = "blur(6px)";
-
-        eventListeners[0] = $("#editable1")[0].addEventListener("input", function () {
-            $("#editable2")[0].innerText = $("#editable1")[0].innerText;
-            fitty('#editable1', {
-                minSize: 30,
-                maxSize: 62
-            });
-        }, false);
-
-        eventListeners[1] = $("#editable2")[0].addEventListener("input", function () {
-            $("#editable1")[0].innerText = $("#editable2")[0].innerText;
-            fitty('#editable1', {
-                minSize: 30,
-                maxSize: 62
-            });
-        }, false);
-
-        setTimeout(function () {$("#editArtistDiv")[0].onclick = function () {submitChanges()};}, 250);
-
-        $("#deleteArtistButton h2")[0].innerHTML = "CANCEL";
-
-        $("#deleteArtistButton")[0].onclick = function () {
-
-            $("#deleteArtistButton h2")[0].innerHTML = "Delete artist?";
-            $("#editArtistButton")[0].querySelector("h2").innerHTML = "Edit artist?";
-
-            for (let i = 1; i <= 3; i++) document.getElementById("editable" + i).contentEditable = false;
-            $("#artistImgEditPrompt")[0].style.display = "none";
-            $("#artistImg")[0].style.filter = "";
-
-            $("#deleteArtistButton")[0].onclick = function () { if (confirm('Are you sure you want to delete <?php echo $firstName . ' ' . $lastName ?>?')) $('#delArtist_submitBtn').click() };
-            setTimeout(function () {$("#editArtistDiv")[0].onclick = function () {initiateEditMode()};}, 100);
-
-        }
-    }
-
-    //if(confirm('Are you sure you want to delete <?php echo $firstName . ' ' . $lastName ?>?')) $('#delArtist_submitBtn').click()
-
-
-    /**
-     * @method
-     * @desc submitChanges() submits the changes by changing the values of a form, and clicking it's submit button.
-     */
-    window.submitChanges = function () {
-
-        let results = [];
-        for (let i = 1; i <= 3; i++) {
-            results[i] = document.getElementById("editable" + i).innerHTML;
-            results[i] = results[i].replace(/&nbsp;/gi, '').trim();
-            results[i] = results[i].replace(/\s+/g, " ");
-        }
-
-        console.table(results);
-
-        $("#editForm_name")[0].value = results[1];
-        $("#editForm_bio")[0].value = results[3];
-        if ($("#artistImgEditInput")[0].value.trim().length > 3) { // !== (undefined || '' || null || ' '))
-            console.log($("#artistImgEditInput")[0].value.trim());
-            $("#editForm_imageURL")[0].value = $("#artistImgEditInput")[0].value.trim();
-        }
-
-        console.log($("#editForm_name")[0].value);
-        console.log($("#editForm_bio")[0].value);
-
-        setTimeout(function () {
-            $("#editForm_submitBtn").click();
-        }, 250);
-
-    };
-
-
-</script>
+<?php include '../_HTML/UI_actionButtonsScript.php' ?>
 </body>
 </html>

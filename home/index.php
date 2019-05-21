@@ -1,5 +1,5 @@
 <?php
-    require '../-PHP/connection.php';
+    require '../_PHP/connection.php';
 ?>
 
 <!DOCTYPE html>
@@ -13,15 +13,16 @@
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
     <!--|Montserrat|Open+Sans|Raleway|Roboto-->
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>-->
-    <script src="../-JS/jquery-3.4.0.js"></script>
+    <script src="../_JS/jquery-3.4.0.js"></script>
 
-    <script src="../-JS/oddUtilities.js"></script>
-    <link href="../-CSS/classes.css" rel="stylesheet">
-    <link href="../-CSS/universal.css" rel="stylesheet">
-    <link href="../-CSS/universal_theme.css" rel="stylesheet">
+    <script src="../_JS/oddUtilities.js"></script>
+    <link href="../_CSS/classes.css" rel="stylesheet">
+    <link href="../_CSS/universal_generic.css" rel="stylesheet">
+    <link href="../_CSS/universal_theme.css" rel="stylesheet">
 
 
     <link href="stylesheet.css" rel="stylesheet">
+
     <script src="index_boxes.js"></script>
     <script src="index-scrolling-and-toolbar.js"></script>
 
@@ -32,7 +33,7 @@
 
 
 <!-- HEADER -->
-<?php include '../-HTML/UI_header.html' ?>
+<?php include '../_HTML/UI_header.html' ?>
 
 
 
@@ -47,7 +48,10 @@
     </div>
 </div>
 <div id="toolbarRight" class="toolbar">
-    <div id="profileSettings" class="toolbarItem"><p>My ratings</p></div>
+    <div id="profileSettings" class="toolbarItem" onclick="window.location.href='../user/'">
+        <p>My ratings</p>
+        <img src="http://cdn.onlinewebfonts.com/svg/img_453152.png" style="border-radius: 0;">
+    </div>
     <div id="logoutButton"><p>logout</p></div>
 </div>
 <!-- END OF TOOLBAR -->
@@ -61,21 +65,25 @@
 
     <!-- overlapping header (the header box uses clip-path, which also cuts child elements, therefore this is outside of the main header container.) -->
     <img id="headerSymbol" src="../resources/img/textures/vinyl250.png" draggable="false">
-    <div style="border-radius: 0; min-height: 50px; top: 10px;" class="titleDiv shape-diamond blackText div cursor_normal"><h1>City Pop Lookup</h1></div>
+    <div style="border-radius: 0; min-height: 50px; top: 10px;" class="titleDiv shape-diamond blackText div cursor_normal">
+        <h1>City Pop Lookup</h1></div>
 
 
+    <!-- Min metode for page-spacing er vanligvis å bruke disse <span> tags'ene med <br> tags i,
+    da det tillater meg å lettere og raskere forandre på spacingen og se hvordan jeg liker den.
+    Samt. vil jeg kunne variere spacingen på forskjellige sider, som ville vært upraktisk med /_HTML/ modulene. -->
     <span><br><br></span>
 
 
     <!-- SEARCH BAR -->
-    <?php include "../-HTML/UI_searchbar.html"; ?>
+    <?php include '../_HTML/UI_searchbar.html'; ?>
 
 
-    <span><br><br></span>
+    <span><br></span>
 
 
     <!-- OPTIONAL MESSAGE BAR -->
-    <?php include '../-HTML/UI_msg.php' ?>
+    <?php include '../_HTML/UI_msg.php' ?>
 
 
 
@@ -98,8 +106,11 @@
             to last, existed as a fantastical dream world for a time.
         </blockquote>
         <p id="cityPopLink1">
-            <a href="https://www.vice.com/en_au/article/mbzabv/city-pop-guide-history-interview" class="smallText"> The
-                Guide to Getting Into City Pop, Tokyo’s Lush 80s Nightlife Soundtrack</a></p>
+            <a href="https://youtu.be/6fJKlCUyhOs" class="smallText">
+                80's Japanese City pop/funk Mix</a></p>
+        <p id="cityPopLink2">
+            <a href="https://www.vice.com/en_au/article/mbzabv/city-pop-guide-history-interview" class="smallText">
+                The Guide to Getting Into City Pop, <br> Tokyo’s Lush 80s Nightlife Soundtrack</a></p>
     </div>
 
 
@@ -118,10 +129,14 @@
 
     <span><br><br><br><br><br></span>
 
+    <!-- ALL ARTISTS
+    <?php include '../_HTML/UI_allArtists.php' ?>
+    <span><br><br><br><br><br></span>
+    -->
 
 
     <!-- ADDING -->
-    <?php include "../-HTML/UI_add.html" ?>
+    <?php include '../_HTML/UI_add.html' ?>
 
 
 
@@ -156,7 +171,7 @@
         ?>
 
 
-        <form action="../-PHP/testing.php" target="_blank" method="get">
+        <form action="../_PHP/testing.php" target="_blank" method="get">
             <input type="text" name="text">
             <button type="submit">submit</button>
         </form>
@@ -166,7 +181,7 @@
 
 
 
-    <?php include '../-HTML/UI_footer.html'; ?>
+    <?php include '../_HTML/UI_footer.html'; ?>
 
 
 
