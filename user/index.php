@@ -4,8 +4,19 @@
     include '../_PHP/generic_functions.php';
 
 
-    $username = $_SESSION['username'];
-    $user_id = $_SESSION['user_id'];
+
+    //isset($_GET['user']) && is_numeric($_GET['user']) - not using this method as username can be VARCHAR, meaning numbers as well.
+    if (isset($_GET['user'])) {
+        $user_id = $_GET['user'];
+        $username = $conn->query("SELECT username FROM user WHERE user_id=$user_id")->fetch_assoc()['username'];
+    } else if (isset($_GET['username'])) {
+        // despite username being a UUID, it's less scalable, performance wide, as the length of one can be up to 32 varchars.
+        $username = $_GET['username'];
+        $user_id = $conn->query("SELECT user_id FROM user WHERE username='$username'")->fetch_assoc()['user_id'];
+    } else {
+        $user_id = $_SESSION['user_id'];
+        $username = $_SESSION['username'];
+    }
 
 
     $ratings = new stdClass();
