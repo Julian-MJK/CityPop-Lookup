@@ -7,8 +7,15 @@
 
     //isset($_GET['user']) && is_numeric($_GET['user']) - not using this method as username can be VARCHAR, meaning numbers as well.
     if (isset($_GET['user'])) {
-        $user_id = $_GET['user'];
-        $username = $conn->query("SELECT username FROM user WHERE user_id=$user_id")->fetch_assoc()['username'];
+        if(!is_numeric($_GET['user'])){
+            if(is_string($_GET['user'])){
+                $username = $_GET['user'];
+                $user_id = $conn->query("SELECT user_id FROM user WHERE username='$username'")->fetch_assoc()['user_id'];
+            } else passTo('../home/',['msg'],["Couldn't find user. <br> Passed user neither a string nor a number."]);
+        } else {
+            $user_id = $_GET['user'];
+            $username = $conn->query("SELECT username FROM user WHERE user_id=$user_id")->fetch_assoc()['username'];
+        }
     } else if (isset($_GET['username'])) {
         // despite username being a UUID, it's less scalable, performance wide, as the length of one can be up to 32 varchars.
         $username = $_GET['username'];
@@ -17,6 +24,8 @@
         $user_id = $_SESSION['user_id'];
         $username = $_SESSION['username'];
     }
+
+    if(!$username || !$user_id) passTo('../home/',['msg'],["User not found."]);
 
 
     $ratings = new stdClass();
@@ -110,7 +119,7 @@
         </div>
 
         <!-- RATINGS -->
-        <div class="container row">
+        <div class="container row alignLeft">
 
             <div id="artistRatings" style="max-width: 33vw" class="secondary">
                 <h1 id="editable2" class="fancyFont"> Artists </h1>

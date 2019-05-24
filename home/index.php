@@ -117,18 +117,7 @@
 
 
 
-    <span><br><br><br><br><br></span>
 
-
-    <!-- ALL ARTISTS -->
-    <?php include '../_HTML/UI_allArtists.php' ?>
-
-
-    <span><br><br><br></span>
-
-
-    <!-- ADDING -->
-    <?php include '../_HTML/UI_add.html' ?>
 
 
     <span><br><br><br></span>
@@ -142,7 +131,18 @@
 
 
 
+    <span><br><br><br><br><br></span>
 
+
+    <!-- ALL ARTISTS -->
+    <?php include '../_HTML/UI_allArtists.php' ?>
+
+
+    <span><br><br><br><br></span>
+
+
+    <!-- ADDING -->
+    <?php include '../_HTML/UI_add.html' ?>
 
 
 
