@@ -9,6 +9,17 @@
 
     /**
      * @function
+     * @desc Does what addslashes() is supposed to do, but without totally messing up the string.
+     * @param $string
+     * @return mixed
+     */
+    function escape($string)
+    {
+        return str_replace(array("'", '"'), array("\'", '\"'), $string);
+    }
+
+    /**
+     * @function
      * @desc Returns bool TRUE if if $needle is a substring of $haystack (case-insensitive).
      * @param $needle
      * @param $haystack
@@ -18,6 +29,26 @@
     {
         return stripos($haystack, $needle) !== false;
     }
+
+
+
+
+    function addCell($table, $fieldName, $fieldValue)
+    {
+        $sql = "INSERT INTO $table ($fieldName) VALUES ($fieldValue)";
+        $query = $GLOBALS['conn']->query($sql);
+        if ($_SESSION['debugMode']) echo $query ? "<br> addRow: $table record added successfully." : '<br> ERROR - addRow: ' . $GLOBALS['conn']->error;
+    }
+
+    function addRow($table, array $fieldNames, array $fieldValues)
+    {
+        $_fieldStrings = singleQueryString_add($fieldNames, $fieldValues);
+        $sql = "INSERT INTO $table ($_fieldStrings[0]) VALUES ($_fieldStrings[1])";
+        $query = $GLOBALS['conn']->query($sql);
+        if ($_SESSION['debugMode']) echo $query ? "<br> addRow: $table record added successfully." : '<br> ERROR - addRow: ' . $GLOBALS['conn']->error;
+    }
+
+
 
 
     /**
@@ -31,11 +62,15 @@
      */
     function edit($table, $id, $column, $value)
     {
-        if (empty($value)) return true; // stops the function and returns true if given value is empty (which would be unintended)
+        if (empty($value)) return true; // stops the function and returns true if given value is empty (which would be unintended,
+        // and not something the function-user would want to be halted for.)
 
         $sql = 'UPDATE ' . $table . ' SET ' . $column . '="' . $value . '" WHERE ' . $table . '_id=' . $id;
-        if ($_SESSION['debugMode']) echo '<br>( - - - S Q L - - - ) ' . $sql . '<br>';
-        if ($_SESSION['debugMode']) echo $GLOBALS['conn']->query($sql) ? "<br> $table record updated successfully." : '<br> Error: ' . $GLOBALS['conn']->error;
+
+        //if ($_SESSION['debugMode']) echo '<br>( - - - S Q L - - - ) ' . $sql . '<br>';
+
+        $query = $GLOBALS['conn']->query($sql);
+        if ($_SESSION['debugMode']) echo $query ? "<br> $table record updated successfully." : '<br> Error: ' . $GLOBALS['conn']->error;
 
         return $GLOBALS['conn']->query($sql) ? true : false;
     }
@@ -51,9 +86,28 @@
     function delete($table, $id)
     {
         $table_id = $table . '_id';
-        $delSql = "DELETE FROM $table WHERE $table_id=$id";
-        return $GLOBALS['conn']->query($delSql) ? true : false;
+        $sql = "DELETE FROM $table WHERE $table_id=$id";
+        return $GLOBALS['conn']->query($sql) ? true : false;
     }
+
+    // synonym
+    //function deleteRow($table, $id) { delete($table, $id); };
+
+    /**
+     * @function
+     * @desc Deletes row from $table where $fieldName = $fieldValue
+     * @param $table
+     * @param $fieldName
+     * @param $fieldValue
+     * @return bool
+     */
+    function deleteRow($table, $fieldName, $fieldValue){
+        $sql = "DELETE FROM $table WHERE $fieldName=$fieldValue";
+        return $GLOBALS['conn']->query($sql) ? true : false;
+    }
+
+
+
 
     /**
      * @function
@@ -136,17 +190,67 @@
         }
     }
 
+    /**
+     * @param $table
+     * @param array $fieldNames
+     * @param array $fieldValues
+     * @return bool
+     */
+    function addComposite($table, array $fieldNames, array $fieldValues)
+    {
+        $count = count($fieldNames);
+
+        if ($count !== count($fieldValues)) {
+            echo 'ERROR - addComposite: fieldNames and fieldValues differ in length (table=' . $table . ', first fieldName=' . $fieldNames[0] . ', first fieldValue=' . $fieldValues . ').';
+            return false;
+        }
+
+        for ($i = 0; $i < $count; $i++)
+
+            if ($GLOBALS['conn']->query("SELECT $fieldNames[$i] FROM $table WHERE $fieldNames[$i]='$fieldValues[$i]'")->fetch_assoc()) {
+
+                if ($_SESSION['debugMode']) echo "addComposite: Duplicate entry $fieldNames[$i]='$fieldValues[$i]', ignoring it. <br>';";
+
+            } else {
+
+                if (!$GLOBALS['conn']->query("SELECT * FROM $table WHERE $fieldNames[$i]=$fieldValues[$i]")->fetch_assoc()) {
+                    $GLOBALS['conn']->query('INSERT INTO $table (name) VALUES ("' . $genre . '")');
+                }
+
+                $sql = 'INSERT INTO album_genre (album_id, genre) VALUES ("' . $_album_id . '","' . $genre . '")';
+                $query = $GLOBALS['conn']->query($sql);
+                if ($_SESSION['debugMode']) echo $query ? 'Genre[' . $i . ']=' . $genre . '<br>' : '<br> Couldn\'t add genre [' . $i . '] ' . $genre . ', error:' . $GLOBALS['conn']->error;
+
+                return true;
+
+            }
+    }
 
     /**
      * @function
-     * @desc Does what addslashes() is supposed to do, but without totally messing up the string.
-     * @param $string
-     * @return mixed
+     * @desc Gathers given fieldNames and fieldValues into two separate strings, where each array value is separated with a comma.
+     * Use as "INSERT INTO $table ($fieldNamesString) VALUES ($fieldValuesString)"
+     * @param array $fieldNames
+     * @param array $fieldValues
+     * @return array|bool - false if aborted, array with [fieldNamesString, fieldValuesString] if success.
      */
-    function escape($string)
+    function singleQueryString_add(array $fieldNames, array $fieldValues)
     {
-        return str_replace(array("'", '"'), array("\'", '\"'), $string);
+        $count = count($fieldNames);
+        if ($count !== count($fieldValues)) {
+            echo 'ERROR - singleQuery_add: fieldNames and fieldValues differ in length. Aborting.';
+            return false;
+        }
+        $fieldNamesString = $fieldNames[0];
+        $fieldValuesString = "'" . $fieldValues[0] . "'";
+        for ($i = 1; $i < $count; $i++) {
+            $fieldNamesString .= ', ' . $fieldNames[$i];
+            $fieldValuesString .= ", '" . $fieldValues[$i] . "'";
+        }
+        return [$fieldNamesString, $fieldValuesString];
     }
+
+
 
 
 ?>
