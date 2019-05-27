@@ -67,30 +67,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     <meta charset="UTF-8">
+
     <title> <?php echo $title ?> | City Pop Lookup </title>
-    <link rel="icon" href="../resources/img/textures/vinyl32.ico">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
-    <!--|Montserrat|Open+Sans|Raleway|Roboto-->
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>-->
-    <script src="../_JS/jquery-3.4.0.js"></script>
+    <?php include '../_HTML/BTS_universalHeaderLinks.html' ?>
+
     <script src="../_JS/fitty.min.js"></script>
-
     <script src="../_JS/universal_menu.js"></script>
     <link href="../_CSS/universal_menu.css" rel="stylesheet">
-
-    <script src="../_JS/oddUtilities.js"></script>
-    <link href="../_CSS/classes.css" rel="stylesheet">
-
-    <link href="../_CSS/universal_generic.css" rel="stylesheet">
-    <link href="../_CSS/universal_theme.css" rel="stylesheet">
-
     <link href="../_CSS/subpages.css" rel="stylesheet">
-
-
 
 </head>
 <body>
@@ -155,7 +142,7 @@
                     <hr>
                     <?php
                         for ($j = 1; $j <= $songs->count; $j++) {
-                            echo '<div class="album container row" onclick="//window.location.href=\'../song?a=' . $songs->all[$j]['song_id'] . '\'"> ' . '<h2 style="font-size: 14pt">' . $songs->all[$j]['title'] . '</h2> </div>';
+                            echo '<div class="album container row" onclick="//window.location.href=\'../song?a=' . $songs->all[$j]['song_id'] . '\'" id="song_'.$songs->all[$j]['song_id'].'"> ' . '<h2 style="font-size: 14pt">' . $songs->all[$j]['title'] . '</h2> </div>';
                         }
                     ?>
                 </div>
@@ -220,6 +207,14 @@
         <input type="text" name="key1" value="<?php echo $album_id ?>">
         <input type="text" name="key2Name" value="genre">
         <input type="text" name="key2" id="genreDelForm_key2">
+        <button type="submit"></button>
+    </form>
+
+    <!-- DELETING SONGS -->
+    <form hidden id="songDeletionForm" action="../_PHP/tableManipulation/delete.php" method="post">
+        <input type="text" name="url" value="../../album/?a=<?php echo $album_id ?>">
+        <input type="text" name="table" value="song">
+        <input type="text" name="id" id="songDelForm_song_id">
         <button type="submit"></button>
     </form>
 

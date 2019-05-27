@@ -53,28 +53,14 @@
 <head>
     <meta charset="UTF-8">
     <title> <?php echo $firstName . ' ' . (isset($lastName) ? $lastName : '') ?> | City Pop Lookup </title>
-    <link rel="icon" href="../resources/img/textures/vinyl32.ico">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
-    <!--|Montserrat|Open+Sans|Raleway|Roboto-->
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>-->
-    <script src="../_JS/jquery-3.4.0.js"></script>
+
+    <?php include '../_HTML/BTS_universalHeaderLinks.html' ?>
+
     <script src="../_JS/fitty.min.js"></script>
-
     <script src="../_JS/universal_menu.js"></script>
     <link href="../_CSS/universal_menu.css" rel="stylesheet">
-
-    <script src="../_JS/oddUtilities.js"></script>
-    <link href="../_CSS/classes.css" rel="stylesheet">
-
-    <link href="../_CSS/universal_generic.css" rel="stylesheet">
-    <link href="../_CSS/universal_theme.css" rel="stylesheet">
-
     <link href="../_CSS/subpages.css" rel="stylesheet">
-
-
 
 </head>
 <body>

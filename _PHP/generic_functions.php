@@ -89,7 +89,7 @@
         }
 
         echo "<button type='submit'>If you're not automatically redirected,<noscript> then your browser doesn't support JavaScript, </noscript> click here.</button>
-            <script> setTimeout(function(){document.querySelector('form').querySelector('button').click()}, 50); </script>
+            <script> " . ($_SESSION['debugMode'] ? '//': ''). "setTimeout(function(){document.querySelector('form').querySelector('button').click()}, 50); </script>
         </form> <br> <br> <a href='../home/'> If for some reason that didn't work, the developer probably made a silly mistake, click here. </a>";
     }
 

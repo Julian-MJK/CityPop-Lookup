@@ -82,13 +82,13 @@
     if ($table === 'song') {
 
         foreach ($input_fieldNames as $i => $datum) {
-            /* user-input is passed as album_id because getUserInputs only looks for $_POST'ed variables with the same name as the field-names.  */
-            if ($datum === 'album_id') $albumTitle = $input_data[$i];
             if ($datum === 'title') $title = $input_data[$i];
+            //if ($datum === 'album_id') $albumTitle = $input_data[$i];
+            // user-input could be passed as album_id, otherwise it won't be caught by getUserInputs, as it's not a field in the 'song' table. However I'm just adding an exception.
         }
+        $albumTitle = $_POST['albumTitle'];
 
         $album_id = $conn->query("SELECT album_id FROM album WHERE title='$albumTitle' ORDER BY album_id DESC LIMIT 1")->fetch_assoc()['album_id'];
-
         if (!$album_id) passTo('../../home/', ['msg'], ['Failed to add song, album ' . $albumTitle . ' not found.']);
 
         // removing the previously passed "artist_id" field.

@@ -8,7 +8,7 @@
     window.onresize = function () {
         fitty('#editable1', {
             minSize: 30,
-            maxSize: 62
+            maxSize: 62,
         });
     };
 
@@ -30,6 +30,7 @@
 
         if (subject === "album") {
             window.initiateGenreDeletionMode();
+            window.initiateSongDeletionMode();
         }
 
         $("#editSubjectButton")[0].querySelector("h2").innerHTML = "Submit changes";
@@ -43,7 +44,7 @@
             $("#editable2")[0].innerText = $("#editable1")[0].innerText;
             fitty('#editable1', {
                 minSize: 30,
-                maxSize: 62
+                maxSize: 62,
             });
         }, false);
 
@@ -51,7 +52,7 @@
             $("#editable1")[0].innerText = $("#editable2")[0].innerText;
             fitty('#editable1', {
                 minSize: 30,
-                maxSize: 62
+                maxSize: 62,
             });
         }, false);
 
@@ -63,6 +64,7 @@
 
             if (subject === "album") {
                 window.exitGenreDeletionMode();
+                window.exitSongDeletionMode();
             }
 
             $("#deleteSubjectButton h2")[0].innerHTML = "Delete <?php echo $subject ?>?";
@@ -167,6 +169,61 @@
                     genresEl[i].onmouseenter = function () { this.style.textDecoration = "underline"};
                     genresEl[i].onmouseleave = function () { this.style.textDecoration = ""};
                     genresEl[i].onclick = function () {window.location.href = '../search?query=' + this.querySelector("h2").innerText}
+                }
+            }
+        };
+
+
+
+        window.selectedSongI = 0;
+        window.selectedSong = "";
+
+        var songContainer = $("#subjectAlbumsDiv")[0];
+        var songCount = '<?php echo isset($songs->count) ? $songs->count : 0; ?>';
+        var songIds = [];
+        songCount = Number(songCount);
+        var songsEl = [];
+
+        window.initiateSongDeletionMode = function () {
+            if (songCount !== 0) {
+                for (let i = 0; i < songCount; i++) {
+
+                    songsEl[i] = songContainer.getElementsByClassName("album")[i];
+
+                    songsEl[i].style.fontStyle = "italic";
+                    songsEl[i].onmouseenter = function () {
+                        this.style.textDecoration = "line-through";
+                        this.style.cursor = "pointer";
+                        this.style.transform = "scale(1.3)";
+                        this.querySelector("h2").style.textDecoration = "initial";
+                    };
+                    songsEl[i].onmouseleave = function () {
+                        this.style.transform = "";
+                        this.style.textDecoration = "";
+                    };
+                    songsEl[i].onclick = function () {
+                        window.selectedSongI = i;
+                        window.selectedSong = this.querySelector("h2").innerText;
+                        //$("#genreDeletionForm")[0].getElementsByTagName("key2")
+                        //document.getElementById("songDelForm_song").value = "'" + window.selectedSong + "'";
+                        document.getElementById("songDelForm_song_id").value = Number(this.id.replace('song_',''));
+                        $("#songDeletionForm")[0].querySelector("button").click();
+                    }
+                }
+            }
+        };
+
+
+        window.exitGenreDeletionMode = function () {
+            if (songCount !== 0) {
+                for (let i = 0; i < genreCount; i++) {
+                    songsEl[i].style.textDecoration = "";
+                    songsEl[i].style.fontStyle = "normal";
+                    songsEl[i].style.cursor = "normal";
+                    songsEl[i].style.transform = "";
+                    songsEl[i].onmouseenter = function () { this.style.textDecoration = "underline"};
+                    songsEl[i].onmouseleave = function () { this.style.textDecoration = ""};
+                    songsEl[i].onclick = function () {window.location.href = '../search?query=' + this.querySelector("h2").innerText}
                 }
             }
         }
