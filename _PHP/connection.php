@@ -31,7 +31,7 @@
 
 
     // DEBUG MODE
-    $_SESSION['debugMode'] = false;
+    $_SESSION['debugMode'] = true;
     // when set to true, subsystem php scripts will echo information on screen on php documents.
     //  ( Will stop redirection, as the function header('Location: ') cannot be used after something is echoed onto the page. )
     //   ( https://www.php.net/manual/en/function.header.php )

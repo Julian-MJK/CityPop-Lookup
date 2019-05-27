@@ -7,23 +7,14 @@
 <head>
     <meta charset="UTF-8">
     <title> City Pop Lookup </title>
-    <link rel="icon" href="../resources/img/textures/vinyl32.ico">
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
-    <!--|Montserrat|Open+Sans|Raleway|Roboto-->
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>-->
-    <script src="../_JS/jquery-3.4.0.js"></script>
+
+
+    <?php include '../_HTML/BTS_universalHeaderLinks.html' ?>
+
+
 
     <link href="stylesheet.css" rel="stylesheet">
-
-    <script src="../_JS/oddUtilities.js"></script>
-    <link href="../_CSS/classes.css" rel="stylesheet">
-    <link href="../_CSS/universal_generic.css" rel="stylesheet">
-    <link href="../_CSS/universal_theme.css" rel="stylesheet">
-
-
-
     <script src="index_boxes.js"></script>
     <script src="index-scrolling-and-toolbar.js"></script>
 

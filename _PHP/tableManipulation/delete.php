@@ -25,6 +25,7 @@
     } else {
 
         $id = $_POST['id'];
+        if(!isset($id)) $id = $_POST[$table.'_id'];
 
         if (isset($table, $id)) {
 

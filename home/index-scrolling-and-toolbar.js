@@ -15,11 +15,11 @@ $(function () {
     let doesFooterHide = false;
     let footer = document.getElementById("footer");
     let footerToggled = false;
-    (doesFooterHide === true) ? footer.style.opacity = 0 : footer.style.opacity = 1;
+    (doesFooterHide && footer !== (undefined || null)) ? footer.style.opacity = 0 : footer.style.opacity = 1;
 
 
 
-// SCROLLING
+    // SCROLLING
     window.onscroll = function () {
 
         /** distanceY is the distance in pixels scrolled from the top of the document. */
@@ -114,6 +114,8 @@ $(function () {
     let closedClipPath = "polygon(25% 4.5%, 15% 50%, 25% 95.5%, 20.5% 75%, 15% 50%, 20.5% 25%)";
     let isToolbarOpen = false;
 
+
+
     /**
      * method closeToolbar plays appropriate animation and hides the toolbar.
      */
@@ -191,7 +193,7 @@ $(function () {
         },
         mouseleave: function () {
             $(this).css("filter", "brightness(100%)");
-        }
+        },
     });
 
     symbol.addEventListener("animationend", function () {
@@ -200,7 +202,6 @@ $(function () {
         symbol.classList.remove("symbolShowAnimation");
         symbol.classList.remove("symbolHideAnimation");
     });
-
 
 
 
@@ -220,7 +221,7 @@ $(function () {
                     $("#logoutButton").hide();
                 }
             }, 750);
-        }
+        },
     });
     let isLogoutHover = false;
     $("#logoutButton").on({
@@ -233,13 +234,13 @@ $(function () {
         mouseleave: function () {
             isLogoutHover = false;
             $("#logoutButton").hide();
-        }
+        },
     });
 
     div.style.top = "-50px";
     symbol.classList.add("symbolShowAnimation");
     div.style.transitionDuration = "initial";
-        div.querySelector("h1").classList.add("anim_text-expand");
+    div.querySelector("h1").classList.add("anim_text-expand");
     setTimeout(function () {
         div.style.transitionDuration = "0.5s";
         div.style.top = "10px";
