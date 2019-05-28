@@ -14,14 +14,15 @@
 
     $conn = new mysqli($server_servant, $server_username, $server_password, $server_database);
 
-    // Making the connection globally accessible from any scope where that may be an issue.
-    $GLOBALS['conn'] = $conn;
 
     if ($conn->connect_error) {
         die('Connection failed: ' . $conn->connect_error);
     }
 
     $conn->set_charset('utf8');
+
+    // Making the connection globally accessible from any scope where that may be an issue.
+    $GLOBALS['conn'] = $conn;
 
     // boots user to login page if not logged in
     if (!isset($_SESSION['username'])) {

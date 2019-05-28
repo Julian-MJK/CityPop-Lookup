@@ -147,6 +147,7 @@
                     ?>
                 </div>
 
+
                 <!-- ALBUM GENRES -->
                 <div id="subjectGenresDiv" class="secondary">
                     <h1 class="fancyFont noselect"> Genres </h1>

@@ -135,8 +135,7 @@
 
         window.initiateGenreDeletionMode = function () {
             if (genreCount !== 0) {
-
-                for (let i = 0; i < genreCount; i++) {
+                for (let i = 0; i < genreCount - 1; i++) {
                     genresEl[i] = genresContainer.getElementsByClassName("album")[i];
                     genresEl[i].style.fontStyle = "italic";
                     genresEl[i].onmouseenter = function () {
@@ -162,7 +161,7 @@
 
         window.exitGenreDeletionMode = function () {
             if (genreCount !== 0) {
-                for (let i = 0; i < genreCount; i++) {
+                for (let i = 0; i < genreCount - 1; i++) {
                     genresEl[i].style.fontStyle = "normal";
                     genresEl[i].style.textDecoration = "";
                     genresEl[i].style.transform = "";
@@ -186,7 +185,7 @@
 
         window.initiateSongDeletionMode = function () {
             if (songCount !== 0) {
-                for (let i = 0; i < songCount; i++) {
+                for (let i = 0; i < songCount-1; i++) {
 
                     songsEl[i] = songContainer.getElementsByClassName("album")[i];
 
@@ -206,7 +205,7 @@
                         window.selectedSong = this.querySelector("h2").innerText;
                         //$("#genreDeletionForm")[0].getElementsByTagName("key2")
                         //document.getElementById("songDelForm_song").value = "'" + window.selectedSong + "'";
-                        document.getElementById("songDelForm_song_id").value = Number(this.id.replace('song_',''));
+                        document.getElementById("songDelForm_song_id").value = Number(this.id.replace('song_', ''));
                         $("#songDeletionForm")[0].querySelector("button").click();
                     }
                 }
@@ -214,9 +213,9 @@
         };
 
 
-        window.exitGenreDeletionMode = function () {
+        window.exitSongDeletionMode = function () {
             if (songCount !== 0) {
-                for (let i = 0; i < genreCount; i++) {
+                for (let i = 0; i < songCount-1; i++) {
                     songsEl[i].style.textDecoration = "";
                     songsEl[i].style.fontStyle = "normal";
                     songsEl[i].style.cursor = "normal";

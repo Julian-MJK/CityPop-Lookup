@@ -18,6 +18,8 @@
         return str_replace(array("'", '"'), array("\'", '\"'), $string);
     }
 
+
+
     /**
      * @function
      * @desc Returns bool TRUE if if $needle is a substring of $haystack (case-insensitive).
@@ -33,6 +35,14 @@
 
 
 
+
+    /**
+     * @method
+     * @desc Adds a cell to $table where the fieldname is $fieldName and the value is $fieldvalue
+     * @param $table
+     * @param $fieldName
+     * @param $fieldValue
+     */
     function addCell($table, $fieldName, $fieldValue)
     {
         $sql = "INSERT INTO $table ($fieldName) VALUES ($fieldValue)";
@@ -40,6 +50,15 @@
         if ($_SESSION['debugMode']) echo $query ? "<br> addRow: $table record added successfully." : '<br> ERROR - addRow: ' . $GLOBALS['conn']->error;
     }
 
+
+
+    /**
+     * @method
+     * @desc Adds a row to $table where the fieldnames are $fieldnames and values are $fieldvalues
+     * @param $table
+     * @param array $fieldNames
+     * @param array $fieldValues
+     */
     function addRow($table, array $fieldNames, array $fieldValues)
     {
         $_fieldStrings = singleQueryString_add($fieldNames, $fieldValues);
@@ -47,7 +66,6 @@
         $query = $GLOBALS['conn']->query($sql);
         if ($_SESSION['debugMode']) echo $query ? "<br> addRow: $table record added successfully." : '<br> ERROR - addRow: ' . $GLOBALS['conn']->error;
     }
-
 
 
 

@@ -86,7 +86,7 @@
             //if ($datum === 'album_id') $albumTitle = $input_data[$i];
             // user-input could be passed as album_id, otherwise it won't be caught by getUserInputs, as it's not a field in the 'song' table. However I'm just adding an exception.
         }
-        $albumTitle = $_POST['albumTitle'];
+        $albumTitle = ucwords($_POST['albumTitle']);
 
         $album_id = $conn->query("SELECT album_id FROM album WHERE title='$albumTitle' ORDER BY album_id DESC LIMIT 1")->fetch_assoc()['album_id'];
         if (!$album_id) passTo('../../home/', ['msg'], ['Failed to add song, album ' . $albumTitle . ' not found.']);
@@ -199,8 +199,7 @@
 
     // ==== SONG REDIRECTION ====
     if ($table === 'song') {
-        // fetching the most recently inserted album's id.
-        header('Location: ../../album/?a=' . $album_id);
+        ($album_id) ? header('Location: ../../album/?a=' . $album_id) : passTo('../home/', ['msg'], ['Song not added, album not found. <br> Is the album-name not in Title-Case?']);
     }
 
 
