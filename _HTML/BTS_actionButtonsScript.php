@@ -135,7 +135,7 @@
 
         window.initiateGenreDeletionMode = function () {
             if (genreCount !== 0) {
-                for (let i = 0; i < genreCount - 1; i++) {
+                for (let i = 0; i < genreCount; i++) {
                     genresEl[i] = genresContainer.getElementsByClassName("album")[i];
                     genresEl[i].style.fontStyle = "italic";
                     genresEl[i].onmouseenter = function () {

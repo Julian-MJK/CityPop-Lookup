@@ -15,17 +15,22 @@
     /**
      * getUserInputs.php creates:
      *
-     * string $table
+     * (string) $table
      *      - the requested table
+     *
      * (indexed array) $fieldNames
      *      - all field-names for the requested table
-     * number $fieldCount
+     *
+     * (number) $fieldCount
      *      - number of fields in the requested table
+     *
      * (indexed array) $input_fieldNames
      *      - the field-names for all values the user has input
+     *
      * (indexed array) $input_data
      *      - all values the user has input
-     * number $input_fieldCount
+     *
+     * (number) $input_fieldCount
      *      - number of fields user has given an input for
      *
      */

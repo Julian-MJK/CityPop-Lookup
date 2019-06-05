@@ -35,6 +35,37 @@
 
 
 
+    /**
+     * @function
+     * @desc Redirects the user to given $url, while sending given values as _POST variables, to be fetched by the receiving-page.
+     * @param $url
+     * @param array $postNames
+     * @param array $postValues
+     */
+    function passTo($url, array $postNames, array $postValues)
+    {
+        echo "<form action='" . $url . "' method='post' style='margin: auto'>";
+        foreach ($postNames as $i => $postName) {
+            echo "<input type='text' hidden name='" . $postName . "' value='" . escape($postValues[$i]) . "'>";
+        }
+
+        echo "<button type='submit'>If you're not automatically redirected,<noscript> then your browser doesn't support JavaScript, </noscript> click here.</button>
+            <script> " . ($_SESSION['debugMode'] ? '//' : '') . "setTimeout(function(){document.querySelector('form').querySelector('button').click()}, 50); </script>
+        </form> <br> <br> <a href='../home/'> If for some reason that didn't work, the developer probably made a silly mistake, click here. </a>";
+    }
+
+    // Note that normally, using _POST would prompt the user to re-submit the form on page-refresh, but I've included this piece of script:
+    //    if (window.history.replaceState) {
+    //        window.history.replaceState(null, null, window.location.href);
+    //    }
+    // In the footer, which prevents just that. If it weren't for that piece of script, I would be more careful with using passTo, or I'd use some other method, like cookies.
+
+
+
+
+
+
+
 
     /**
      * @method
@@ -52,6 +83,7 @@
 
 
 
+
     /**
      * @method
      * @desc Adds a row to $table where the fieldnames are $fieldnames and values are $fieldvalues
@@ -66,6 +98,7 @@
         $query = $GLOBALS['conn']->query($sql);
         if ($_SESSION['debugMode']) echo $query ? "<br> addRow: $table record added successfully." : '<br> ERROR - addRow: ' . $GLOBALS['conn']->error;
     }
+
 
 
 
@@ -94,6 +127,9 @@
     }
 
 
+
+
+
     /**
      * @function
      * @desc Deletes an entry in given table with given Primary Key value, assuming the Primary Key fieldName is $tableName.'_id'.
@@ -108,8 +144,8 @@
         return $GLOBALS['conn']->query($sql) ? true : false;
     }
 
-    // synonym
-    //function deleteRow($table, $id) { delete($table, $id); };
+
+
 
     /**
      * @function
@@ -119,9 +155,39 @@
      * @param $fieldValue
      * @return bool
      */
-    function deleteRow($table, $fieldName, $fieldValue){
+    function deleteRow($table, $fieldName, $fieldValue)
+    {
         $sql = "DELETE FROM $table WHERE $fieldName=$fieldValue";
         return $GLOBALS['conn']->query($sql) ? true : false;
+    }
+
+
+
+
+
+    /**
+     * @method
+     * @desc Adds composite
+     * note: as with deleteComposite, this could easily be expanded to accept any lenght of array.
+     * extra note: if you're passing a string, you must put quotation marks around it.
+     * @param $table
+     * @param $id1FieldName
+     * @param $id2FieldName
+     * @param $id1
+     * @param $id2
+     * @return void
+     */
+    function addComposite($table, $id1FieldName, $id2FieldName, $id1, $id2)
+    {
+        if ($GLOBALS['conn']->query("SELECT * FROM $table WHERE $id1FieldName=$id1 AND $id2FieldName=$id2")->fetch_assoc()) {
+            // IGNORES REQUEST IF REQUEST ALREADY EXISTS
+            if ($_SESSION['debugMode']) echo "addComposite: Duplicate entry $id1FieldName=$id1 & $id2FieldName=$id2, ignoring it. <br>';";
+        } else {
+            // ADDS REQUEST
+            $sql = "INSERT INTO $table ($id1FieldName, $id2FieldName) VALUES ($id1, $id2)";
+            $query = $GLOBALS['conn']->query($sql);
+            if ($_SESSION['debugMode']) echo $query ? "addComposite: Successfully added $id1FieldName=$id1 & $id2FieldName=$id2 <br>" : "<br> addComposite: ERROR Couldn't add $id1FieldName=$id1 & $id2FieldName=$id2, error:" . $GLOBALS['conn']->error;
+        }
     }
 
 
@@ -145,31 +211,6 @@
         // can be expanded to accept an array of keys and keyNames, and thus be scalable, but this will do for now.
     }
 
-
-    /**
-     * @function
-     * @desc Redirects the user to given $url, while sending given values as _POST variables, to be fetched by the receiving-page.
-     * @param $url
-     * @param array $postNames
-     * @param array $postValues
-     */
-    function passTo($url, array $postNames, array $postValues)
-    {
-        echo "<form action='" . $url . "' method='post' style='margin: auto'>";
-        foreach ($postNames as $i => $postName) {
-            echo "<input type='text' hidden name='" . $postName . "' value='" . escape($postValues[$i]) . "'>";
-        }
-
-        echo "<button type='submit'>If you're not automatically redirected,<noscript> then your browser doesn't support JavaScript, </noscript> click here.</button>
-            <script> " . ($_SESSION['debugMode'] ? '//': ''). "setTimeout(function(){document.querySelector('form').querySelector('button').click()}, 50); </script>
-        </form> <br> <br> <a href='../home/'> If for some reason that didn't work, the developer probably made a silly mistake, click here. </a>";
-    }
-
-    // Note that normally, using _POST would prompt the user to re-submit the form on page-refresh, but I've included this piece of script:
-    //    if (window.history.replaceState) {
-    //        window.history.replaceState(null, null, window.location.href);
-    //    }
-    // In the footer, which prevents just that. If it weren't for that piece of script, I would be more careful with using passTo, or I'd use some other method, like cookies.
 
 
 
@@ -208,41 +249,8 @@
         }
     }
 
-    /**
-     * @param $table
-     * @param array $fieldNames
-     * @param array $fieldValues
-     * @return bool
-     */
-    function addComposite($table, array $fieldNames, array $fieldValues)
-    {
-        $count = count($fieldNames);
 
-        if ($count !== count($fieldValues)) {
-            echo 'ERROR - addComposite: fieldNames and fieldValues differ in length (table=' . $table . ', first fieldName=' . $fieldNames[0] . ', first fieldValue=' . $fieldValues . ').';
-            return false;
-        }
 
-        for ($i = 0; $i < $count; $i++)
-
-            if ($GLOBALS['conn']->query("SELECT $fieldNames[$i] FROM $table WHERE $fieldNames[$i]='$fieldValues[$i]'")->fetch_assoc()) {
-
-                if ($_SESSION['debugMode']) echo "addComposite: Duplicate entry $fieldNames[$i]='$fieldValues[$i]', ignoring it. <br>';";
-
-            } else {
-
-                if (!$GLOBALS['conn']->query("SELECT * FROM $table WHERE $fieldNames[$i]=$fieldValues[$i]")->fetch_assoc()) {
-                    $GLOBALS['conn']->query('INSERT INTO $table (name) VALUES ("' . $genre . '")');
-                }
-
-                $sql = 'INSERT INTO album_genre (album_id, genre) VALUES ("' . $_album_id . '","' . $genre . '")';
-                $query = $GLOBALS['conn']->query($sql);
-                if ($_SESSION['debugMode']) echo $query ? 'Genre[' . $i . ']=' . $genre . '<br>' : '<br> Couldn\'t add genre [' . $i . '] ' . $genre . ', error:' . $GLOBALS['conn']->error;
-
-                return true;
-
-            }
-    }
 
     /**
      * @function
